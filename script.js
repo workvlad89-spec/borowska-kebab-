@@ -1,63 +1,50 @@
-/* script.js */
+const modal = document.getElementById("productModal");
+const modalClose = document.getElementById("modalClose");
+const modalName = document.getElementById("modalProductName");
+const modalPrice = document.getElementById("modalPrice");
+const addToCart = document.getElementById("addToCart");
 
-const header = document.querySelector(".header");
+const meatOption = document.getElementById("meatOption");
+const sizeOption = document.getElementById("sizeOption");
+const sauceOption = document.getElementById("sauceOption");
 
-window.addEventListener("scroll", () => {
-    header.classList.toggle("scrolled", window.scrollY > 30);
-});
+const quantityValue = document.getElementById("quantityValue");
+const minusQty = document.getElementById("minusQty");
+const plusQty = document.getElementById("plusQty");
 
+const cartButton = document.getElementById("cartButton");
+const cartPanel = document.getElementById("cartPanel");
+const cartClose = document.getElementById("cartClose");
+const cartItems = document.getElementById("cartItems");
+const cartCount = document.getElementById("cartCount");
+const cartTotal = document.getElementById("cartTotal");
 
-/* SMOOTH SCROLL */
+const mobileMenu = document.querySelector(".mobile-menu");
+const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+const mobileMenuClose = document.querySelector(".mobile-menu-close");
 
-document.querySelectorAll('a[href^="#"]').forEach(link => {
+let currentProduct = {
+    name: "",
+    price: 0,
+    type: "normal"
+};
 
-    link.addEventListener("click", event => {
+let quantity = 1;
 
-        const target = document.querySelector(link.getAttribute("href"));
-
-        if (!target) return;
-
-        event.preventDefault();
-
-        target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-    });
-
-});
-
-
-/* MOBILE MENU */
-
-const menuToggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".nav");
-
-if (menuToggle) {
-
-    menuToggle.addEventListener("click", () => {
-
-        nav.classList.toggle("mobile-open");
-
-    });
-
-}
+let cart = JSON.parse(localStorage.getItem("borowskaCart")) || [];
 
 
-/* CATEGORY FILTER */
+/* =========================
+   MENU FILTER
+========================= */
 
 const categoryButtons = document.querySelectorAll(".category-btn");
 const foodCards = document.querySelectorAll(".food-card");
 
 categoryButtons.forEach(button => {
-
     button.addEventListener("click", () => {
 
-        categoryButtons.forEach(btn => {
-            btn.classList.remove("active");
-        });
-
+        categoryButtons.forEach(btn => btn.classList.remove("active"));
         button.classList.add("active");
 
         const category = button.dataset.category;
@@ -71,201 +58,183 @@ categoryButtons.forEach(button => {
             }
 
         });
-
     });
-
 });
 
 
-/* PRODUCT MODAL */
+/* =========================
+   PRODUCT MODAL
+========================= */
 
-const modal = document.getElementById("productModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalPrice = document.getElementById("modalPrice");
-const modalImage = document.getElementById("modalImage");
-
-const chooseButtons = document.querySelectorAll(".choose-btn");
-const modalClose = document.querySelector(".modal-close");
-const modalOverlay = document.querySelector(".modal-overlay");
-
-let selectedProduct = "";
-let selectedPrice = 0;
-let quantity = 1;
-
-
-const productImages = {
-
-    "Zestaw Kebab": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Tortilla Kebab": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Rollo Amerykańskie": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Bułka Kebab": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Fryto Bułka Kebab": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Box Kebab": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Kapsalon Kebab": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Sałatka z mięsem Kebab": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Zestaw Ser Smażony": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Zestaw Filet z Mintaja": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Sałatka Grecka": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Zestaw Falafel": "https://images.unsplash.com/photo-1786174045057-89e6449f47d9?auto=format&fit=crop&w=1000&q=85",
-
-    "Box Falafel": "https://images.unsplash.com/photo-1786174045057-89e6449f47d9?auto=format&fit=crop&w=1000&q=85",
-
-    "Tortilla Falafel": "https://images.unsplash.com/photo-1786174045057-89e6449f47d9?auto=format&fit=crop&w=1000&q=85",
-
-    "Zestaw Nuggets": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85",
-
-    "Frytki": "https://images.unsplash.com/photo-1529259266118-cf22737f713f?auto=format&fit=crop&w=1000&q=85",
-
-    "Sos": "https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&w=1000&q=85"
-
-};
-
-
-function openModal(product, price) {
-
-    selectedProduct = product;
-    selectedPrice = Number(price);
-
-    quantity = 1;
-
-    modalTitle.textContent = product;
-    modalPrice.textContent = `${selectedPrice} zł`;
-
-    document.getElementById("quantity").textContent = quantity;
-
-    if (productImages[product]) {
-        modalImage.style.backgroundImage = `url("${productImages[product]}")`;
-    }
-
-    modal.classList.add("open");
-    document.body.classList.add("modal-open");
-
-}
-
-
-chooseButtons.forEach(button => {
+document.querySelectorAll(".choose-btn").forEach(button => {
 
     button.addEventListener("click", () => {
 
-        openModal(
-            button.dataset.product,
-            button.dataset.price
-        );
+        currentProduct = {
+            name: button.dataset.product,
+            price: Number(button.dataset.price),
+            type: button.dataset.type
+        };
 
+        quantity = 1;
+        quantityValue.textContent = quantity;
+
+        modalName.textContent = currentProduct.name;
+
+        if (currentProduct.price > 0) {
+            modalPrice.textContent = `${currentProduct.price} zł`;
+        } else {
+            modalPrice.textContent = "Cena na miejscu";
+        }
+
+        if (currentProduct.type === "kebab") {
+            meatOption.style.display = "block";
+            sizeOption.style.display = "block";
+            sauceOption.style.display = "block";
+        }
+
+        else if (currentProduct.type === "falafel") {
+            meatOption.style.display = "none";
+            sizeOption.style.display = "block";
+            sauceOption.style.display = "block";
+        }
+
+        else if (currentProduct.type === "sauce") {
+            meatOption.style.display = "none";
+            sizeOption.style.display = "none";
+            sauceOption.style.display = "block";
+        }
+
+        else {
+            meatOption.style.display = "none";
+            sizeOption.style.display = "none";
+            sauceOption.style.display = "none";
+        }
+
+        modal.classList.add("active");
+        document.body.classList.add("modal-open");
     });
 
 });
 
 
 function closeModal() {
-
-    modal.classList.remove("open");
+    modal.classList.remove("active");
     document.body.classList.remove("modal-open");
-
 }
 
-
 modalClose.addEventListener("click", closeModal);
-modalOverlay.addEventListener("click", closeModal);
 
-
-document.addEventListener("keydown", event => {
-
-    if (event.key === "Escape") {
+modal.addEventListener("click", event => {
+    if (event.target === modal) {
         closeModal();
     }
-
 });
 
 
-/* OPTIONS */
+/* =========================
+   MODAL CHOICES
+========================= */
 
-document.querySelectorAll(".options").forEach(group => {
+document.querySelectorAll(".choice-grid").forEach(grid => {
 
-    group.querySelectorAll(".option").forEach(option => {
+    grid.addEventListener("click", event => {
 
-        option.addEventListener("click", () => {
+        const choice = event.target.closest(".choice");
 
-            group.querySelectorAll(".option").forEach(item => {
-                item.classList.remove("active");
-            });
+        if (!choice) return;
 
-            option.classList.add("active");
-
+        grid.querySelectorAll(".choice").forEach(item => {
+            item.classList.remove("active");
         });
 
+        choice.classList.add("active");
     });
 
 });
 
 
-/* QUANTITY */
+/* =========================
+   QUANTITY
+========================= */
 
-const quantityElement = document.getElementById("quantity");
-
-document.getElementById("plus").addEventListener("click", () => {
-
-    quantity++;
-
-    quantityElement.textContent = quantity;
-
-});
-
-
-document.getElementById("minus").addEventListener("click", () => {
+minusQty.addEventListener("click", () => {
 
     if (quantity > 1) {
         quantity--;
+        quantityValue.textContent = quantity;
     }
-
-    quantityElement.textContent = quantity;
 
 });
 
 
-/* CART */
+plusQty.addEventListener("click", () => {
 
-let cart = JSON.parse(localStorage.getItem("borowskaCart")) || [];
+    if (quantity < 20) {
+        quantity++;
+        quantityValue.textContent = quantity;
+    }
 
-const cartElement = document.getElementById("cart");
-const cartButton = document.getElementById("cartButton");
-const cartClose = document.getElementById("cartClose");
-const cartItems = document.getElementById("cartItems");
-const cartCount = document.getElementById("cartCount");
-const cartTotal = document.getElementById("cartTotal");
+});
 
+
+/* =========================
+   ADD TO CART
+========================= */
+
+addToCart.addEventListener("click", () => {
+
+    const selectedMeat =
+        document.querySelector("[data-meat].active")?.dataset.meat || "";
+
+    const selectedSize =
+        sizeOption.style.display !== "none"
+            ? sizeOption.querySelector(".choice.active")?.textContent || ""
+            : "";
+
+    const selectedSauce =
+        sauceOption.style.display !== "none"
+            ? document.getElementById("sauceSelect").value
+            : "";
+
+    const item = {
+        id: Date.now(),
+        name: currentProduct.name,
+        price: currentProduct.price,
+        quantity: quantity,
+        meat: selectedMeat,
+        size: selectedSize,
+        sauce: selectedSauce
+    };
+
+    cart.push(item);
+
+    saveCart();
+    renderCart();
+    closeModal();
+
+    cartPanel.classList.add("active");
+});
+
+
+/* =========================
+   CART
+========================= */
 
 function saveCart() {
-
-    localStorage.setItem(
-        "borowskaCart",
-        JSON.stringify(cart)
-    );
-
+    localStorage.setItem("borowskaCart", JSON.stringify(cart));
 }
 
 
 function renderCart() {
 
-    cartItems.innerHTML = "";
-
     if (cart.length === 0) {
 
         cartItems.innerHTML = `
-            <p class="empty-cart">
-                Twój koszyk jest pusty.
-            </p>
+            <div class="empty-cart">
+                <strong>Koszyk jest pusty.</strong>
+                <span>Wybierz coś dobrego z menu.</span>
+            </div>
         `;
 
         cartCount.textContent = "0";
@@ -275,11 +244,13 @@ function renderCart() {
     }
 
 
+    cartItems.innerHTML = "";
+
     let total = 0;
     let count = 0;
 
 
-    cart.forEach((item, index) => {
+    cart.forEach(item => {
 
         const itemTotal = item.price * item.quantity;
 
@@ -287,63 +258,62 @@ function renderCart() {
         count += item.quantity;
 
 
-        const element = document.createElement("div");
+        const details = [
+            item.meat ? `Mięso: ${item.meat}` : "",
+            item.size ? `Rozmiar: ${item.size}` : "",
+            item.sauce ? `Sos: ${item.sauce}` : ""
+        ].filter(Boolean).join(" • ");
 
-        element.className = "cart-item";
 
-        element.innerHTML = `
-            <div>
-                <div class="cart-item-name">
-                    ${item.name}
-                </div>
+        const cartItem = document.createElement("div");
 
-                <div class="cart-item-meta">
-                    ${item.quantity} × ${item.price} zł
-                </div>
+        cartItem.className = "cart-item";
+
+        cartItem.innerHTML = `
+            <div class="cart-item-top">
+                <span class="cart-item-name">
+                    ${item.quantity}× ${item.name}
+                </span>
+
+                <span class="cart-item-price">
+                    ${item.price > 0 ? itemTotal + " zł" : "—"}
+                </span>
             </div>
 
-            <div>
-                <div class="cart-item-price">
-                    ${itemTotal} zł
-                </div>
+            ${
+                details
+                    ? `<div class="cart-item-meta">${details}</div>`
+                    : ""
+            }
 
-                <button
-                    class="remove-item"
-                    data-index="${index}"
-                    style="
-                        margin-top:7px;
-                        background:none;
-                        border:0;
-                        color:#666;
-                        cursor:pointer;
-                        font-size:9px;
-                    "
-                >
-                    USUŃ
-                </button>
-            </div>
+            <button class="cart-item-remove" data-id="${item.id}">
+                USUŃ
+            </button>
         `;
 
-        cartItems.appendChild(element);
-
+        cartItems.appendChild(cartItem);
     });
 
 
     cartCount.textContent = count;
-    cartTotal.textContent = `${total} zł`;
+
+    if (total > 0) {
+        cartTotal.textContent = `${total} zł`;
+    } else {
+        cartTotal.textContent = "—";
+    }
 
 
-    document.querySelectorAll(".remove-item").forEach(button => {
+    document.querySelectorAll(".cart-item-remove").forEach(button => {
 
         button.addEventListener("click", () => {
 
-            const index = Number(button.dataset.index);
+            const id = Number(button.dataset.id);
 
-            cart.splice(index, 1);
+            cart = cart.filter(item => item.id !== id);
 
             saveCart();
             renderCart();
-
         });
 
     });
@@ -351,63 +321,67 @@ function renderCart() {
 }
 
 
-document.querySelector(".modal-add").addEventListener("click", () => {
-
-    const activeMeat =
-        document.querySelector(".option-group:nth-of-type(1) .option.active");
-
-    const activeSauce =
-        document.querySelector(".option-group:nth-of-type(2) .option.active");
-
-
-    cart.push({
-
-        name: selectedProduct,
-
-        price: selectedPrice,
-
-        quantity: quantity,
-
-        meat: activeMeat ? activeMeat.textContent : "",
-
-        sauce: activeSauce ? activeSauce.textContent : ""
-
-    });
-
-
-    saveCart();
-    renderCart();
-
-    closeModal();
-
-    cartElement.classList.add("open");
-
-});
-
-
 cartButton.addEventListener("click", () => {
-
-    renderCart();
-
-    cartElement.classList.add("open");
-
+    cartPanel.classList.add("active");
 });
 
 
 cartClose.addEventListener("click", () => {
+    cartPanel.classList.remove("active");
+});
 
-    cartElement.classList.remove("open");
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+mobileMenuBtn.addEventListener("click", () => {
+    mobileMenu.classList.add("active");
+});
+
+
+mobileMenuClose.addEventListener("click", () => {
+    mobileMenu.classList.remove("active");
+});
+
+
+mobileMenu.querySelectorAll("a").forEach(link => {
+
+    link.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+    });
 
 });
 
 
-renderCart();
+/* =========================
+   ESC
+========================= */
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        closeModal();
+
+        cartPanel.classList.remove("active");
+
+        mobileMenu.classList.remove("active");
+    }
+
+});
 
 
-/* CARD ANIMATION */
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+const animatedElements = document.querySelectorAll(
+    ".food-card, .intro-title, .intro-text, .meat-content, .sauce-head, .sauce-list, .contact-item"
+);
+
 
 const observer = new IntersectionObserver(
-
     entries => {
 
         entries.forEach(entry => {
@@ -417,26 +391,31 @@ const observer = new IntersectionObserver(
                 entry.target.style.opacity = "1";
                 entry.target.style.transform = "translateY(0)";
 
+                observer.unobserve(entry.target);
             }
 
         });
 
     },
-
     {
-        threshold: .08
+        threshold: 0.08
     }
-
 );
 
 
-foodCards.forEach(card => {
+animatedElements.forEach(element => {
 
-    card.style.opacity = "0";
-    card.style.transform = "translateY(25px)";
-    card.style.transition =
-        "opacity .6s ease, transform .6s ease, border-color .35s ease";
+    element.style.opacity = "0";
+    element.style.transform = "translateY(25px)";
+    element.style.transition = "opacity .7s ease, transform .7s ease";
 
-    observer.observe(card);
+    observer.observe(element);
 
 });
+
+
+/* =========================
+   INIT
+========================= */
+
+renderCart();
