@@ -1,25 +1,23 @@
-/* =====================================================
+/* =========================================================
    BOROWSKA KEBAB
-   MAIN STYLES
-===================================================== */
+   Clean restaurant design
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap');
 
 :root {
-    --bg: #0d0d0d;
-    --bg-light: #151515;
-    --card: #1b1b1b;
-    --card-hover: #222;
+    --black: #0b0b0b;
+    --dark: #111111;
+    --dark-2: #171717;
+    --card: #ffffff;
     --white: #ffffff;
-    --muted: #9b9b9b;
-    --red: #ed321b;
-    --red-dark: #bd2413;
-    --border: rgba(255, 255, 255, 0.09);
-    --max-width: 1240px;
+    --text: #181818;
+    --muted: #777777;
+    --red: #e62d18;
+    --red-dark: #bd2010;
+    --border: #e8e8e8;
+    --container: 1240px;
 }
-
-
-/* =====================================================
-   RESET
-===================================================== */
 
 * {
     margin: 0;
@@ -29,29 +27,13 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
 }
 
 body {
-    background: var(--bg);
-    color: var(--white);
-    font-family: Arial, Helvetica, sans-serif;
-    overflow-x: hidden;
-}
-
-body,
-button,
-a {
-    -webkit-font-smoothing: antialiased;
-}
-
-button,
-a {
-    font-family: inherit;
-}
-
-button {
-    border: 0;
+    font-family: "Inter", Arial, sans-serif;
+    background: #ffffff;
+    color: var(--text);
+    line-height: 1.5;
 }
 
 a {
@@ -59,203 +41,126 @@ a {
     text-decoration: none;
 }
 
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
 img {
     max-width: 100%;
     display: block;
 }
 
-
-/* =====================================================
-   GLOBAL
-===================================================== */
-
 .container {
-    width: min(var(--max-width), 92%);
+    width: min(var(--container), calc(100% - 48px));
     margin: 0 auto;
 }
 
-section {
-    position: relative;
-}
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-height: 54px;
-    padding: 0 30px;
-
-    font-size: 12px;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        color 0.25s ease,
-        border-color 0.25s ease;
-}
-
-.btn-primary {
-    background: var(--red);
-    color: var(--white);
-}
-
-.btn-primary:hover {
-    background: #ff4025;
-    transform: translateY(-3px);
-}
-
-.btn-secondary {
-    border: 1px solid rgba(255, 255, 255, 0.65);
-    background: transparent;
-    color: var(--white);
-}
-
-.btn-secondary:hover {
-    background: var(--white);
-    color: var(--bg);
-    transform: translateY(-3px);
-}
-
-.btn-dark {
-    background: var(--bg);
-    color: var(--white);
-}
-
-.btn-dark:hover {
-    background: var(--white);
-    color: var(--bg);
-    transform: translateY(-3px);
-}
-
-
-/* =====================================================
+/* =========================================================
    HEADER
-===================================================== */
+   ========================================================= */
 
 .header {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-
     width: 100%;
+    height: 82px;
+    z-index: 1000;
 
-    z-index: 100;
+    background: rgba(8, 8, 8, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
-    border-bottom: 1px solid rgba(255,255,255,0.13);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 
     transition:
-        background 0.3s ease,
-        backdrop-filter 0.3s ease;
+        height .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
 }
 
 .header.scrolled {
-    position: fixed;
-    background: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(14px);
+    height: 70px;
+    background: rgba(8, 8, 8, 0.97);
+    box-shadow: 0 8px 30px rgba(0,0,0,.18);
 }
 
-.header-content {
-    height: 88px;
-
+.nav {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .logo {
-    display: inline-flex;
-    flex-direction: column;
-
-    font-size: 24px;
-    font-weight: 1000;
-
-    line-height: 0.8;
-    letter-spacing: -1.5px;
+    color: #fff;
+    font-family: "Oswald", sans-serif;
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .logo span {
-    margin-top: 8px;
-
     color: var(--red);
-
-    font-size: 14px;
-    font-weight: 1000;
-    letter-spacing: 4px;
 }
 
-.nav {
+.nav-links {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 34px;
 }
 
-.nav a {
-    position: relative;
-
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-
-    transition: color 0.2s ease;
+.nav-links > a:not(.nav-order) {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: color .2s ease;
 }
 
-.nav a::after {
-    content: "";
-
-    position: absolute;
-    left: 0;
-    bottom: -9px;
-
-    width: 0;
-    height: 2px;
-
-    background: var(--red);
-
-    transition: width 0.25s ease;
-}
-
-.nav a:hover {
+.nav-links > a:not(.nav-order):hover {
     color: var(--red);
 }
 
-.nav a:hover::after {
-    width: 100%;
-}
-
-.header-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-height: 44px;
-    padding: 0 22px;
-
+.nav-order {
     background: var(--red);
+    color: #fff;
+    padding: 13px 22px;
+    border-radius: 4px;
 
-    font-size: 10px;
-    font-weight: 900;
-    letter-spacing: 1.2px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .7px;
 
-    transition: 0.25s ease;
+    transition:
+        background .2s ease,
+        transform .2s ease;
 }
 
-.header-button:hover {
-    background: var(--white);
-    color: var(--bg);
+.nav-order:hover {
+    background: var(--red-dark);
+    transform: translateY(-2px);
+}
+
+.mobile-menu-btn {
+    display: none;
+    border: 0;
+    background: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
 }
 
 
-/* =====================================================
+/* =========================================================
    HERO
-===================================================== */
+   ========================================================= */
 
 .hero {
-    min-height: 850px;
+    min-height: 760px;
+    position: relative;
 
     display: flex;
     align-items: center;
@@ -263,1104 +168,835 @@ section {
     background:
         linear-gradient(
             90deg,
-            rgba(0,0,0,0.95) 0%,
-            rgba(0,0,0,0.76) 42%,
-            rgba(0,0,0,0.30) 100%
+            rgba(0,0,0,.82) 0%,
+            rgba(0,0,0,.58) 48%,
+            rgba(0,0,0,.22) 100%
         ),
-        linear-gradient(
-            0deg,
-            rgba(13,13,13,1) 0%,
-            transparent 28%
-        ),
-        url("https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=2200&q=90")
-        center center / cover no-repeat;
-}
-
-.hero::before {
-    content: "";
-
-    position: absolute;
-    right: 7%;
-    bottom: 8%;
-
-    width: 220px;
-    height: 220px;
-
-    border: 1px solid rgba(237, 50, 27, 0.4);
-
-    transform: rotate(45deg);
-
-    opacity: 0.5;
+        url("https://images.bolt.eu/store/2026/2026-08-28/4327a7e6-c365-4597-8f49-1ad8f8c671c7.jpeg")
+        center/cover no-repeat;
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
-    pointer-events: none;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.2),
+            rgba(0,0,0,.5)
+        );
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
-
     padding-top: 80px;
 }
 
-.hero-small {
-    margin-bottom: 25px;
+.hero-badge {
+    display: inline-flex;
+    margin-bottom: 22px;
 
-    color: var(--red);
-
+    color: #fff;
     font-size: 12px;
-    font-weight: 900;
-    letter-spacing: 4px;
+    font-weight: 800;
+    letter-spacing: 2px;
 }
 
 .hero h1 {
-    max-width: 850px;
-
-    font-size: clamp(70px, 10vw, 145px);
-    font-weight: 1000;
-
-    line-height: 0.78;
-    letter-spacing: -8px;
+    color: #fff;
+    font-family: "Oswald", sans-serif;
+    font-size: clamp(70px, 9vw, 126px);
+    font-weight: 700;
+    line-height: .88;
+    letter-spacing: -2px;
+    text-transform: uppercase;
 }
 
 .hero h1 span {
     color: var(--red);
 }
 
-.hero-text {
-    margin-top: 38px;
-    margin-bottom: 38px;
+.hero p {
+    max-width: 510px;
+    margin-top: 30px;
 
-    color: rgba(255,255,255,0.78);
-
+    color: rgba(255,255,255,.86);
     font-size: 18px;
-    line-height: 1.65;
+    line-height: 1.7;
 }
 
 .hero-buttons {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    gap: 14px;
+    margin-top: 36px;
 }
 
 
-/* =====================================================
-   SECTION HEADING
-===================================================== */
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 52px;
+    padding: 0 28px;
+
+    border-radius: 4px;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        color .2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-red {
+    background: var(--red);
+    color: #fff;
+}
+
+.btn-red:hover {
+    background: var(--red-dark);
+}
+
+.btn-light {
+    background: #fff;
+    color: #111;
+}
+
+.btn-light:hover {
+    background: #eee;
+}
+
+.btn-dark {
+    background: #111;
+    color: #fff;
+}
+
+.btn-dark:hover {
+    background: var(--red);
+}
+
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+.menu-section {
+    padding: 115px 0 125px;
+    background: #fff;
+}
 
 .section-heading {
-    margin-bottom: 65px;
+    max-width: 700px;
+    margin-bottom: 75px;
 }
 
-.section-heading p {
-    margin-bottom: 16px;
+.section-heading > span,
+.section-label {
+    display: block;
+
+    margin-bottom: 14px;
 
     color: var(--red);
 
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 4px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
 }
 
 .section-heading h2 {
-    max-width: 850px;
-
-    font-size: clamp(42px, 6vw, 76px);
-    font-weight: 1000;
-
-    line-height: 0.86;
-    letter-spacing: -4px;
+    font-family: "Oswald", sans-serif;
+    font-size: clamp(50px, 6vw, 82px);
+    line-height: .95;
+    text-transform: uppercase;
+    letter-spacing: -1px;
 }
 
-.section-heading h2 span {
+.section-heading h2 strong {
     color: var(--red);
+    font-weight: 700;
 }
 
-
-/* =====================================================
-   MENU SECTION
-===================================================== */
-
-.menu-section {
-    padding: 135px 0 150px;
-
-    background:
-        radial-gradient(
-            circle at 90% 10%,
-            rgba(237,50,27,0.07),
-            transparent 30%
-        ),
-        var(--bg);
+.section-heading p {
+    margin-top: 22px;
+    color: var(--muted);
+    font-size: 16px;
 }
-
-
-/* =====================================================
-   MENU CATEGORY
-===================================================== */
 
 .menu-category {
-    margin-bottom: 105px;
-}
-
-.menu-category:last-child {
-    margin-bottom: 0;
+    margin-bottom: 100px;
 }
 
 .category-title {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    gap: 18px;
 
-    gap: 25px;
+    margin-bottom: 30px;
 
-    margin-bottom: 35px;
+    border-bottom: 2px solid #111;
+    padding-bottom: 14px;
 }
 
-.category-title > span {
-    padding-top: 4px;
-
+.category-title span {
     color: var(--red);
-
-    font-size: 13px;
-    font-weight: 900;
-    letter-spacing: 2px;
-}
-
-.category-title p {
-    margin-bottom: 5px;
-
-    color: #777;
-
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 3px;
+    font-family: "Oswald", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .category-title h3 {
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 1000;
-
-    line-height: 0.9;
-    letter-spacing: -2px;
+    font-family: "Oswald", sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 
-/* =====================================================
+/* =========================================================
    MENU GRID
-===================================================== */
+   ========================================================= */
 
 .menu-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 18px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
 }
 
 
-/* =====================================================
+/* =========================================================
    MENU CARD
-===================================================== */
+   ========================================================= */
 
 .menu-card {
+    position: relative;
+
     overflow: hidden;
 
-    background: var(--card);
+    background: #fff;
 
     border: 1px solid var(--border);
+    border-radius: 6px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.045);
 
     transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        background 0.3s ease;
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 .menu-card:hover {
-    transform: translateY(-8px);
-
-    background: var(--card-hover);
-
-    border-color: rgba(237,50,27,0.6);
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px rgba(0,0,0,.11);
 }
 
 
-/* =====================================================
-   FOOD IMAGES
-===================================================== */
+/* =========================================================
+   FOOD IMAGE
+   ========================================================= */
 
-.menu-card-image {
-    position: relative;
+.food-image {
+    height: 275px;
+    width: 100%;
 
-    height: 285px;
-
-    overflow: hidden;
-
+    background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;
 
-    transition: transform 0.5s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.menu-card:hover .menu-card-image {
-    transform: scale(1.025);
-}
 
-.menu-card-image::after {
+/* dark gradient at bottom, but NO TEXT */
+.food-image::after {
     content: "";
-
     position: absolute;
     inset: 0;
 
     background:
         linear-gradient(
-            0deg,
-            rgba(0,0,0,0.65),
-            transparent 55%
+            to bottom,
+            transparent 65%,
+            rgba(0,0,0,.08)
         );
+
+    pointer-events: none;
 }
 
 
-/* Individual food photos */
+/* =========================================================
+   REAL BOLT FOOD IMAGES
+   ========================================================= */
 
-.tortilla {
-    background-image:
-        url("https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1000&q=90");
+
+/* KEBAB */
+
+.menu-category:nth-of-type(1) .menu-card:nth-child(1) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/4327a7e6-c365-4597-8f49-1ad8f8c671c7.jpeg");
 }
 
-.knysza {
-    background-image:
-        url("https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=1000&q=90");
+.menu-category:nth-of-type(1) .menu-card:nth-child(2) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/cca55813-86a8-46f2-a190-227b88255fd5.jpeg");
 }
 
-.rollo {
-    background-image:
-        url("https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=1000&q=90");
+.menu-category:nth-of-type(1) .menu-card:nth-child(3) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/ca9ba588-2ff7-472b-bd3c-42f0aed09e95.jpeg");
 }
 
-.zestaw {
-    background-image:
-        url("https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=1000&q=90");
+.menu-category:nth-of-type(1) .menu-card:nth-child(4) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/59850002-0e68-4787-8e23-0ced66dfda73.jpeg");
 }
 
-.kapsalon {
-    background-image:
-        url("https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1000&q=90");
+.menu-category:nth-of-type(1) .menu-card:nth-child(5) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/5bde6b7d-18ba-483b-8268-50d199fd6403.jpeg");
 }
 
-.nuggets {
-    background-image:
-        url("https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=1000&q=90");
+.menu-category:nth-of-type(1) .menu-card:nth-child(6) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/3bd0b2b1-ca6a-4086-8fa5-d253a5d693f2.jpeg");
 }
 
-.fryto {
-    background-image:
-        url("https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=1000&q=90");
-}
-
-.falafel {
-    background-image:
-        url("https://images.unsplash.com/photo-1593001874117-c99c800e3eb4?auto=format&fit=crop&w=1000&q=90");
-}
-
-.cheese {
-    background-image:
-        url("https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=1000&q=90");
-}
-
-.fish {
-    background-image:
-        url("https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1000&q=90");
-}
-
-.box {
-    background-image:
-        url("https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=90");
-}
-
-.salad {
-    background-image:
-        url("https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=90");
+.menu-category:nth-of-type(1) .menu-card:nth-child(7) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/e4399a9e-1dc1-413c-a468-3686f42fdef6.jpeg");
 }
 
 
-/* =====================================================
-   FOOD LABEL
-===================================================== */
+/* VEGETARIAN */
 
-.food-label {
-    position: absolute;
+.menu-category:nth-of-type(2) .menu-card:nth-child(1) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/a92ceadb-b8ab-447b-b1de-acc9f83daf2a.jpeg");
+}
 
-    top: 18px;
-    left: 18px;
+.menu-category:nth-of-type(2) .menu-card:nth-child(2) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/59dbb515-1f14-42f9-a43f-091641da09fc.jpeg");
+}
 
-    z-index: 2;
+.menu-category:nth-of-type(2) .menu-card:nth-child(3) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/0a00961f-82a0-46dd-9e33-8933fcaa0f86.jpeg");
+}
 
-    padding: 9px 12px;
+.menu-category:nth-of-type(2) .menu-card:nth-child(4) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/e50d4f2c-4f08-4690-b6f9-af485c969726.jpeg");
+}
 
-    background: var(--red);
-
-    color: var(--white);
-
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 1.5px;
+.menu-category:nth-of-type(2) .menu-card:nth-child(5) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/b185f033-7c07-44dd-9bfa-bde6e9bc90b2.jpeg");
 }
 
 
-/* =====================================================
-   MENU CONTENT
-===================================================== */
+/* BOXY */
 
-.menu-card-content {
-    padding: 26px;
+.menu-category:nth-of-type(3) .menu-card:nth-child(1) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/120a0967-2665-4438-bfa2-cabaa6bdd6ff.jpeg");
 }
 
-.menu-card-content h3 {
-    margin-bottom: 10px;
-
-    font-size: 23px;
-    font-weight: 900;
-
-    line-height: 1.05;
+.menu-category:nth-of-type(3) .menu-card:nth-child(2) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/e93efee0-9318-466f-8656-b8fd43ece4c1.jpeg");
 }
 
-.menu-card-content > p {
-    min-height: 43px;
 
-    color: var(--muted);
+/* SALADS */
 
-    font-size: 13px;
+.menu-category:nth-of-type(4) .menu-card:nth-child(1) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/927cdbf1-1953-4aa2-9c03-de17ab6d70a9.jpeg");
+}
+
+.menu-category:nth-of-type(4) .menu-card:nth-child(2) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/60b1486b-e45d-4c3a-9fdb-50a6c9fbad6e.jpeg");
+}
+
+
+/* SIDES */
+
+.menu-category:nth-of-type(5) .menu-card:nth-child(1) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/5cf3c818-aaa5-4d38-8fef-e46943126e7d.jpeg");
+}
+
+.menu-category:nth-of-type(5) .menu-card:nth-child(2) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/dcd0e5ee-aea5-4248-81f1-4aaf0654abf8.jpeg");
+}
+
+.menu-category:nth-of-type(5) .menu-card:nth-child(3) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/345905f8-427d-42b9-b0e0-738e91dfab21.jpeg");
+}
+
+
+/* DRINKS */
+
+.menu-category:nth-of-type(6) .menu-card:nth-child(1) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/e9cc72d7-e54f-4f36-953d-e67e347e3c66.jpeg");
+}
+
+.menu-category:nth-of-type(6) .menu-card:nth-child(2) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/be691651-6490-4b6a-bd13-324cc4596b93.jpeg");
+}
+
+.menu-category:nth-of-type(6) .menu-card:nth-child(3) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/1f8bdd94-a817-4b07-a31f-c8442d3a8e73.jpeg");
+}
+
+.menu-category:nth-of-type(6) .menu-card:nth-child(4) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/e79b2589-447b-46f6-bf18-a17545edca0c.jpeg");
+}
+
+.menu-category:nth-of-type(6) .menu-card:nth-child(5) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/7e750e94-21f1-4562-897c-5110292128e1.jpeg");
+}
+
+.menu-category:nth-of-type(6) .menu-card:nth-child(6) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/535a299e-d0e3-4dce-94ea-6666db1d16ee.jpeg");
+}
+
+.menu-category:nth-of-type(6) .menu-card:nth-child(7) .food-image {
+    background-image: url("https://images.bolt.eu/store/2026/2026-08-28/6216ed1c-1388-4fcc-a041-cb8e022fc21f.jpeg");
+}
+
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.card-content {
+    padding: 22px 22px 20px;
+}
+
+.card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.card-top h4 {
+    color: #111;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.card-top strong {
+    flex-shrink: 0;
+
+    color: var(--red);
+
+    font-size: 18px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.card-content p {
+    min-height: 48px;
+    margin-top: 9px;
+
+    color: #777;
+    font-size: 14px;
     line-height: 1.55;
 }
 
 
-/* =====================================================
-   MENU OPTIONS
-===================================================== */
-
-.menu-options {
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 7px;
-
-    margin-top: 18px;
-}
-
-.menu-options span {
-    padding: 7px 9px;
-
-    border: 1px solid rgba(255,255,255,0.09);
-
-    color: #999;
-
-    font-size: 9px;
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   MENU BOTTOM
-===================================================== */
-
-.menu-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    margin-top: 25px;
-    padding-top: 20px;
-
-    border-top: 1px solid var(--border);
-}
-
-.menu-bottom strong {
-    color: var(--white);
-
-    font-size: 23px;
-    font-weight: 1000;
-}
+/* =========================================================
+   ORDER BUTTON
+   ========================================================= */
 
 .order-btn {
-    padding: 11px 14px;
+    width: 100%;
+    height: 46px;
 
-    background: transparent;
+    margin-top: 17px;
 
-    border: 1px solid var(--red);
+    border: 0;
+    border-radius: 4px;
 
-    color: var(--red);
-
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 1px;
+    background: #111;
+    color: #fff;
 
     cursor: pointer;
 
-    transition: 0.25s ease;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
 }
 
 .order-btn:hover {
     background: var(--red);
-    color: var(--white);
+    transform: translateY(-1px);
 }
 
 
-/* =====================================================
-   COMPACT CATEGORIES
-===================================================== */
+/* =========================================================
+   DRINKS
+   ========================================================= */
 
-.compact-category {
-    margin-bottom: 70px;
-}
-
-.extras-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 1px;
-
-    background: var(--border);
-
-    border: 1px solid var(--border);
-}
-
-.extra-item {
-    min-height: 95px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 25px;
-
-    padding: 20px 25px;
-
-    background: var(--card);
-
-    transition: 0.25s ease;
-}
-
-.extra-item:hover {
-    background: var(--card-hover);
-}
-
-.extra-item h4 {
-    margin-bottom: 5px;
-
-    font-size: 16px;
-    font-weight: 900;
-}
-
-.extra-item p {
-    color: #777;
-
-    font-size: 11px;
-}
-
-.extra-item strong {
-    color: var(--red);
-
-    font-size: 17px;
-    font-weight: 1000;
-
-    white-space: nowrap;
+.drinks .food-image {
+    background-size: contain !important;
+    background-color: #f7f7f7;
 }
 
 
-/* =====================================================
+/* =========================================================
    ABOUT
-===================================================== */
+   ========================================================= */
 
 .about-section {
-    padding: 130px 0;
-
+    padding: 110px 0;
     background: var(--red);
-
-    color: var(--bg);
+    color: #fff;
 }
 
 .about-content {
     display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 0.85fr);
-
+    grid-template-columns: 1fr 1fr;
     gap: 90px;
-
     align-items: center;
 }
 
-.about-text .section-label {
-    color: var(--bg);
-
-    font-size: 11px;
-    font-weight: 1000;
-    letter-spacing: 4px;
+.about-section .section-label {
+    color: rgba(255,255,255,.75);
 }
 
-.about-text h2 {
-    margin-bottom: 30px;
-
-    font-size: clamp(45px, 6vw, 78px);
-    font-weight: 1000;
-
-    line-height: 0.84;
-    letter-spacing: -4px;
+.about-section h2 {
+    font-family: "Oswald", sans-serif;
+    font-size: clamp(60px, 7vw, 100px);
+    line-height: .88;
+    text-transform: uppercase;
 }
 
-.about-text p:not(.section-label) {
-    max-width: 540px;
+.about-section h2 strong {
+    color: #111;
+}
 
-    margin-bottom: 16px;
+.about-text {
+    max-width: 530px;
+}
 
-    color: rgba(0,0,0,0.72);
-
+.about-text p {
+    margin-bottom: 24px;
+    color: rgba(255,255,255,.9);
     font-size: 17px;
-    line-height: 1.65;
-}
-
-.about-text .btn {
-    margin-top: 18px;
-}
-
-.about-box {
-    position: relative;
-
-    min-height: 470px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            rgba(0,0,0,0.25),
-            rgba(0,0,0,0.7)
-        ),
-        url("https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=1400&q=90")
-        center / cover;
-}
-
-.about-box::before {
-    content: "";
-
-    position: absolute;
-    inset: 25px;
-
-    border: 1px solid rgba(255,255,255,0.35);
-}
-
-.about-box-content {
-    position: relative;
-    z-index: 2;
-
-    text-align: center;
-}
-
-.about-box-content span {
-    display: block;
-
-    margin-bottom: 15px;
-
-    font-size: clamp(55px, 7vw, 95px);
-    font-weight: 1000;
-
-    line-height: 0.8;
-    letter-spacing: -4px;
-}
-
-.about-box-content p {
-    color: #fff !important;
-
-    font-size: 13px !important;
-    font-weight: 900;
-
-    line-height: 1.5 !important;
-    letter-spacing: 3px;
+    line-height: 1.75;
 }
 
 
-/* =====================================================
+/* =========================================================
    CONTACT
-===================================================== */
+   ========================================================= */
 
 .contact-section {
-    padding: 135px 0;
-
-    background:
-        radial-gradient(
-            circle at 10% 80%,
-            rgba(237,50,27,0.08),
-            transparent 28%
-        ),
-        var(--bg-light);
-}
-
-.contact-section .section-heading h2 span {
-    color: var(--red);
+    padding: 115px 0;
+    background: #f6f6f6;
 }
 
 .contact-grid {
     display: grid;
-
-    grid-template-columns:
-        minmax(280px, 0.75fr)
-        minmax(0, 1.25fr);
-
+    grid-template-columns: .8fr 1.2fr;
     gap: 55px;
+    align-items: stretch;
 }
 
 .contact-info {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-
-    gap: 34px;
+    justify-content: center;
 }
 
 .contact-item {
-    display: flex;
-    flex-direction: column;
+    padding: 25px 0;
+    border-bottom: 1px solid #ddd;
+}
 
-    gap: 9px;
+.contact-item:first-child {
+    padding-top: 0;
 }
 
 .contact-item span {
+    display: block;
+    margin-bottom: 8px;
+
     color: var(--red);
 
-    font-size: 10px;
-    font-weight: 900;
-    letter-spacing: 3px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
 }
 
-.contact-item strong,
-.contact-phone {
-    color: var(--white);
+.contact-item h3 {
+    font-size: 22px;
+    font-weight: 800;
+}
 
-    font-size: 19px;
+.contact-item p {
+    margin-top: 3px;
+    color: var(--muted);
+}
+
+.online-link {
+    display: inline-block;
+
+    color: #111;
+    font-size: 15px;
     font-weight: 800;
 
-    line-height: 1.5;
+    transition: color .2s ease;
 }
 
-.contact-phone {
-    transition: color 0.2s ease;
-}
-
-.contact-phone:hover {
+.online-link:hover {
     color: var(--red);
 }
 
-.map {
-    min-height: 470px;
-
-    overflow: hidden;
-
-    border: 1px solid var(--border);
-
-    background: #222;
+.contact-info .btn {
+    width: fit-content;
+    margin-top: 28px;
 }
 
-.map iframe {
-    display: block;
+.map-container {
+    min-height: 470px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #ddd;
+}
 
+.map-container iframe {
     width: 100%;
     height: 100%;
     min-height: 470px;
 
     border: 0;
-
-    filter: grayscale(100%) contrast(1.1);
-
-    transition: filter 0.4s ease;
-}
-
-.map:hover iframe {
-    filter: grayscale(20%) contrast(1);
+    display: block;
 }
 
 
-/* =====================================================
+/* =========================================================
    FOOTER
-===================================================== */
+   ========================================================= */
 
 .footer {
-    padding: 35px 0;
-
-    background: #080808;
-
-    border-top: 1px solid var(--border);
+    padding: 32px 0;
+    background: #0b0b0b;
+    color: #fff;
 }
 
 .footer-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
+}
 
-    gap: 30px;
+.footer-logo {
+    font-family: "Oswald", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.footer-logo span {
+    color: var(--red);
 }
 
 .footer p {
-    color: #666;
-
-    font-size: 11px;
-}
-
-.back-top {
     color: #777;
-
-    font-size: 10px;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-
-    transition: color 0.2s ease;
+    font-size: 12px;
 }
 
-.back-top:hover {
+.footer a {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.footer a:hover {
     color: var(--red);
 }
 
 
-/* =====================================================
-   ANIMATIONS
-===================================================== */
-
-.menu-card {
-    opacity: 1;
-}
-
-@keyframes heroFade {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hero-content {
-    animation: heroFade 0.9s ease both;
-}
-
-
-/* =====================================================
-   TABLET
-===================================================== */
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 1000px) {
 
-    .header-content {
-        height: 78px;
-    }
-
-    .nav {
-        gap: 25px;
-    }
-
-    .hero {
-        min-height: 760px;
-    }
-
-    .hero h1 {
-        letter-spacing: -5px;
+    .nav-links {
+        gap: 20px;
     }
 
     .menu-grid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .about-content {
         grid-template-columns: 1fr;
-
-        gap: 50px;
-    }
-
-    .about-box {
-        min-height: 400px;
+        gap: 45px;
     }
 
     .contact-grid {
         grid-template-columns: 1fr;
     }
 
-    .map {
-        min-height: 400px;
-    }
-
-    .map iframe {
+    .map-container {
         min-height: 400px;
     }
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 650px) {
+@media (max-width: 700px) {
 
     .container {
-        width: min(92%, 540px);
+        width: min(100% - 32px, var(--container));
     }
 
+    .header {
+        height: 68px;
+    }
 
-    /* Header */
-
-    .header-content {
-        height: 72px;
+    .header.scrolled {
+        height: 64px;
     }
 
     .logo {
-        font-size: 21px;
+        font-size: 22px;
     }
 
-    .logo span {
-        font-size: 11px;
-        letter-spacing: 3px;
-    }
-
-    .nav {
+    .nav-links {
         display: none;
     }
 
-    .header-button {
-        min-height: 40px;
-
-        padding: 0 14px;
-
-        font-size: 9px;
+    .mobile-menu-btn {
+        display: block;
     }
-
-
-    /* Hero */
 
     .hero {
-        min-height: 720px;
+        min-height: 680px;
 
-        background-position:
-            63% center;
-    }
-
-    .hero::before {
-        display: none;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(0,0,0,.76),
+                rgba(0,0,0,.4)
+            ),
+            url("https://images.bolt.eu/store/2026/2026-08-28/4327a7e6-c365-4597-8f49-1ad8f8c671c7.jpeg")
+            center/cover no-repeat;
     }
 
     .hero-content {
-        padding-top: 50px;
-    }
-
-    .hero-small {
-        margin-bottom: 20px;
-
-        font-size: 9px;
-        letter-spacing: 2.5px;
+        padding-top: 60px;
     }
 
     .hero h1 {
-        font-size: clamp(65px, 19vw, 100px);
-
-        letter-spacing: -5px;
+        font-size: 70px;
+        letter-spacing: -1px;
     }
 
-    .hero-text {
-        margin-top: 30px;
-
+    .hero p {
         font-size: 15px;
     }
 
     .hero-buttons {
         flex-direction: column;
         align-items: stretch;
-
-        width: 100%;
-        max-width: 300px;
     }
 
     .btn {
-        min-height: 52px;
+        width: 100%;
     }
 
-
-    /* Menu */
-
-    .menu-section {
-        padding: 90px 0 100px;
+    .menu-section,
+    .contact-section {
+        padding: 80px 0;
     }
 
     .section-heading {
         margin-bottom: 50px;
     }
 
-    .section-heading p {
-        font-size: 9px;
-        letter-spacing: 3px;
-    }
-
     .section-heading h2 {
-        font-size: clamp(40px, 12vw, 60px);
-
-        letter-spacing: -2.5px;
+        font-size: 52px;
     }
 
     .menu-category {
         margin-bottom: 75px;
     }
 
-    .category-title {
-        gap: 15px;
-
-        margin-bottom: 25px;
-    }
-
     .category-title h3 {
-        font-size: 31px;
-
-        letter-spacing: -1px;
-    }
-
-    .category-title p {
-        font-size: 8px;
+        font-size: 24px;
     }
 
     .menu-grid {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 20px;
     }
 
-    .menu-card-image {
-        height: 270px;
+    .food-image {
+        height: 260px;
     }
 
-    .menu-card-content {
-        padding: 22px;
+    .card-content {
+        padding: 20px;
     }
-
-    .menu-card-content h3 {
-        font-size: 21px;
-    }
-
-    .menu-bottom strong {
-        font-size: 21px;
-    }
-
-    .extras-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .extra-item {
-        min-height: 85px;
-
-        padding: 18px;
-    }
-
-
-    /* About */
 
     .about-section {
-        padding: 90px 0;
+        padding: 80px 0;
     }
 
-    .about-content {
-        gap: 45px;
-    }
-
-    .about-text h2 {
-        font-size: clamp(43px, 13vw, 68px);
-
-        letter-spacing: -3px;
-    }
-
-    .about-text p:not(.section-label) {
-        font-size: 15px;
-    }
-
-    .about-box {
-        min-height: 330px;
-    }
-
-    .about-box::before {
-        inset: 15px;
-    }
-
-
-    /* Contact */
-
-    .contact-section {
-        padding: 90px 0;
+    .about-section h2 {
+        font-size: 65px;
     }
 
     .contact-grid {
-        gap: 45px;
+        gap: 35px;
     }
 
-    .contact-info {
-        gap: 28px;
-    }
-
-    .contact-item strong,
-    .contact-phone {
-        font-size: 17px;
-    }
-
-    .map {
-        min-height: 350px;
-    }
-
-    .map iframe {
-        min-height: 350px;
-    }
-
-
-    /* Footer */
-
-    .footer {
-        padding: 30px 0;
+    .map-container,
+    .map-container iframe {
+        min-height: 340px;
     }
 
     .footer-content {
         flex-direction: column;
-
-        align-items: flex-start;
+        text-align: center;
     }
-
 }
 
 
-/* =====================================================
-   VERY SMALL PHONES
-===================================================== */
-
-@media (max-width: 380px) {
-
-    .header-button {
-        display: none;
-    }
+@media (max-width: 420px) {
 
     .hero h1 {
-        font-size: 62px;
+        font-size: 58px;
     }
 
-    .menu-card-image {
-        height: 240px;
+    .section-heading h2 {
+        font-size: 45px;
     }
 
-    .menu-options span {
-        font-size: 8px;
+    .about-section h2 {
+        font-size: 55px;
     }
 
+    .food-image {
+        height: 235px;
+    }
+
+    .card-top h4 {
+        font-size: 18px;
+    }
+
+    .card-top strong {
+        font-size: 16px;
+    }
 }
