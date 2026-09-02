@@ -3,1011 +3,904 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="description" content="Borowska Kebab — świeży kebab we Wrocławiu. Borowska 103. Zamów online.">
     <title>Borowska Kebab — Wrocław</title>
-    <meta
-        name="description"
-        content="Borowska Kebab — świeży kebab we Wrocławiu. Tortilla, knysza, rollo, kapsalon, boxy, falafel, sałatki i napoje."
-    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="header">
+<div class="site-noise"></div>
 
-    <div class="container nav">
+<header class="header" id="header">
+    <div class="container header-inner">
 
         <a href="#home" class="logo">
-            BOROWSKA <span>KEBAB</span>
+            <span>BOROWSKA</span>
+            <strong>KEBAB</strong>
         </a>
 
-        <nav class="nav-links">
+        <nav class="nav">
             <a href="#menu">MENU</a>
             <a href="#about">O NAS</a>
             <a href="#contact">KONTAKT</a>
-
-            <a
-                href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/"
-                class="nav-order"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                ZAMÓW ONLINE
-            </a>
         </nav>
 
-        <button class="mobile-menu-btn" aria-label="Menu">
-            ☰
+        <div class="header-actions">
+            <button class="cart-button" id="cartButton" aria-label="Koszyk">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-label">KOSZYK</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+
+            <a class="header-order" href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener">
+                ZAMÓW ONLINE
+                <span>↗</span>
+            </a>
+        </div>
+
+        <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Menu">
+            <span></span>
+            <span></span>
         </button>
 
     </div>
-
 </header>
-
 
 <main>
 
-    <!-- HERO -->
+<section class="hero" id="home">
+    <div class="container hero-grid">
 
-    <section class="hero" id="home">
-
-        <div class="hero-overlay"></div>
-
-        <div class="container hero-content">
-
-            <div class="hero-badge">
+        <div class="hero-content">
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
                 BOROWSKA 103 • WROCŁAW
             </div>
 
             <h1>
-                PRAWDZIWY<br>
-                <span>KEBAB.</span>
+                KEBAB,<br>
+                KTÓRY <em>ROBI</em><br>
+                RÓŻNICĘ.
             </h1>
 
-            <p>
-                Soczyste mięso, świeże warzywa
-                i dobry sos. Bez zbędnych dodatków.
+            <p class="hero-description">
+                Dużo dobrego mięsa, świeże warzywa i sosy,
+                które robią robotę. Prosto. Świeżo. Konkretnie.
             </p>
 
             <div class="hero-buttons">
-
-                <a href="#menu" class="btn btn-red">
+                <a href="#menu" class="button button-primary">
                     ZOBACZ MENU
+                    <span>↓</span>
                 </a>
 
-                <a
-                    href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/"
-                    class="btn btn-light"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+                <a href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener" class="button button-outline">
                     ZAMÓW ONLINE
+                    <span>↗</span>
                 </a>
-
             </div>
 
+            <div class="hero-info">
+                <div>
+                    <strong>10:00 — 23:30</strong>
+                    <span>OTWARTE</span>
+                </div>
+                <div>
+                    <strong>+48 789 110 260</strong>
+                    <span>ZADZWOŃ</span>
+                </div>
+            </div>
         </div>
 
-    </section>
+        <div class="hero-visual">
+            <div class="hero-image-wrap">
+                <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=1400" alt="Kebab">
+            </div>
 
+            <div class="hero-badge">
+                <span>FRESH</span>
+                <strong>+</strong>
+                <span>HOT</span>
+            </div>
 
-    <!-- MENU -->
+            <div class="hero-floating-card">
+                <span>NASZ</span>
+                <strong>KLASYK</strong>
+                <small>TORTILLA • 26 ZŁ</small>
+            </div>
 
-    <section class="menu-section" id="menu">
+            <div class="hero-number">01</div>
+        </div>
 
+    </div>
+
+    <div class="hero-bottom">
         <div class="container">
-
-            <div class="section-heading">
-
-                <span>NASZE MENU</span>
-
-                <h2>
-                    WYBIERZ<br>
-                    <strong>SWÓJ SMAK.</strong>
-                </h2>
-
-                <p>
-                    Wszystkie pozycje menu Borowska Kebab.
-                </p>
-
-            </div>
-
-
-            <!-- KEBAB -->
-
-            <div class="menu-category">
-
-                <div class="category-title">
-                    <span>01</span>
-                    <h3>KEBAB</h3>
-                </div>
-
-                <div class="menu-grid">
-
-
-                    <article class="menu-card tortilla">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Tortilla</h4>
-                                <strong>26 zł</strong>
-                            </div>
-
-                            <p>
-                                Mięso, surówka, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card knysza">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Knysza</h4>
-                                <strong>34 zł</strong>
-                            </div>
-
-                            <p>
-                                Mięso, surówka, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card rollo">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>American Rollo</h4>
-                                <strong>28 zł</strong>
-                            </div>
-
-                            <p>
-                                Mięso, frytki, ser, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card zestaw">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Zestaw Kebab</h4>
-                                <strong>34 zł</strong>
-                            </div>
-
-                            <p>
-                                Mięso, surówka, frytki, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card kapsalon">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Kapsalon</h4>
-                                <strong>37 zł</strong>
-                            </div>
-
-                            <p>
-                                Mięso, frytki, ser, surówki, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card nuggets">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Zestaw Nuggets</h4>
-                                <strong>35 zł</strong>
-                            </div>
-
-                            <p>
-                                Nuggetsy, frytki, surówka, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card fryto">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Fry Bułka z Serem</h4>
-                                <strong>38 zł</strong>
-                            </div>
-
-                            <p>
-                                Mięso, frytki, ser, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-
-            <!-- VEGETARIAN -->
-
-            <div class="menu-category">
-
-                <div class="category-title">
-                    <span>02</span>
-                    <h3>DANIA WEGETARIAŃSKIE</h3>
-                </div>
-
-                <div class="menu-grid">
-
-
-                    <article class="menu-card falafel">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Falafel Knysza</h4>
-                                <strong>32 zł</strong>
-                            </div>
-
-                            <p>
-                                Falafel, surówka, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card falafel">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Falafel Tortilla</h4>
-                                <strong>31 zł</strong>
-                            </div>
-
-                            <p>
-                                Falafel, surówka, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card falafel">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Zestaw Falafel</h4>
-                                <strong>36 zł</strong>
-                            </div>
-
-                            <p>
-                                Falafel, hummus lub frytki,
-                                surówka, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card cheese">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Zestaw Smażony Ser</h4>
-                                <strong>32 zł</strong>
-                            </div>
-
-                            <p>
-                                Ser, frytki, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card fish">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Zestaw Filet Mintaja</h4>
-                                <strong>36 zł</strong>
-                            </div>
-
-                            <p>
-                                Filet, frytki, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-
-            <!-- BOX -->
-
-            <div class="menu-category">
-
-                <div class="category-title">
-                    <span>03</span>
-                    <h3>BOXY</h3>
-                </div>
-
-                <div class="menu-grid">
-
-
-                    <article class="menu-card box">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Kebab Box</h4>
-                                <strong>29 zł</strong>
-                            </div>
-
-                            <p>
-                                Mięso, frytki, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card box nuggets">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Nuggets Box</h4>
-                                <strong>28 zł</strong>
-                            </div>
-
-                            <p>
-                                Nuggetsy, frytki, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-
-            <!-- SALADS -->
-
-            <div class="menu-category">
-
-                <div class="category-title">
-                    <span>04</span>
-                    <h3>SAŁATKI</h3>
-                </div>
-
-                <div class="menu-grid">
-
-
-                    <article class="menu-card salad">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Sałatka Grecka</h4>
-                                <strong>28 zł</strong>
-                            </div>
-
-                            <p>
-                                Mix sałat, oliwki, ser feta.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card salad">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Sałatka z Mięsem</h4>
-                                <strong>36 zł</strong>
-                            </div>
-
-                            <p>
-                                Mix sałat, mięso, sos.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-
-            <!-- SIDES -->
-
-            <div class="menu-category">
-
-                <div class="category-title">
-                    <span>05</span>
-                    <h3>DODATKI</h3>
-                </div>
-
-                <div class="menu-grid">
-
-
-                    <article class="menu-card fries">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Frytki</h4>
-                                <strong>15 zł</strong>
-                            </div>
-
-                            <p>
-                                Dodatkowa porcja frytek.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card sauce">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Sos</h4>
-                                <strong>4 zł</strong>
-                            </div>
-
-                            <p>
-                                Dodatkowa porcja sosu.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card falafel">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Falafel</h4>
-                                <strong>4 zł</strong>
-                            </div>
-
-                            <p>
-                                Dodatkowa porcja falafela.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-
-            <!-- DRINKS -->
-
-            <div class="menu-category">
-
-                <div class="category-title">
-                    <span>06</span>
-                    <h3>NAPOJE</h3>
-                </div>
-
-                <div class="menu-grid drinks">
-
-
-                    <article class="menu-card drink">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Woda Niegazowana</h4>
-                                <strong>4 zł</strong>
-                            </div>
-
-                            <p>
-                                Dostępne różne pojemności.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card drink">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Woda Gazowana</h4>
-                                <strong>4 zł</strong>
-                            </div>
-
-                            <p>
-                                Dostępne różne pojemności.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card drink">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Ayran 0,33 l</h4>
-                                <strong>9 zł</strong>
-                            </div>
-
-                            <p>
-                                Klasyczny turecki napój jogurtowy.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card drink">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Coca-Cola</h4>
-                                <strong>9 zł</strong>
-                            </div>
-
-                            <p>
-                                Dostępne różne pojemności.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card drink">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Pepsi</h4>
-                                <strong>9 zł</strong>
-                            </div>
-
-                            <p>
-                                Dostępne różne pojemności.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card drink">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Mirinda</h4>
-                                <strong>9 zł</strong>
-                            </div>
-
-                            <p>
-                                Dostępne różne pojemności.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="menu-card drink">
-
-                        <div class="food-image"></div>
-
-                        <div class="card-content">
-
-                            <div class="card-top">
-                                <h4>Sok Mango</h4>
-                                <strong>10 zł</strong>
-                            </div>
-
-                            <p>
-                                Sok mango 0,33 l.
-                            </p>
-
-                            <button class="order-btn">
-                                WYBIERAM
-                            </button>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
+            <span>ŚWIEŻE SKŁADNIKI</span>
+            <span>•</span>
+            <span>SOCZYSTE MIĘSO</span>
+            <span>•</span>
+            <span>WROCŁAW</span>
+            <span>•</span>
+            <span>BOROWSKA 103</span>
         </div>
+    </div>
+</section>
 
-    </section>
 
+<section class="popular">
+    <div class="container">
 
-    <!-- ABOUT -->
-
-    <section class="about-section" id="about">
-
-        <div class="container about-content">
-
+        <div class="section-top">
             <div>
-
-                <span class="section-label">
-                    BOROWSKA KEBAB
-                </span>
-
-                <h2>
-                    PROSTO.<br>
-                    ŚWIEŻO.<br>
-                    <strong>SMACZNIE.</strong>
-                </h2>
-
+                <span class="section-kicker">01 / NAJLEPSZE NA START</span>
+                <h2>CO <em>BRAĆ?</em></h2>
             </div>
 
-            <div class="about-text">
+            <p>
+                Jeśli jesteś tutaj pierwszy raz —
+                zacznij od naszych klasyków.
+            </p>
+        </div>
 
+        <div class="popular-grid">
+
+            <article class="popular-card featured">
+                <div class="popular-image">
+                    <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=1000" alt="Tortilla">
+                    <span class="popular-tag">KLASYK</span>
+                </div>
+                <div class="popular-content">
+                    <div>
+                        <h3>Tortilla</h3>
+                        <p>Mięso, surówka, sos.</p>
+                    </div>
+                    <strong>26 zł</strong>
+                </div>
+                <button class="quick-add" data-product="Tortilla" data-price="26" data-description="Mięso, surówka, sos.">
+                    WYBIERAM <span>+</span>
+                </button>
+            </article>
+
+            <article class="popular-card">
+                <div class="popular-image">
+                    <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=1000" alt="Rollo amerykańskie">
+                    <span class="popular-tag">CRUNCH</span>
+                </div>
+                <div class="popular-content">
+                    <div>
+                        <h3>Rollo amerykańskie</h3>
+                        <p>Mięso, frytki, ser, sos.</p>
+                    </div>
+                    <strong>28 zł</strong>
+                </div>
+                <button class="quick-add" data-product="Rollo amerykańskie" data-price="28" data-description="Mięso, frytki, ser, sos.">
+                    WYBIERAM <span>+</span>
+                </button>
+            </article>
+
+            <article class="popular-card">
+                <div class="popular-image">
+                    <img src="https://images.unsplash.com/photo-1529259266118-cf22737f713f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=1000" alt="Kapsalon">
+                    <span class="popular-tag">TOP</span>
+                </div>
+                <div class="popular-content">
+                    <div>
+                        <h3>Kapsalon</h3>
+                        <p>Mięso, frytki, ser, surówki, sos.</p>
+                    </div>
+                    <strong>37 zł</strong>
+                </div>
+                <button class="quick-add" data-product="Kapsalon" data-price="37" data-description="Mięso, frytki, ser, surówki, sos.">
+                    WYBIERAM <span>+</span>
+                </button>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+
+<section class="menu-section" id="menu">
+    <div class="container">
+
+        <div class="menu-heading">
+            <div>
+                <span class="section-kicker">02 / MENU</span>
+                <h2>WYBIERZ<br><em>SWÓJ SMAK.</em></h2>
+            </div>
+
+            <div class="menu-heading-copy">
+                <span>26 POZYCJI</span>
                 <p>
-                    Lubisz konkretny kebab? U nas znajdziesz
-                    świeże składniki, soczyste mięso i sosy,
-                    które robią różnicę.
+                    Od klasycznej tortilli po boxy,
+                    falafel i coś na szybko.
                 </p>
+            </div>
+        </div>
 
-                <p>
-                    Wpadnij do nas na Borowską 103 we Wrocławiu
-                    albo zamów online.
-                </p>
+        <div class="category-tabs">
+            <button class="category-tab active" data-filter="all">WSZYSTKO</button>
+            <button class="category-tab" data-filter="kebab">KEBAB</button>
+            <button class="category-tab" data-filter="vege">WEGE</button>
+            <button class="category-tab" data-filter="box">BOXY</button>
+            <button class="category-tab" data-filter="salad">SAŁATKI</button>
+            <button class="category-tab" data-filter="side">DODATKI</button>
+            <button class="category-tab" data-filter="drink">NAPOJE</button>
+        </div>
 
-                <a
-                    href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/"
-                    class="btn btn-light"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    ZAMÓW ONLINE
+
+        <div class="menu-category" data-category="kebab">
+            <div class="category-title">
+                <span>01</span>
+                <h3>KEBAB</h3>
+            </div>
+
+            <div class="menu-grid">
+
+                <article class="menu-card" data-category="kebab" data-product="Tortilla" data-price="26" data-description="Mięso, surówka, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Tortilla">
+                        <span>01</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Tortilla</h4>
+                            <strong>26 zł</strong>
+                        </div>
+                        <p>Mięso, surówka, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="kebab" data-product="Knysza" data-price="34" data-description="Mięso, surówka, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Knysza">
+                        <span>02</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Knysza</h4>
+                            <strong>34 zł</strong>
+                        </div>
+                        <p>Mięso, surówka, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="kebab" data-product="Rollo amerykańskie" data-price="28" data-description="Mięso, frytki, ser, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Rollo amerykańskie">
+                        <span>03</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Rollo amerykańskie</h4>
+                            <strong>28 zł</strong>
+                        </div>
+                        <p>Mięso, frytki, ser, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="kebab" data-product="Zestaw kebab" data-price="34" data-description="Mięso, surówka, frytki, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Zestaw kebab">
+                        <span>04</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Zestaw kebab</h4>
+                            <strong>34 zł</strong>
+                        </div>
+                        <p>Mięso, surówka, frytki, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="kebab" data-product="Kapsalon" data-price="37" data-description="Mięso, frytki, ser, surówki, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1529259266118-cf22737f713f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Kapsalon">
+                        <span>05</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Kapsalon</h4>
+                            <strong>37 zł</strong>
+                        </div>
+                        <p>Mięso, frytki, ser, surówki, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="kebab" data-product="Zestaw nuggets" data-price="35" data-description="Nuggets, frytki, surówka, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1529259266118-cf22737f713f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Zestaw nuggets">
+                        <span>06</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Zestaw nuggets</h4>
+                            <strong>35 zł</strong>
+                        </div>
+                        <p>Nuggets, frytki, surówka, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="kebab" data-product="Fryto bułka z serem" data-price="38" data-description="Mięso, frytki, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Fryto bułka z serem">
+                        <span>07</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Fryto bułka z serem</h4>
+                            <strong>38 zł</strong>
+                        </div>
+                        <p>Mięso, frytki, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
+
+        <div class="menu-category" data-category="vege">
+            <div class="category-title">
+                <span>02</span>
+                <h3>WEGE</h3>
+            </div>
+
+            <div class="menu-grid">
+
+                <article class="menu-card" data-category="vege" data-product="Knysza falafel" data-price="32" data-description="Falafel, surówka, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1786174045057-89e6449f47d9?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Knysza falafel">
+                        <span>01</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Knysza falafel</h4>
+                            <strong>32 zł</strong>
+                        </div>
+                        <p>Falafel, surówka, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="vege" data-product="Tortilla falafel" data-price="31" data-description="Falafel, surówka, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1786174045057-89e6449f47d9?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Tortilla falafel">
+                        <span>02</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Tortilla falafel</h4>
+                            <strong>31 zł</strong>
+                        </div>
+                        <p>Falafel, surówka, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="vege" data-product="Zestaw falafel" data-price="36" data-description="Falafel, hummus lub frytki, surówka, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1786174045057-89e6449f47d9?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Zestaw falafel">
+                        <span>03</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Zestaw falafel</h4>
+                            <strong>36 zł</strong>
+                        </div>
+                        <p>Falafel, hummus lub frytki, surówka, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="vege" data-product="Zestaw smażony ser" data-price="32" data-description="Ser, frytki, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1529259266118-cf22737f713f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Zestaw smażony ser">
+                        <span>04</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Zestaw smażony ser</h4>
+                            <strong>32 zł</strong>
+                        </div>
+                        <p>Ser, frytki, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="vege" data-product="Zestaw filet mintaja" data-price="36" data-description="Filet, frytki, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1529259266118-cf22737f713f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Zestaw filet mintaja">
+                        <span>05</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Zestaw filet mintaja</h4>
+                            <strong>36 zł</strong>
+                        </div>
+                        <p>Filet, frytki, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
+
+        <div class="menu-category" data-category="box">
+            <div class="category-title">
+                <span>03</span>
+                <h3>BOXY</h3>
+            </div>
+
+            <div class="menu-grid">
+
+                <article class="menu-card" data-category="box" data-product="Box kebab" data-price="29" data-description="Mięso, frytki, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Box kebab">
+                        <span>01</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Box kebab</h4>
+                            <strong>29 zł</strong>
+                        </div>
+                        <p>Mięso, frytki, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="box" data-product="Box nuggets" data-price="28" data-description="Nuggets, frytki, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1529259266118-cf22737f713f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Box nuggets">
+                        <span>02</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Box nuggets</h4>
+                            <strong>28 zł</strong>
+                        </div>
+                        <p>Nuggets, frytki, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
+
+        <div class="menu-category" data-category="salad">
+            <div class="category-title">
+                <span>04</span>
+                <h3>SAŁATKI</h3>
+            </div>
+
+            <div class="menu-grid">
+
+                <article class="menu-card" data-category="salad" data-product="Sałatka grecka" data-price="28" data-description="Mix sałat, oliwki, ser feta.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1786174045057-89e6449f47d9?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Sałatka grecka">
+                        <span>01</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Sałatka grecka</h4>
+                            <strong>28 zł</strong>
+                        </div>
+                        <p>Mix sałat, oliwki, ser feta.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="salad" data-product="Sałatka z mięsem" data-price="36" data-description="Mix sałat, mięso, sos.">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1778168199427-4e839943d20f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=900" alt="Sałatka z mięsem">
+                        <span>02</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h4>Sałatka z mięsem</h4>
+                            <strong>36 zł</strong>
+                        </div>
+                        <p>Mix sałat, mięso, sos.</p>
+                        <button class="order-btn">WYBIERAM <span>+</span></button>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
+
+        <div class="menu-category compact-category" data-category="side">
+            <div class="category-title">
+                <span>05</span>
+                <h3>DODATKI</h3>
+            </div>
+
+            <div class="small-menu-grid">
+
+                <article class="small-menu-card" data-category="side" data-product="Sos" data-price="4" data-description="Wybierz swój ulubiony sos.">
+                    <div>
+                        <span class="small-icon">01</span>
+                        <h4>Sos</h4>
+                        <p>Wybierz swój ulubiony sos.</p>
+                    </div>
+                    <strong>4 zł</strong>
+                    <button class="small-add">+</button>
+                </article>
+
+                <article class="small-menu-card" data-category="side" data-product="Frytki" data-price="15" data-description="Chrupiące frytki.">
+                    <div>
+                        <span class="small-icon">02</span>
+                        <h4>Frytki</h4>
+                        <p>Chrupiące frytki.</p>
+                    </div>
+                    <strong>15 zł</strong>
+                    <button class="small-add">+</button>
+                </article>
+
+                <article class="small-menu-card" data-category="side" data-product="Falafel" data-price="4" data-description="Falafel.">
+                    <div>
+                        <span class="small-icon">03</span>
+                        <h4>Falafel</h4>
+                        <p>Falafel.</p>
+                    </div>
+                    <strong>4 zł</strong>
+                    <button class="small-add">+</button>
+                </article>
+
+            </div>
+        </div>
+
+
+        <div class="menu-category compact-category" data-category="drink">
+            <div class="category-title">
+                <span>06</span>
+                <h3>NAPOJE</h3>
+            </div>
+
+            <div class="drink-grid">
+
+                <article class="drink-card" data-category="drink" data-product="Woda niegazowana" data-price="4" data-description="Woda niegazowana.">
+                    <span>01</span>
+                    <div>
+                        <h4>Woda niegazowana</h4>
+                        <p>Klasyczna woda.</p>
+                    </div>
+                    <strong>4 zł</strong>
+                    <button class="drink-add">+</button>
+                </article>
+
+                <article class="drink-card" data-category="drink" data-product="Woda gazowana" data-price="4" data-description="Woda gazowana.">
+                    <span>02</span>
+                    <div>
+                        <h4>Woda gazowana</h4>
+                        <p>Klasyczna woda.</p>
+                    </div>
+                    <strong>4 zł</strong>
+                    <button class="drink-add">+</button>
+                </article>
+
+                <article class="drink-card" data-category="drink" data-product="Ayran 0,33 l" data-price="9" data-description="Klasyczny turecki napój jogurtowy.">
+                    <span>03</span>
+                    <div>
+                        <h4>Ayran 0,33 l</h4>
+                        <p>Klasyczny turecki napój.</p>
+                    </div>
+                    <strong>9 zł</strong>
+                    <button class="drink-add">+</button>
+                </article>
+
+                <article class="drink-card" data-category="drink" data-product="Coca-Cola" data-price="9" data-description="Coca-Cola.">
+                    <span>04</span>
+                    <div>
+                        <h4>Coca-Cola</h4>
+                        <p>Napój gazowany.</p>
+                    </div>
+                    <strong>9 zł</strong>
+                    <button class="drink-add">+</button>
+                </article>
+
+                <article class="drink-card" data-category="drink" data-product="Pepsi" data-price="9" data-description="Pepsi.">
+                    <span>05</span>
+                    <div>
+                        <h4>Pepsi</h4>
+                        <p>Napój gazowany.</p>
+                    </div>
+                    <strong>9 zł</strong>
+                    <button class="drink-add">+</button>
+                </article>
+
+                <article class="drink-card" data-category="drink" data-product="Mirinda" data-price="9" data-description="Mirinda.">
+                    <span>06</span>
+                    <div>
+                        <h4>Mirinda</h4>
+                        <p>Napój gazowany.</p>
+                    </div>
+                    <strong>9 zł</strong>
+                    <button class="drink-add">+</button>
+                </article>
+
+                <article class="drink-card" data-category="drink" data-product="Sok mango" data-price="10" data-description="Sok mango 0,33 l.">
+                    <span>07</span>
+                    <div>
+                        <h4>Sok mango</h4>
+                        <p>Sok mango 0,33 l.</p>
+                    </div>
+                    <strong>10 zł</strong>
+                    <button class="drink-add">+</button>
+                </article>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="about" id="about">
+    <div class="container about-grid">
+
+        <div class="about-statement">
+            <span class="section-kicker">03 / BOROWSKA KEBAB</span>
+            <h2>
+                PROSTO.<br>
+                ŚWIEŻO.<br>
+                <em>SMACZNIE.</em>
+            </h2>
+        </div>
+
+        <div class="about-content">
+            <div class="about-line"></div>
+            <p class="about-large">
+                Dobry kebab nie potrzebuje wielkich słów.
+                Potrzebuje dobrych składników i konkretnego smaku.
+            </p>
+
+            <p>
+                Wpadnij do nas na Borowską 103 we Wrocławiu.
+                Zamów na miejscu albo online i odbierz to,
+                na co naprawdę masz ochotę.
+            </p>
+
+            <a href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener" class="button button-dark">
+                ZAMÓW ONLINE
+                <span>↗</span>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="contact" id="contact">
+    <div class="container">
+
+        <div class="contact-heading">
+            <span class="section-kicker">04 / GDZIE JESTEŚMY</span>
+            <h2>WPADAJ.<br><em>CZEKAJĄ.</em></h2>
+        </div>
+
+        <div class="contact-grid">
+
+            <div class="contact-info">
+
+                <div class="contact-item">
+                    <span>ADRES</span>
+                    <strong>Borowska 103</strong>
+                    <p>50-551 Wrocław</p>
+                </div>
+
+                <div class="contact-item">
+                    <span>TELEFON</span>
+                    <a href="tel:+48789110260">+48 789 110 260</a>
+                </div>
+
+                <div class="contact-item">
+                    <span>GODZINY</span>
+                    <strong>10:00 — 23:30</strong>
+                    <p>Pt — Sob: 11:00 — 23:30</p>
+                </div>
+
+                <a href="https://www.google.com/maps/search/?api=1&query=Borowska+103+Wrocław" target="_blank" rel="noopener" class="map-button">
+                    OTWÓRZ W MAPACH
+                    <span>↗</span>
                 </a>
 
             </div>
 
-        </div>
+            <div class="map-wrapper">
+                <iframe
+                    src="https://www.google.com/maps?q=Borowska%20103,%2050-551%20Wroc%C5%82aw&output=embed"
+                    loading="lazy"
+                    title="Borowska Kebab na mapie">
+                </iframe>
 
-    </section>
-
-
-    <!-- CONTACT -->
-
-    <section class="contact-section" id="contact">
-
-        <div class="container">
-
-            <div class="section-heading">
-
-                <span>KONTAKT</span>
-
-                <h2>
-                    GDZIE NAS<br>
-                    <strong>ZNAJDZIESZ?</strong>
-                </h2>
-
-            </div>
-
-
-            <div class="contact-grid">
-
-                <div class="contact-info">
-
-                    <div class="contact-item">
-
-                        <span>ADRES</span>
-
-                        <h3>
-                            Borowska 103
-                        </h3>
-
-                        <p>
-                            50-551 Wrocław
-                        </p>
-
-                    </div>
-
-
-                    <div class="contact-item">
-
-                        <span>TELEFON</span>
-
-                        <h3>
-                            +48 789 110 260
-                        </h3>
-
-                    </div>
-
-
-                    <div class="contact-item">
-
-                        <span>ZAMÓWIENIA ONLINE</span>
-
-                        <a
-                            href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/"
-                            class="online-link"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            OTWÓRZ BOLT FOOD →
-                        </a>
-
-                    </div>
-
-
-                    <a
-                        href="https://www.google.com/maps/search/?api=1&query=Borowska+103,+Wrocław"
-                        class="btn btn-dark"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        OTWÓRZ GOOGLE MAPS
-                    </a>
-
+                <div class="map-label">
+                    <span class="map-dot"></span>
+                    BOROWSKA 103
                 </div>
-
-
-                <div class="map-container">
-
-                    <iframe
-                        src="https://www.google.com/maps?q=Borowska%20103,%20Wrocław&output=embed"
-                        loading="lazy"
-                        allowfullscreen
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-
-                </div>
-
             </div>
 
         </div>
 
-    </section>
+    </div>
+</section>
 
 </main>
 
 
 <footer class="footer">
-
-    <div class="container footer-content">
+    <div class="container footer-top">
 
         <div class="footer-logo">
-            BOROWSKA <span>KEBAB</span>
+            <span>BOROWSKA</span>
+            <strong>KEBAB</strong>
         </div>
 
-        <p>
-            © 2026 Borowska Kebab. Wrocław.
-        </p>
-
-        <a
-            href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            ZAMÓW ONLINE →
-        </a>
+        <div class="footer-links">
+            <a href="#menu">MENU</a>
+            <a href="#about">O NAS</a>
+            <a href="#contact">KONTAKT</a>
+            <a href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener">ZAMÓW ONLINE ↗</a>
+        </div>
 
     </div>
 
+    <div class="container footer-bottom">
+        <span>© 2026 BOROWSKA KEBAB</span>
+        <span>WROCŁAW • POLSKA</span>
+    </div>
 </footer>
+
+
+<div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" id="mobileClose">×</button>
+
+    <a href="#menu">MENU</a>
+    <a href="#about">O NAS</a>
+    <a href="#contact">KONTAKT</a>
+
+    <a href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener" class="mobile-order">
+        ZAMÓW ONLINE ↗
+    </a>
+</div>
+
+
+<div class="modal-overlay" id="productModal">
+    <div class="product-modal">
+
+        <button class="modal-close" id="modalClose">×</button>
+
+        <div class="modal-header">
+            <span>TWÓJ WYBÓR</span>
+            <h2 id="modalProductName">Tortilla</h2>
+            <p id="modalProductDescription">Mięso, surówka, sos.</p>
+        </div>
+
+        <div class="option-group" id="meatGroup">
+            <label>MIĘSO</label>
+
+            <div class="option-buttons">
+                <button class="option active" data-option="Kurczak">Kurczak</button>
+                <button class="option" data-option="Wołowina">Wołowina</button>
+                <button class="option" data-option="Mieszane">Mieszane</button>
+            </div>
+        </div>
+
+        <div class="option-group">
+            <label>SOS</label>
+
+            <div class="option-buttons">
+                <button class="option active" data-option="Czosnkowy">Czosnkowy</button>
+                <button class="option" data-option="Łagodny">Łagodny</button>
+                <button class="option" data-option="Ostry">Ostry</button>
+                <button class="option" data-option="Mieszany">Mieszany</button>
+            </div>
+        </div>
+
+        <div class="option-group">
+            <label>DODATKI</label>
+
+            <div class="addon-list">
+                <label class="addon">
+                    <input type="checkbox" data-name="Frytki" data-price="15">
+                    <span>Frytki</span>
+                    <strong>+15 zł</strong>
+                </label>
+
+                <label class="addon">
+                    <input type="checkbox" data-name="Sos" data-price="4">
+                    <span>Dodatkowy sos</span>
+                    <strong>+4 zł</strong>
+                </label>
+
+                <label class="addon">
+                    <input type="checkbox" data-name="Falafel" data-price="4">
+                    <span>Falafel</span>
+                    <strong>+4 zł</strong>
+                </label>
+            </div>
+        </div>
+
+        <div class="modal-bottom">
+
+            <div class="quantity">
+                <button id="quantityMinus">−</button>
+                <span id="quantityValue">1</span>
+                <button id="quantityPlus">+</button>
+            </div>
+
+            <button class="add-to-cart" id="addToCart">
+                DODAJ DO KOSZYKA
+                <strong id="modalTotal">26 zł</strong>
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<aside class="cart-drawer" id="cartDrawer">
+
+    <div class="cart-header">
+        <div>
+            <span>TWÓJ</span>
+            <h2>KOSZYK</h2>
+        </div>
+
+        <button id="cartClose">×</button>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+        <div class="empty-cart">
+            <span>🛒</span>
+            <h3>Koszyk jest pusty</h3>
+            <p>Dodaj coś dobrego z menu.</p>
+            <button id="goToMenu">ZOBACZ MENU</button>
+        </div>
+    </div>
+
+    <div class="cart-footer">
+        <div class="cart-total">
+            <span>RAZEM</span>
+            <strong id="cartTotal">0 zł</strong>
+        </div>
+
+        <a href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener" class="checkout-button">
+            PRZEJDŹ DO ZAMÓWIENIA
+            <span>↗</span>
+        </a>
+
+        <small>Zamówienie finalizowane przez Bolt Food.</small>
+    </div>
+
+</aside>
+
+
+<div class="toast" id="toast">
+    <span>✓</span>
+    <div>
+        <strong>Dodano do koszyka</strong>
+        <small id="toastText">Tortilla</small>
+    </div>
+</div>
 
 
 <script src="script.js"></script>
