@@ -12,6 +12,9 @@
     --font-display: "Barlow Condensed", sans-serif;
     --font-body: "Inter", sans-serif;
     --ease: cubic-bezier(.19, 1, .22, 1);
+    --header-height: 82px;
+    --header-height-scrolled: 70px;
+    --header-height-mobile: 68px;
 }
 
 * {
@@ -22,6 +25,8 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 body {
@@ -29,6 +34,8 @@ body {
     color: var(--black);
     font-family: var(--font-body);
     overflow-x: hidden;
+    width: 100%;
+    padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 a {
@@ -40,12 +47,29 @@ button {
     font-family: inherit;
 }
 
+img {
+    max-width: 100%;
+}
+
+/* Prevent long words/headings from ever bleeding over their container
+   (this was the main cause of text overlapping images on narrow screens) */
+h1, h2, h3, h4, p, span, a, button {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Anchor targets: offset scroll position so content isn't hidden
+   behind the fixed header when jumping to #menu / #onas / #kontakt */
+#menu, #onas, #kontakt {
+    scroll-margin-top: var(--header-height);
+}
+
 .site-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 82px;
+    height: var(--header-height);
     z-index: 1000;
     background: rgba(243, 240, 233, 0.96);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -54,7 +78,7 @@ button {
 }
 
 .site-header.scrolled {
-    height: 70px;
+    height: var(--header-height-scrolled);
 }
 
 .header-inner {
@@ -177,6 +201,7 @@ button {
 .hero-media {
     position: relative;
     overflow: hidden;
+    min-width: 0;
 }
 
 .hero-media img {
@@ -200,6 +225,7 @@ button {
     justify-content: center;
     gap: 22px;
     color: white;
+    min-width: 0;
 }
 
 .hero-label {
@@ -217,6 +243,7 @@ button {
     width: 35px;
     height: 3px;
     background: var(--red);
+    flex-shrink: 0;
 }
 
 .hero-title {
@@ -280,7 +307,7 @@ button {
 .hero-bottom {
     width: 100%;
     min-height: 54px;
-    padding: 0 35px;
+    padding: 10px 35px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -290,6 +317,8 @@ button {
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 2px;
+    flex-wrap: wrap;
+    text-align: center;
 }
 
 
@@ -300,6 +329,7 @@ button {
 .final-cta {
     width: min(1400px, calc(100% - 70px));
     margin: auto;
+    max-width: 100%;
 }
 
 .eyebrow {
@@ -338,6 +368,7 @@ button {
 .promo-image {
     min-height: 540px;
     overflow: hidden;
+    min-width: 0;
 }
 
 .promo-image img {
@@ -358,6 +389,7 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0;
 }
 
 .promo-tag {
@@ -411,6 +443,7 @@ button {
     justify-content: space-between;
     align-items: end;
     margin-bottom: 42px;
+    gap: 20px;
 }
 
 .section-heading p {
@@ -522,6 +555,7 @@ button {
     font-size: 8px;
     font-weight: 900;
     letter-spacing: 1.4px;
+    max-width: calc(100% - 32px);
 }
 
 .card-badge.red {
@@ -545,6 +579,7 @@ button {
     font-size: 24px;
     line-height: .95;
     font-weight: 800;
+    min-width: 0;
 }
 
 .card-top strong {
@@ -612,6 +647,7 @@ button {
     gap: 12px;
     padding: 9px;
     transition: .3s var(--ease);
+    min-width: 0;
 }
 
 .sauce-card:hover {
@@ -672,6 +708,7 @@ button {
     align-items: center;
     justify-content: space-between;
     gap: 40px;
+    flex-wrap: wrap;
 }
 
 .final-cta h2 {
@@ -717,10 +754,11 @@ footer {
     color: #aaa69e;
     font-size: 11px;
     line-height: 1.5;
+    min-width: 0;
 }
 
 .footer-column strong,
-.footer-column a {
+.footer-column > a {
     color: white;
     font-size: 14px;
     font-weight: 700;
@@ -737,7 +775,7 @@ footer {
 .footer-bottom {
     width: min(1400px, calc(100% - 70px));
     margin: auto;
-    padding: 18px 0;
+    padding: 18px 0 calc(18px + env(safe-area-inset-bottom, 0));
     border-top: 1px solid #292929;
     display: flex;
     justify-content: space-between;
@@ -745,6 +783,136 @@ footer {
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 1.3px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+
+/* ADRES — rozwijana animacja "jak dojechać" */
+
+.address-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+}
+
+.address-toggle-text {
+    color: #aaa69e;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.address-toggle-text strong {
+    display: block;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.address-arrow {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #3a3a3a;
+    border-radius: 50%;
+    color: var(--red);
+    font-size: 13px;
+    transition: transform .35s var(--ease), background .3s var(--ease),
+        border-color .3s var(--ease), color .3s var(--ease);
+}
+
+.address-toggle:hover .address-arrow {
+    border-color: var(--red);
+    background: var(--red);
+    color: white;
+}
+
+.address-toggle[aria-expanded="true"] .address-arrow {
+    transform: rotate(90deg);
+}
+
+.address-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 0;
+    transition: max-height .45s var(--ease), opacity .35s var(--ease), margin-top .45s var(--ease);
+}
+
+.address-panel.open {
+    max-height: 140px;
+    opacity: 1;
+    margin-top: 14px;
+}
+
+.address-panel p {
+    color: #85827c;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.directions-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    background: var(--red);
+    color: white;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+    transition: .25s var(--ease);
+}
+
+.directions-button:hover {
+    background: white;
+    color: var(--black);
+    transform: translateY(-2px);
+}
+
+
+/* OCEŃ NAS */
+
+.review-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+    height: 44px;
+    padding: 0 18px;
+    background: transparent;
+    border: 1px solid #3a3a3a;
+    color: white;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+    transition: .25s var(--ease);
+    width: fit-content;
+}
+
+.review-button span {
+    color: #ffc635;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.review-button:hover {
+    background: var(--red);
+    border-color: var(--red);
+    transform: translateY(-2px);
 }
 
 
@@ -922,7 +1090,7 @@ footer {
     position: fixed;
     z-index: 1500;
     right: 25px;
-    bottom: 25px;
+    bottom: calc(25px + env(safe-area-inset-bottom, 0));
     height: 54px;
     padding: 0 14px 0 18px;
     display: flex;
@@ -963,6 +1131,7 @@ footer {
     right: -450px;
     width: min(430px, 100%);
     height: 100vh;
+    height: 100dvh;
     background: var(--cream);
     box-shadow: -20px 0 60px rgba(0,0,0,.18);
     transition: .4s var(--ease);
@@ -1064,6 +1233,7 @@ footer {
 
 .cart-footer {
     padding: 20px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0));
     background: white;
     border-top: 1px solid var(--line);
 }
@@ -1141,6 +1311,11 @@ footer {
 /* RESPONSIVE */
 
 @media (max-width: 1050px) {
+
+    :root {
+        --header-height: var(--header-height-mobile);
+    }
+
     .main-nav {
         gap: 20px;
     }
@@ -1200,7 +1375,7 @@ footer {
 @media (max-width: 750px) {
 
     .site-header {
-        height: 68px;
+        height: var(--header-height-mobile);
     }
 
     .header-inner {
@@ -1218,7 +1393,7 @@ footer {
 
     .mobile-nav {
         position: absolute;
-        top: 68px;
+        top: var(--header-height-mobile);
         left: 0;
         width: 100%;
         padding: 15px;
@@ -1226,6 +1401,8 @@ footer {
         border-bottom: 1px solid var(--line);
         flex-direction: column;
         gap: 4px;
+        max-height: calc(100vh - var(--header-height-mobile));
+        overflow-y: auto;
     }
 
     .mobile-nav.open {
@@ -1245,29 +1422,30 @@ footer {
     }
 
     .hero-media img {
-        height: 260px;
+        height: 240px;
+        object-position: center 60%;
     }
 
     .hero-panel {
-        padding: 36px 20px 42px;
-        gap: 18px;
+        padding: 32px 20px 40px;
+        gap: 16px;
     }
 
     .hero-title {
-        font-size: 30px;
+        font-size: 28px;
     }
 
     .hero-text {
         font-size: 14px;
+        max-width: 100%;
     }
 
     .hero-bottom {
-        padding: 0 15px;
-        gap: 8px;
+        padding: 10px 15px;
+        gap: 6px 10px;
         font-size: 7px;
         letter-spacing: 1px;
         text-align: center;
-        flex-wrap: wrap;
     }
 
     .menu-section,
@@ -1278,23 +1456,31 @@ footer {
 
     .section-heading h2,
     .final-cta h2 {
-        font-size: 60px;
+        font-size: 52px;
     }
 
     .promo-image {
-        min-height: 320px;
+        min-height: 260px;
+    }
+
+    .promo-content {
+        padding: 45px 6%;
     }
 
     .promo-content h2 {
-        font-size: 76px;
+        font-size: 64px;
     }
 
     .promo-content h3 {
-        font-size: 32px;
+        font-size: 26px;
+    }
+
+    .promo-content p {
+        max-width: 100%;
     }
 
     .menu-section {
-        padding: 70px 0;
+        padding: 60px 0;
     }
 
     .section-heading {
@@ -1316,7 +1502,7 @@ footer {
 
     .menu-card.wide .card-image,
     .card-image {
-        height: 260px;
+        height: 220px;
     }
 
     .sauce-grid {
@@ -1324,19 +1510,20 @@ footer {
     }
 
     .final-cta {
-        padding: 45px 25px;
+        padding: 40px 25px;
         display: block;
     }
 
     .final-cta .button {
         margin-top: 30px;
+        width: 100%;
     }
 
     .footer-main {
         width: calc(100% - 30px);
         grid-template-columns: 1fr;
-        padding: 55px 0;
-        gap: 35px;
+        padding: 50px 0;
+        gap: 36px;
     }
 
     .footer-bottom {
@@ -1354,12 +1541,12 @@ footer {
     }
 
     .modal-content h2 {
-        font-size: 44px;
+        font-size: 40px;
     }
 
     .modal-image {
-        min-height: 230px;
-        max-height: 230px;
+        min-height: 200px;
+        max-height: 200px;
     }
 
     .modal-bottom {
@@ -1378,6 +1565,21 @@ footer {
 
     .cart-button {
         right: 15px;
-        bottom: 15px;
+        bottom: calc(15px + env(safe-area-inset-bottom, 0));
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 24px;
+    }
+
+    .promo-content h2 {
+        font-size: 52px;
+    }
+
+    .section-heading h2,
+    .final-cta h2 {
+        font-size: 42px;
     }
 }
