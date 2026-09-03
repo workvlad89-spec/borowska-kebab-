@@ -198,6 +198,51 @@
     max-width:52ch;
   }
 
+  /* ---------- Promo banner ---------- */
+  .promo{
+    padding:64px 0;
+    background:var(--cream-dim);
+    border-top:1px solid var(--line-dark);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .promo-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:44px;
+    align-items:center;
+  }
+  .promo-visual{
+    border-radius:var(--radius);
+    overflow:hidden;
+    aspect-ratio:4/3;
+    border:1px solid var(--line-dark);
+  }
+  .promo-visual img{width:100%; height:100%; object-fit:cover;}
+  .promo-badge{
+    display:inline-block;
+    background:var(--red);
+    color:var(--cream);
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    padding:6px 14px;
+    border-radius:var(--radius);
+    margin-bottom:16px;
+  }
+  .promo h2{
+    font-size:clamp(1.6rem, 2.8vw, 2.1rem);
+    text-transform:uppercase;
+    color:var(--ink);
+  }
+  .promo h2 em{font-style:normal; color:var(--red);}
+  .promo p{
+    margin-top:14px;
+    color:var(--ink-soft);
+    opacity:0.8;
+    max-width:52ch;
+  }
+
   /* ---------- Menu ---------- */
   .menu{
     padding:96px 0;
@@ -266,6 +311,9 @@
     white-space:nowrap;
     text-align:right;
   }
+  .dish--simple{
+    grid-template-columns:1fr auto;
+  }
 
   /* ---------- Story / CTA band ---------- */
   .story{
@@ -278,6 +326,9 @@
     grid-template-columns:0.85fr 1.15fr;
     gap:56px;
     align-items:center;
+  }
+  .story-grid.reverse{
+    grid-template-columns:1.15fr 0.85fr;
   }
   .story-visual{
     border-radius:var(--radius);
@@ -368,8 +419,10 @@
   @media (max-width:860px){
     .hero-grid{grid-template-columns:1fr; gap:40px;}
     .hero-visual{aspect-ratio:16/10; order:-1;}
-    .story-grid{grid-template-columns:1fr;}
+    .story-grid, .story-grid.reverse{grid-template-columns:1fr;}
     .story-visual{aspect-ratio:16/9;}
+    .promo-grid{grid-template-columns:1fr; gap:28px;}
+    .promo-visual{aspect-ratio:16/9;}
     .contact-grid{grid-template-columns:1fr;}
     .map-frame{aspect-ratio:16/10;}
   }
@@ -408,6 +461,14 @@
     .dish-price{
       grid-column:2;
       text-align:left;
+    }
+    .dish--simple{
+      grid-template-columns:1fr auto;
+      grid-template-rows:auto;
+    }
+    .dish--simple .dish-price{
+      grid-column:auto;
+      text-align:right;
     }
     .section-head{margin-bottom:36px;}
     .category{margin-bottom:48px;}
@@ -451,8 +512,21 @@
       </div>
     </div>
     <div class="hero-visual">
-      <img src="https://images.unsplash.com/photo-1633436375153-d7045cb93e38?q=80&w=900&auto=format&fit=crop" alt="Świeżo przygotowany kebab z warzywami">
+      <img src="images/BOROWSKA-KEBAB_Cover.jpg" alt="Borowska Kebab — świeżo przygotowany kebab">
       <div class="hero-tag">Grillowane <b>na żywym ogniu</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="promo" id="promo">
+  <div class="wrap promo-grid">
+    <div class="promo-visual">
+      <img src="images/promo.jpg" alt="Promocja dla studentów i gości Aquaparku Wrocław">
+    </div>
+    <div>
+      <span class="promo-badge">Promocja</span>
+      <h2>Zniżka dla studentów<br>i gości <em>Aquaparku.</em></h2>
+      <p>Masz legitymację studencką albo wracasz z Aquaparku Wrocław? Pokaż nam ją przy zamówieniu i skorzystaj ze specjalnej ceny. Sprawdź szczegóły promocji na miejscu.</p>
     </div>
   </div>
 </section>
@@ -472,37 +546,37 @@
       </div>
       <div class="dish-list">
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?q=80&w=300&auto=format&fit=crop" alt="Tortilla kebab"></div>
+          <div class="dish-thumb"><img src="images/1tortilla.jpg" alt="Tortilla kebab"></div>
           <div class="dish-info"><h4>Tortilla</h4><p>Mięso, surówka, sos.</p></div>
           <div class="dish-price">26 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1633436375153-d7045cb93e38?q=80&w=300&auto=format&fit=crop" alt="Knysza kebab"></div>
+          <div class="dish-thumb"><img src="images/BOROWSKA-KEBAB_CloseUp.jpg" alt="Knysza kebab"></div>
           <div class="dish-info"><h4>Knysza</h4><p>Mięso, surówka, sos.</p></div>
           <div class="dish-price">34 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=300&auto=format&fit=crop" alt="American Rollo"></div>
+          <div class="dish-thumb"><img src="images/frytotortilla.jpg" alt="American Rollo"></div>
           <div class="dish-info"><h4>American Rollo</h4><p>Mięso, frytki, ser, sos.</p></div>
           <div class="dish-price">28 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=300&auto=format&fit=crop" alt="Zestaw Kebab"></div>
+          <div class="dish-thumb"><img src="images/zestaw-kebab-mieszane.jpg" alt="Zestaw Kebab"></div>
           <div class="dish-info"><h4>Zestaw Kebab</h4><p>Mięso, surówka, frytki, sos.</p></div>
           <div class="dish-price">34 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=300&auto=format&fit=crop" alt="Kapsalon"></div>
+          <div class="dish-thumb"><img src="images/kapsalon.jpg" alt="Kapsalon"></div>
           <div class="dish-info"><h4>Kapsalon</h4><p>Mięso, frytki, ser, surówki, sos.</p></div>
           <div class="dish-price">37 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=300&auto=format&fit=crop" alt="Zestaw Nuggets"></div>
+          <div class="dish-thumb"><img src="images/zestaw-nuggets.jpg" alt="Zestaw Nuggets"></div>
           <div class="dish-info"><h4>Zestaw Nuggets</h4><p>Nuggetsy, frytki, surówka, sos.</p></div>
           <div class="dish-price">35 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=300&auto=format&fit=crop" alt="Fry bułka z serem"></div>
+          <div class="dish-thumb"><img src="images/bulka.jpg" alt="Fry bułka z serem"></div>
           <div class="dish-info"><h4>Fry Bułka z Serem</h4><p>Mięso, frytki, ser, sos.</p></div>
           <div class="dish-price">38 zł</div>
         </div>
@@ -516,27 +590,27 @@
       </div>
       <div class="dish-list">
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1593001872095-7d5b3868fb1d?q=80&w=300&auto=format&fit=crop" alt="Falafel Knysza"></div>
+          <div class="dish-thumb"><img src="images/falafel.jpg" alt="Falafel Knysza"></div>
           <div class="dish-info"><h4>Falafel Knysza</h4><p>Falafel, surówka, sos.</p></div>
           <div class="dish-price">32 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1547584370-2cc98b8b8dc8?q=80&w=300&auto=format&fit=crop" alt="Falafel Tortilla"></div>
+          <div class="dish-thumb"><img src="images/falafel.jpg" alt="Falafel Tortilla"></div>
           <div class="dish-info"><h4>Falafel Tortilla</h4><p>Falafel, surówka, sos.</p></div>
           <div class="dish-price">31 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1615937691194-97dbd3f3dc29?q=80&w=300&auto=format&fit=crop" alt="Zestaw Falafel"></div>
+          <div class="dish-thumb"><img src="images/zestaw-falafel.jpg" alt="Zestaw Falafel"></div>
           <div class="dish-info"><h4>Zestaw Falafel</h4><p>Falafel, hummus lub frytki, surówka, sos.</p></div>
           <div class="dish-price">36 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=300&auto=format&fit=crop" alt="Zestaw Smażony Ser"></div>
+          <div class="dish-thumb"><img src="images/BOROWSKA-KEBAB_CloseUp.jpg" alt="Zestaw Smażony Ser"></div>
           <div class="dish-info"><h4>Zestaw Smażony Ser</h4><p>Ser, frytki, sos.</p></div>
           <div class="dish-price">32 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=300&auto=format&fit=crop" alt="Zestaw Filet Mintaja"></div>
+          <div class="dish-thumb"><img src="images/BOROWSKA-KEBAB_CloseUp.jpg" alt="Zestaw Filet Mintaja"></div>
           <div class="dish-info"><h4>Zestaw Filet Mintaja</h4><p>Filet, frytki, sos.</p></div>
           <div class="dish-price">36 zł</div>
         </div>
@@ -550,12 +624,12 @@
       </div>
       <div class="dish-list">
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=300&auto=format&fit=crop" alt="Kebab Box"></div>
+          <div class="dish-thumb"><img src="images/kebab-box.jpg" alt="Kebab Box"></div>
           <div class="dish-info"><h4>Kebab Box</h4><p>Mięso, frytki, sos.</p></div>
           <div class="dish-price">29 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1562967916-eb82221dfb92?q=80&w=300&auto=format&fit=crop" alt="Nuggets Box"></div>
+          <div class="dish-thumb"><img src="images/zestaw-nuggets.jpg" alt="Nuggets Box"></div>
           <div class="dish-info"><h4>Nuggets Box</h4><p>Nuggetsy, frytki, sos.</p></div>
           <div class="dish-price">28 zł</div>
         </div>
@@ -569,12 +643,12 @@
       </div>
       <div class="dish-list">
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=300&auto=format&fit=crop" alt="Sałatka Grecka"></div>
+          <div class="dish-thumb"><img src="images/salatka-grecka.jpg" alt="Sałatka Grecka"></div>
           <div class="dish-info"><h4>Sałatka Grecka</h4><p>Mix sałat, oliwki, ser feta.</p></div>
           <div class="dish-price">28 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1546793665-c74683f339c1?q=80&w=300&auto=format&fit=crop" alt="Sałatka z Mięsem"></div>
+          <div class="dish-thumb"><img src="images/salatka-z-miesem.jpg" alt="Sałatka z Mięsem"></div>
           <div class="dish-info"><h4>Sałatka z Mięsem</h4><p>Mix sałat, mięso, sos.</p></div>
           <div class="dish-price">36 zł</div>
         </div>
@@ -588,17 +662,17 @@
       </div>
       <div class="dish-list">
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=300&auto=format&fit=crop" alt="Frytki"></div>
+          <div class="dish-thumb"><img src="images/frytki.jpg" alt="Frytki"></div>
           <div class="dish-info"><h4>Frytki</h4><p>Dodatkowa porcja frytek.</p></div>
           <div class="dish-price">15 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1608219992759-8d74ed8d76eb?q=80&w=300&auto=format&fit=crop" alt="Sos"></div>
+          <div class="dish-thumb"><img src="images/sos-czosnkowy.jpg" alt="Sos"></div>
           <div class="dish-info"><h4>Sos</h4><p>Dodatkowa porcja sosu.</p></div>
           <div class="dish-price">4 zł</div>
         </div>
         <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1593001872095-7d5b3868fb1d?q=80&w=300&auto=format&fit=crop" alt="Falafel"></div>
+          <div class="dish-thumb"><img src="images/falafel.jpg" alt="Falafel"></div>
           <div class="dish-info"><h4>Falafel</h4><p>Dodatkowa porcja falafela.</p></div>
           <div class="dish-price">4 zł</div>
         </div>
@@ -611,38 +685,31 @@
         <span class="category-count">7 pozycji</span>
       </div>
       <div class="dish-list">
-        <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?q=80&w=300&auto=format&fit=crop" alt="Woda niegazowana"></div>
+        <div class="dish dish--simple">
           <div class="dish-info"><h4>Woda Niegazowana</h4><p>Dostępne różne pojemności.</p></div>
           <div class="dish-price">4 zł</div>
         </div>
-        <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?q=80&w=300&auto=format&fit=crop" alt="Woda gazowana"></div>
+        <div class="dish dish--simple">
           <div class="dish-info"><h4>Woda Gazowana</h4><p>Dostępne różne pojemności.</p></div>
           <div class="dish-price">4 zł</div>
         </div>
-        <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1601924582970-9238bcb495d9?q=80&w=300&auto=format&fit=crop" alt="Ayran"></div>
+        <div class="dish dish--simple">
           <div class="dish-info"><h4>Ayran 0,33 l</h4><p>Klasyczny turecki napój jogurtowy.</p></div>
           <div class="dish-price">9 zł</div>
         </div>
-        <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1554866585-cd94860890b7?q=80&w=300&auto=format&fit=crop" alt="Coca-Cola"></div>
+        <div class="dish dish--simple">
           <div class="dish-info"><h4>Coca-Cola</h4><p>Dostępne różne pojemności.</p></div>
           <div class="dish-price">9 zł</div>
         </div>
-        <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1624517452488-04869289c4ca?q=80&w=300&auto=format&fit=crop" alt="Pepsi"></div>
+        <div class="dish dish--simple">
           <div class="dish-info"><h4>Pepsi</h4><p>Dostępne różne pojemności.</p></div>
           <div class="dish-price">9 zł</div>
         </div>
-        <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1624517452488-04869289c4ca?q=80&w=300&auto=format&fit=crop" alt="Mirinda"></div>
+        <div class="dish dish--simple">
           <div class="dish-info"><h4>Mirinda</h4><p>Dostępne różne pojemności.</p></div>
           <div class="dish-price">9 zł</div>
         </div>
-        <div class="dish">
-          <div class="dish-thumb"><img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?q=80&w=300&auto=format&fit=crop" alt="Sok mango"></div>
+        <div class="dish dish--simple">
           <div class="dish-info"><h4>Sok Mango</h4><p>Sok mango 0,33 l.</p></div>
           <div class="dish-price">10 zł</div>
         </div>
@@ -655,15 +722,28 @@
 <section class="story" id="about">
   <div class="wrap story-grid">
     <div class="story-visual">
-      <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=800&auto=format&fit=crop" alt="Przygotowanie kebaba na grillu">
+      <img src="images/hero.jpg" alt="Zespół Borowska Kebab przy pracy">
     </div>
     <div>
-      <span class="kicker">Borowska Kebab</span>
-      <h2>Prosto. Świeżo. <em>Smacznie.</em></h2>
-      <p>Lubisz konkretny kebab? U nas znajdziesz świeże składniki, soczyste mięso i sosy, które robią różnicę. Wpadnij do nas na Borowską 103 we Wrocławiu albo zamów online.</p>
+      <span class="kicker">O nas</span>
+      <h2>Kim jesteśmy <em>i co robimy.</em></h2>
+      <p>Borowska Kebab to punkt przy Borowskiej 103 we Wrocławiu, prowadzony przez ludzi, którzy sami lubią dobrze zjeść. Gotujemy na miejscu — świeże mięso z grilla, chrupiące warzywa i sosy robione od podstaw, bez pośpiechu i bez skrótów. Zależy nam na tym, żeby każda porcja smakowała tak samo dobrze jak ta poprzednia.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener">Zamów online</a>
+        <a class="btn btn-primary" href="#menu">Zobacz menu</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="quality" style="background:var(--ink-soft);">
+  <div class="wrap story-grid reverse">
+    <div>
+      <span class="kicker">Jakość</span>
+      <h2>Mięso, które <em>traktujemy poważnie.</em></h2>
+      <p>W Borowska Kebab mięso kroimy ręcznie i na bieżąco, przez cały dzień — nie raz rano na zapas. Dzięki temu każda porcja ma odpowiednią teksturę, jest soczysta i trafia na grill świeża. To detal, który łatwo pominąć, ale właśnie on robi największą różnicę w smaku.</p>
+    </div>
+    <div class="story-visual">
+      <img src="images/photo_2026-09-03_11-59-41.jpg" alt="Pracownik dokładnie kroi mięso na kebab">
     </div>
   </div>
 </section>
