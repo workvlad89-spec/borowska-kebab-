@@ -1583,3 +1583,616 @@ footer {
         font-size: 42px;
     }
 }
+
+/* =========================================================
+   FINAL RESPONSIVE FIXES
+   Mobile layout is intentionally single-column and fluid.
+   ========================================================= */
+
+.review-header-button {
+    height: 48px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid #cfcac1;
+    color: var(--black);
+    background: transparent;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    transition: .25s var(--ease);
+}
+
+.review-header-button:hover {
+    background: var(--black);
+    border-color: var(--black);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.mobile-review-link {
+    background: var(--black);
+    color: white;
+}
+
+.mobile-review-link:hover {
+    background: var(--red);
+    color: white;
+}
+
+/* Prevent any grid/flex child from forcing horizontal overflow. */
+.hero-grid,
+.promo-section,
+.menu-grid,
+.sauce-grid,
+.footer-main,
+.footer-bottom,
+.modal-box,
+.card-top,
+.modal-bottom {
+    min-width: 0;
+}
+
+.hero-panel,
+.promo-content,
+.card-content,
+.footer-brand,
+.footer-column,
+.modal-content {
+    min-width: 0;
+    max-width: 100%;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Tablet */
+@media (max-width: 1050px) {
+    .header-inner {
+        gap: 18px;
+    }
+
+    .review-header-button {
+        margin-left: auto;
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-media {
+        width: 100%;
+        height: auto;
+    }
+
+    .hero-media img {
+        width: 100%;
+        height: clamp(280px, 48vw, 420px);
+        object-fit: cover;
+        display: block;
+    }
+
+    .hero-panel {
+        width: 100%;
+        padding: 50px 6%;
+    }
+
+    .promo-section {
+        grid-template-columns: 1fr;
+    }
+
+    .promo-image {
+        width: 100%;
+        min-height: 0;
+        height: clamp(280px, 55vw, 460px);
+    }
+
+    .promo-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .menu-card.wide {
+        grid-column: span 2;
+    }
+}
+
+/* Phones */
+@media (max-width: 750px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .site-header {
+        height: var(--header-height-mobile);
+    }
+
+    .header-inner {
+        width: calc(100% - 24px);
+        gap: 10px;
+    }
+
+    .logo {
+        min-width: 0;
+    }
+
+    .logo span {
+        font-size: 21px;
+    }
+
+    .logo strong {
+        font-size: 15px;
+    }
+
+    .review-header-button,
+    .order-button,
+    .main-nav {
+        display: none;
+    }
+
+    .mobile-menu-button {
+        display: block;
+        flex-shrink: 0;
+    }
+
+    .mobile-nav {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* HERO */
+    .hero-grid {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-media {
+        order: 1;
+        width: 100%;
+        height: 230px;
+        min-height: 0;
+        flex: 0 0 230px;
+    }
+
+    .hero-media img {
+        width: 100%;
+        height: 230px;
+        min-height: 230px;
+        max-height: 230px;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    .hero-panel {
+        order: 2;
+        width: 100%;
+        padding: 30px 18px 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        overflow: visible;
+    }
+
+    .hero-label {
+        max-width: 100%;
+        line-height: 1.4;
+    }
+
+    .hero-title {
+        max-width: 100%;
+        font-size: clamp(30px, 10vw, 42px);
+        line-height: .9;
+        letter-spacing: -1px;
+    }
+
+    .hero-text {
+        width: 100%;
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .hero-actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hero-actions .button {
+        width: 100%;
+        min-height: 50px;
+    }
+
+    .hero-bottom {
+        position: relative;
+        width: 100%;
+        min-height: 0;
+        padding: 12px 14px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 5px 8px;
+        line-height: 1.35;
+    }
+
+    /* PROMOTION */
+    .promo-section {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .promo-image {
+        width: 100%;
+        height: 250px;
+        min-height: 250px;
+        flex: 0 0 250px;
+    }
+
+    .promo-image img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .promo-content {
+        width: 100%;
+        padding: 38px 20px 42px;
+        overflow: visible;
+    }
+
+    .promo-tag {
+        margin-bottom: 16px;
+    }
+
+    .promo-content h2 {
+        font-size: clamp(64px, 20vw, 86px);
+        line-height: .72;
+    }
+
+    .promo-content h3 {
+        font-size: clamp(26px, 8vw, 34px);
+        line-height: .95;
+    }
+
+    .promo-content p {
+        width: 100%;
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .promo-actions,
+    .promo-actions .button {
+        width: 100%;
+    }
+
+    /* MENU */
+    .menu-section,
+    .sauces-section,
+    .final-cta {
+        width: calc(100% - 24px);
+        max-width: none;
+    }
+
+    .menu-section {
+        padding: 55px 0;
+    }
+
+    .section-heading {
+        width: 100%;
+        display: block;
+        margin-bottom: 28px;
+    }
+
+    .section-heading h2,
+    .final-cta h2 {
+        font-size: clamp(50px, 16vw, 72px);
+        line-height: .84;
+        max-width: 100%;
+    }
+
+    .section-heading p {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 18px;
+        text-align: left;
+        line-height: 1.6;
+    }
+
+    .menu-filters {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+        margin-bottom: 24px;
+    }
+
+    .filter {
+        width: 100%;
+        min-width: 0;
+        padding: 12px 8px;
+        text-align: center;
+        white-space: normal;
+        line-height: 1.2;
+    }
+
+    .menu-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .menu-card,
+    .menu-card.wide {
+        width: 100%;
+        min-width: 0;
+        grid-column: auto;
+    }
+
+    .card-image,
+    .menu-card.wide .card-image {
+        width: 100%;
+        height: 220px;
+        min-height: 220px;
+        max-height: 220px;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        display: block;
+        object-fit: cover;
+    }
+
+    .card-content {
+        width: 100%;
+        padding: 18px 16px 16px;
+    }
+
+    .card-top {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        gap: 10px;
+    }
+
+    .card-top h3 {
+        min-width: 0;
+        font-size: 23px;
+        line-height: .95;
+    }
+
+    .card-top strong {
+        font-size: 15px;
+        white-space: nowrap;
+    }
+
+    .card-content > p {
+        width: 100%;
+        min-height: 0;
+        margin-top: 8px;
+        line-height: 1.5;
+    }
+
+    .choose-button {
+        width: 100%;
+        min-width: 0;
+        margin-top: 12px;
+    }
+
+    /* SAUCES */
+    .sauces-section {
+        padding-bottom: 60px;
+    }
+
+    .sauce-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .sauce-card {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .sauce-card > div:last-child {
+        min-width: 0;
+    }
+
+    /* CTA */
+    .final-cta {
+        min-height: 0;
+        margin-bottom: 55px;
+        padding: 36px 20px 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .final-cta .button {
+        width: 100%;
+        margin-top: 26px;
+    }
+
+    /* FOOTER */
+    .footer-main {
+        width: calc(100% - 24px);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 30px;
+        padding: 45px 0;
+    }
+
+    .footer-column,
+    .footer-brand {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .footer-bottom {
+        width: calc(100% - 24px);
+        flex-direction: column;
+        gap: 8px;
+        padding-bottom: calc(18px + env(safe-area-inset-bottom, 0));
+    }
+
+    /* MODAL */
+    .modal {
+        padding: 7px;
+        align-items: flex-start;
+    }
+
+    .modal-box {
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100dvh - 14px);
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-image {
+        width: 100%;
+        height: 190px;
+        min-height: 190px;
+        max-height: 190px;
+        flex: 0 0 190px;
+    }
+
+    .modal-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+    }
+
+    .modal-content {
+        width: 100%;
+        padding: 26px 16px 20px;
+    }
+
+    .modal-content h2 {
+        font-size: 40px;
+        max-width: 100%;
+        line-height: .9;
+    }
+
+    .option-buttons {
+        width: 100%;
+    }
+
+    .option {
+        max-width: 100%;
+        white-space: normal;
+        line-height: 1.2;
+    }
+
+    .modal-bottom {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .quantity,
+    .add-cart {
+        width: 100%;
+    }
+
+    /* CART */
+    .cart {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .cart-item {
+        grid-template-columns: 60px minmax(0, 1fr) auto;
+        gap: 9px;
+    }
+
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cart-item h4 {
+        font-size: 19px;
+    }
+
+    .cart-item-price {
+        white-space: nowrap;
+    }
+
+    .cart-button {
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0));
+    }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+    .header-inner {
+        width: calc(100% - 18px);
+    }
+
+    .hero-media,
+    .hero-media img {
+        height: 205px;
+        min-height: 205px;
+        max-height: 205px;
+        flex-basis: 205px;
+    }
+
+    .hero-panel {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .menu-section,
+    .sauces-section,
+    .final-cta,
+    .footer-main,
+    .footer-bottom {
+        width: calc(100% - 18px);
+    }
+
+    .menu-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .card-image,
+    .menu-card.wide .card-image {
+        height: 200px;
+        min-height: 200px;
+        max-height: 200px;
+    }
+
+    .card-top h3 {
+        font-size: 21px;
+    }
+}
