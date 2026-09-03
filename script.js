@@ -5,7 +5,9 @@ const BOLT_URL = "https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/"
 const header = document.querySelector(".site-header");
 
 window.addEventListener("scroll", () => {
-    header.classList.toggle("scrolled", window.scrollY > 40);
+    if (header) {
+        header.classList.toggle("scrolled", window.scrollY > 40);
+    }
 });
 
 
@@ -14,22 +16,28 @@ window.addEventListener("scroll", () => {
 const mobileMenuButton = document.querySelector(".mobile-menu-button");
 const mobileNav = document.querySelector(".mobile-nav");
 
-mobileMenuButton.addEventListener("click", () => {
-    mobileNav.classList.toggle("open");
-});
-
-document.querySelectorAll(".mobile-nav a").forEach(link => {
-    link.addEventListener("click", () => {
-        mobileNav.classList.remove("open");
+if (mobileMenuButton && mobileNav) {
+    mobileMenuButton.addEventListener("click", () => {
+        mobileNav.classList.toggle("open");
     });
-});
+
+    document.querySelectorAll(".mobile-nav a").forEach(link => {
+        link.addEventListener("click", () => {
+            mobileNav.classList.remove("open");
+        });
+    });
+}
 
 
 /* SMOOTH SCROLL */
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener("click", event => {
-        const target = document.querySelector(link.getAttribute("href"));
+        const href = link.getAttribute("href");
+
+        if (!href || href === "#") return;
+
+        const target = document.querySelector(href);
 
         if (target) {
             event.preventDefault();
@@ -57,7 +65,10 @@ filters.forEach(filter => {
         const selected = filter.dataset.filter;
 
         menuCards.forEach(card => {
-            if (selected === "all" || card.dataset.category === selected) {
+            if (
+                selected === "all" ||
+                card.dataset.category === selected
+            ) {
                 card.classList.remove("hidden");
             } else {
                 card.classList.add("hidden");
@@ -98,35 +109,60 @@ chooseButtons.forEach(button => {
 
         currentQuantity = 1;
 
-        document.getElementById("quantity").textContent = "1";
+        const quantityElement = document.getElementById("quantity");
 
-        modalName.textContent = currentProduct.name;
-        modalDescription.textContent = currentProduct.description;
-
-        if (currentProduct.image) {
-            modalImage.src = currentProduct.image;
-            modalImage.style.display = "block";
-        } else {
-            modalImage.style.display = "none";
+        if (quantityElement) {
+            quantityElement.textContent = "1";
         }
 
-        sizeGroup.style.display = currentProduct.size ? "block" : "none";
+        if (modalName) {
+            modalName.textContent = currentProduct.name;
+        }
+
+        if (modalDescription) {
+            modalDescription.textContent = currentProduct.description;
+        }
+
+        if (modalImage) {
+            if (currentProduct.image) {
+                modalImage.src = currentProduct.image;
+                modalImage.style.display = "block";
+            } else {
+                modalImage.style.display = "none";
+            }
+        }
+
+        if (sizeGroup) {
+            sizeGroup.style.display =
+                currentProduct.size ? "block" : "none";
+        }
 
         updateModalPrice();
 
-        modal.classList.add("open");
-        document.body.style.overflow = "hidden";
+        if (modal) {
+            modal.classList.add("open");
+            document.body.style.overflow = "hidden";
+        }
     });
 });
 
 
 function closeModal() {
+
+    if (!modal) return;
+
     modal.classList.remove("open");
     document.body.style.overflow = "";
 }
 
-modalClose.addEventListener("click", closeModal);
-modalBackdrop.addEventListener("click", closeModal);
+
+if (modalClose) {
+    modalClose.addEventListener("click", closeModal);
+}
+
+if (modalBackdrop) {
+    modalBackdrop.addEventListener("click", closeModal);
+}
 
 document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
@@ -157,33 +193,52 @@ document.querySelectorAll(".option-buttons").forEach(group => {
 /* QUANTITY */
 
 const quantityElement = document.getElementById("quantity");
+const minusButton = document.getElementById("minus");
+const plusButton = document.getElementById("plus");
 
-document.getElementById("minus").addEventListener("click", () => {
-    if (currentQuantity > 1) {
-        currentQuantity--;
-        quantityElement.textContent = currentQuantity;
-        updateModalPrice();
-    }
-});
+if (minusButton && quantityElement) {
+    minusButton.addEventListener("click", () => {
 
-document.getElementById("plus").addEventListener("click", () => {
-    if (currentQuantity < 20) {
-        currentQuantity++;
-        quantityElement.textContent = currentQuantity;
-        updateModalPrice();
-    }
-});
+        if (currentQuantity > 1) {
+            currentQuantity--;
+
+            quantityElement.textContent =
+                currentQuantity;
+
+            updateModalPrice();
+        }
+    });
+}
+
+
+if (plusButton && quantityElement) {
+    plusButton.addEventListener("click", () => {
+
+        if (currentQuantity < 20) {
+            currentQuantity++;
+
+            quantityElement.textContent =
+                currentQuantity;
+
+            updateModalPrice();
+        }
+    });
+}
 
 
 function updateModalPrice() {
-    if (!currentProduct) return;
 
-    const total = currentProduct.price * currentQuantity;
+    if (!currentProduct || !modalPrice) return;
+
+    const total =
+        currentProduct.price * currentQuantity;
 
     if (currentProduct.price > 0) {
-        modalPrice.textContent = `${total} zł`;
+        modalPrice.textContent =
+            `${total} zł`;
     } else {
-        modalPrice.textContent = "CENA ONLINE";
+        modalPrice.textContent =
+            "CENA ONLINE";
     }
 }
 
@@ -198,69 +253,133 @@ const cartItemsElement = document.getElementById("cartItems");
 const cartTotalElement = document.getElementById("cartTotal");
 const cartCountElement = document.getElementById("cartCount");
 
-let cartItems = JSON.parse(localStorage.getItem("borowskaCart")) || [];
+let cartItems = [];
+
+try {
+    cartItems =
+        JSON.parse(
+            localStorage.getItem("borowskaCart")
+        ) || [];
+} catch (error) {
+    cartItems = [];
+}
 
 
 function saveCart() {
-    localStorage.setItem("borowskaCart", JSON.stringify(cartItems));
+    localStorage.setItem(
+        "borowskaCart",
+        JSON.stringify(cartItems)
+    );
 }
 
 
 function openCart() {
-    cart.classList.add("open");
-    cartOverlay.classList.add("open");
+
+    if (cart) {
+        cart.classList.add("open");
+    }
+
+    if (cartOverlay) {
+        cartOverlay.classList.add("open");
+    }
 }
 
 
 function closeCart() {
-    cart.classList.remove("open");
-    cartOverlay.classList.remove("open");
+
+    if (cart) {
+        cart.classList.remove("open");
+    }
+
+    if (cartOverlay) {
+        cartOverlay.classList.remove("open");
+    }
 }
 
 
-cartButton.addEventListener("click", openCart);
-closeCartButton.addEventListener("click", closeCart);
-cartOverlay.addEventListener("click", closeCart);
+if (cartButton) {
+    cartButton.addEventListener("click", openCart);
+}
+
+if (closeCartButton) {
+    closeCartButton.addEventListener("click", closeCart);
+}
+
+if (cartOverlay) {
+    cartOverlay.addEventListener("click", closeCart);
+}
 
 
 /* ADD TO CART */
 
-document.getElementById("addToCart").addEventListener("click", () => {
+const addToCartButton =
+    document.getElementById("addToCart");
 
-    if (!currentProduct) return;
+if (addToCartButton) {
 
-    const size =
-        document.querySelector("#sizeGroup .option.active")?.dataset.value || "";
+    addToCartButton.addEventListener("click", () => {
 
-    const meat =
-        document.querySelector(".option-group:nth-of-type(2) .option.active")?.dataset.value || "";
+        if (!currentProduct) return;
 
-    const sauce =
-        document.querySelector(".option-group:nth-of-type(3) .option.active")?.dataset.value || "";
+        const size =
+            document.querySelector(
+                "#sizeGroup .option.active"
+            )?.dataset.value || "";
 
-    const item = {
-        id: Date.now(),
-        name: currentProduct.name,
-        price: currentProduct.price,
-        quantity: currentQuantity,
-        image: currentProduct.image,
-        size,
-        meat,
-        sauce
-    };
+        const meat =
+            document.querySelector(
+                ".option-group:nth-of-type(2) .option.active"
+            )?.dataset.value || "";
 
-    cartItems.push(item);
+        const sauce =
+            document.querySelector(
+                ".option-group:nth-of-type(3) .option.active"
+            )?.dataset.value || "";
 
-    saveCart();
-    renderCart();
-    closeModal();
-    openCart();
-});
+        const item = {
+
+            id: Date.now(),
+
+            name: currentProduct.name,
+
+            price: currentProduct.price,
+
+            quantity: currentQuantity,
+
+            image: currentProduct.image,
+
+            size: size,
+
+            meat: meat,
+
+            sauce: sauce
+        };
+
+        cartItems.push(item);
+
+        saveCart();
+
+        renderCart();
+
+        closeModal();
+
+        openCart();
+    });
+}
 
 
 /* RENDER CART */
 
 function renderCart() {
+
+    if (
+        !cartItemsElement ||
+        !cartTotalElement ||
+        !cartCountElement
+    ) {
+        return;
+    }
+
 
     if (cartItems.length === 0) {
 
@@ -272,72 +391,144 @@ function renderCart() {
         `;
 
         cartTotalElement.textContent = "0 zł";
+
         cartCountElement.textContent = "0";
 
         return;
     }
+
 
     let total = 0;
     let count = 0;
 
     cartItemsElement.innerHTML = "";
 
+
     cartItems.forEach(item => {
 
-        const itemTotal = item.price * item.quantity;
+        const itemTotal =
+            Number(item.price) *
+            Number(item.quantity);
 
         total += itemTotal;
-        count += item.quantity;
 
-        const element = document.createElement("div");
+        count += Number(item.quantity);
+
+
+        const element =
+            document.createElement("div");
 
         element.className = "cart-item";
+
 
         element.innerHTML = `
             ${
                 item.image
-                ? `<img src="${item.image}" alt="${item.name}">`
-                : `<div style="width:70px;height:70px;background:#111;display:flex;align-items:center;justify-content:center;color:#ed2924;font-size:28px;">B</div>`
+                ? `
+                    <img
+                        src="${item.image}"
+                        alt="${item.name}"
+                    >
+                  `
+                : `
+                    <div
+                        style="
+                            width:70px;
+                            height:70px;
+                            background:#111;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            color:#ed2924;
+                            font-size:28px;
+                        "
+                    >
+                        B
+                    </div>
+                  `
             }
 
             <div>
                 <h4>${item.name}</h4>
+
                 <p>
-                    ${item.size ? item.size + "<br>" : ""}
-                    ${item.meat ? item.meat + "<br>" : ""}
-                    ${item.sauce ? "Sos: " + item.sauce : ""}
+                    ${
+                        item.size
+                        ? item.size + "<br>"
+                        : ""
+                    }
+
+                    ${
+                        item.meat
+                        ? item.meat + "<br>"
+                        : ""
+                    }
+
+                    ${
+                        item.sauce
+                        ? "Sos: " + item.sauce
+                        : ""
+                    }
+
                     <br>
+
                     Ilość: ${item.quantity}
                 </p>
 
-                <button class="remove-item" data-id="${item.id}">
+                <button
+                    class="remove-item"
+                    data-id="${item.id}"
+                >
                     USUŃ
                 </button>
             </div>
 
             <span class="cart-item-price">
-                ${item.price > 0 ? itemTotal + " zł" : "—"}
+                ${
+                    item.price > 0
+                    ? itemTotal + " zł"
+                    : "—"
+                }
             </span>
         `;
+
 
         cartItemsElement.appendChild(element);
     });
 
-    cartTotalElement.textContent = `${total} zł`;
-    cartCountElement.textContent = count;
 
-    document.querySelectorAll(".remove-item").forEach(button => {
+    cartTotalElement.textContent =
+        `${total} zł`;
 
-        button.addEventListener("click", () => {
+    cartCountElement.textContent =
+        count;
 
-            const id = Number(button.dataset.id);
 
-            cartItems = cartItems.filter(item => item.id !== id);
+    document
+        .querySelectorAll(".remove-item")
+        .forEach(button => {
 
-            saveCart();
-            renderCart();
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const id =
+                        Number(
+                            button.dataset.id
+                        );
+
+                    cartItems =
+                        cartItems.filter(
+                            item =>
+                                item.id !== id
+                        );
+
+                    saveCart();
+
+                    renderCart();
+                }
+            );
         });
-    });
 }
 
 
@@ -346,63 +537,114 @@ renderCart();
 
 /* YEAR */
 
-document.getElementById("year").textContent = new Date().getFullYear();
+const yearElement =
+    document.getElementById("year");
+
+if (yearElement) {
+    yearElement.textContent =
+        new Date().getFullYear();
+}
 
 
 /* IMAGE FALLBACK */
 
-document.querySelectorAll("img").forEach(image => {
+document
+    .querySelectorAll("img")
+    .forEach(image => {
 
-    image.addEventListener("error", () => {
+        image.addEventListener(
+            "error",
+            () => {
 
-        image.style.display = "none";
+                image.style.display = "none";
 
-        if (image.parentElement) {
-            image.parentElement.classList.add("no-photo");
-        }
-    });
-});
-
-
-/* SCROLL REVEAL — pojawianie się elementów przy przewijaniu */
-
-const revealElements = document.querySelectorAll(".reveal");
-
-if ("IntersectionObserver" in window && revealElements.length) {
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("is-visible");
-                observer.unobserve(entry.target);
+                if (image.parentElement) {
+                    image.parentElement.classList.add(
+                        "no-photo"
+                    );
+                }
             }
-        });
-
-    }, {
-        threshold: 0.15,
-        rootMargin: "0px 0px -60px 0px"
+        );
     });
 
-    revealElements.forEach(element => revealObserver.observe(element));
+
+/* SCROLL REVEAL */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+
+if (
+    "IntersectionObserver" in window &&
+    revealElements.length
+) {
+
+    const revealObserver =
+        new IntersectionObserver(
+            (entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "is-visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+                    }
+                });
+
+            },
+            {
+                threshold: 0.15,
+
+                rootMargin:
+                    "0px 0px -60px 0px"
+            }
+        );
+
+
+    revealElements.forEach(
+        element =>
+            revealObserver.observe(element)
+    );
 
 } else {
 
-    revealElements.forEach(element => element.classList.add("is-visible"));
+    revealElements.forEach(
+        element =>
+            element.classList.add("is-visible")
+    );
 }
 
 
-/* ADRES — animowane rozwijanie "jak dojechać" */
+/* ADDRESS — "JAK DOJECHAĆ" */
 
-const addressToggle = document.getElementById("addressToggle");
-const addressPanel = document.getElementById("addressPanel");
+const addressToggle =
+    document.getElementById("addressToggle");
+
+const addressPanel =
+    document.getElementById("addressPanel");
+
 
 if (addressToggle && addressPanel) {
 
-    addressToggle.addEventListener("click", () => {
+    addressToggle.addEventListener(
+        "click",
+        () => {
 
-        const isOpen = addressPanel.classList.toggle("open");
+            const isOpen =
+                addressPanel.classList.toggle(
+                    "open"
+                );
 
-        addressToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    });
+            addressToggle.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
+        }
+    );
 }
