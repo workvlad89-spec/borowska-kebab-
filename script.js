@@ -390,3 +390,19 @@ if ("IntersectionObserver" in window && revealElements.length) {
 
     revealElements.forEach(element => element.classList.add("is-visible"));
 }
+
+
+/* ADRES — animowane rozwijanie "jak dojechać" */
+
+const addressToggle = document.getElementById("addressToggle");
+const addressPanel = document.getElementById("addressPanel");
+
+if (addressToggle && addressPanel) {
+
+    addressToggle.addEventListener("click", () => {
+
+        const isOpen = addressPanel.classList.toggle("open");
+
+        addressToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+}
