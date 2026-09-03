@@ -52,28 +52,29 @@
 
 <main>
 
-    <!-- HERO — DRUGIE ZDJĘCIE -->
-    <section class="hero">
-        <div class="hero-image"></div>
-        <div class="hero-overlay"></div>
+    <!-- HERO — ZDJĘCIE 1 + OPIS -->
+    <section class="hero" id="hero">
+        <div class="hero-grid">
+            <div class="hero-media reveal">
+                <img src="image/hero.jpg" alt="Borowska Kebab — świeży kebab przygotowywany na miejscu">
+            </div>
 
-        <div class="hero-content">
-            <div class="hero-label">KRAFTOWY KEBAB • WROCŁAW</div>
+            <div class="hero-panel reveal" id="onas">
+                <div class="hero-label">KRAFTOWY KEBAB • WROCŁAW</div>
 
-            <h1>
-                BOROWSKA
-                <span>KEBAB</span>
-            </h1>
+                <h1 class="hero-title">BOROWSKA<span> KEBAB</span></h1>
 
-            <p>
-                Świeże mięso. Własne sosy. Konkretne porcje.
-                <br>
-                Kebab, do którego chce się wracać.
-            </p>
+                <p class="hero-text">
+                    Jesteśmy zespołem Borowska Kebab. Mięso kroimy świeżo
+                    każdego dnia, sosy robimy sami, a porcji nie żałujemy.
+                    Konkretny kebab bez zbędnych dodatków — na miejscu
+                    przy Borowskiej 103.
+                </p>
 
-            <div class="hero-actions">
-                <a href="#menu" class="button button-red">ZOBACZ MENU</a>
-                <a href="#onas" class="button button-outline">POZNAJ NAS</a>
+                <div class="hero-actions">
+                    <a href="#menu" class="button button-red">ZOBACZ MENU</a>
+                    <a href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener" class="button button-outline">ZAMÓW ONLINE</a>
+                </div>
             </div>
         </div>
 
@@ -87,54 +88,26 @@
     </section>
 
 
-    <!-- O NAS -->
-    <section class="about" id="onas">
-        <div class="section-number">01</div>
-
-        <div class="about-grid">
-            <div>
-                <div class="eyebrow">BOROWSKA KEBAB</div>
-                <h2>ROBIMY KEBAB,<br><span>KTÓRY MA SMAK.</span></h2>
-            </div>
-
-            <div class="about-text">
-                <p>
-                    Borowska Kebab to miejsce dla tych, którzy lubią konkretny kebab.
-                    Świeże mięso, chrupiące dodatki, własne sosy i porządne porcje.
-                </p>
-                <p>
-                    Wybierz swój ulubiony wariant, dobierz mięso i sos,
-                    a resztą zajmiemy się my.
-                </p>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- PROMOCJA — PIERWSZE ZDJĘCIE -->
+    <!-- PROMOCJA — ZDJĘCIE 2 -->
     <section class="promo-section">
-        <div class="promo-image">
-            <img src="image/BOROWSKA-KEBAB_CloseUp.jpg" alt="Promocja Borowska Kebab">
+        <div class="promo-image reveal">
+            <img src="image/promo.jpg" alt="Promocja -10% w Borowska Kebab">
         </div>
 
-        <div class="promo-content">
+        <div class="promo-content reveal">
             <div class="promo-tag">PROMOCJA</div>
 
             <h2>-10%</h2>
 
-            <h3>DLA KLIENTÓW<br>ŻYRAFĄ I AQUAPARKU</h3>
+            <h3>DLA STUDENTÓW<br>I KLIENTÓW AQUAPARKU</h3>
 
             <p>
-                Odwiedź nas i skorzystaj z wyjątkowej zniżki.
-                Zapytaj obsługę o szczegóły promocji.
+                Pokaż legitymację studencką lub bilet z aquaparku
+                i odbierz -10% zniżki na swoje zamówienie.
             </p>
 
-            <div class="promo-note">
-                <span>10%</span>
-                <div>
-                    <strong>ZNIŻKI</strong>
-                    <small>DLA KLIENTÓW AQUAPARKU</small>
-                </div>
+            <div class="promo-actions">
+                <a href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener" class="button button-red">ZAMÓW ONLINE</a>
             </div>
         </div>
     </section>
@@ -142,7 +115,7 @@
 
     <!-- MENU -->
     <section class="menu-section" id="menu">
-        <div class="section-heading">
+        <div class="section-heading reveal">
             <div>
                 <div class="eyebrow">CO DZISIAJ?</div>
                 <h2>MENU</h2>
@@ -166,7 +139,7 @@
 
         <div class="menu-grid">
 
-            <article class="menu-card featured" data-category="kebab">
+            <article class="menu-card reveal featured" data-category="kebab">
                 <div class="card-image">
                     <img src="image/1tortilla.jpg" alt="Tortilla kebab">
                     <span class="card-badge">KLASYK</span>
@@ -190,7 +163,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="zestawy">
+            <article class="menu-card reveal" data-category="zestawy">
                 <div class="card-image">
                     <img src="image/zestaw-kebab-mieszane.jpg" alt="Zestaw Kebab">
                 </div>
@@ -213,7 +186,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="kebab">
+            <article class="menu-card reveal" data-category="kebab">
                 <div class="card-image">
                     <img src="image/1tortilla.jpg" alt="Rollo amerykańskie">
                 </div>
@@ -236,7 +209,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="kebab">
+            <article class="menu-card reveal" data-category="kebab">
                 <div class="card-image">
                     <img src="image/bulka.jpg" alt="Bułka kebab">
                 </div>
@@ -258,7 +231,7 @@
             </article>
 
 
-            <article class="menu-card wide" data-category="kebab">
+            <article class="menu-card reveal wide" data-category="kebab">
                 <div class="card-image">
                     <img src="image/frytotortilla.jpg" alt="Fryto Bułka Kebab">
                     <span class="card-badge red">BOROWSKA SPECIAL</span>
@@ -281,7 +254,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="kebab">
+            <article class="menu-card reveal" data-category="kebab">
                 <div class="card-image">
                     <img src="image/kebab-box.jpg" alt="Box kebab">
                 </div>
@@ -303,7 +276,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="kebab">
+            <article class="menu-card reveal" data-category="kebab">
                 <div class="card-image">
                     <img src="image/kapsalon.jpg" alt="Kapsalon kebab">
                 </div>
@@ -325,7 +298,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="salad">
+            <article class="menu-card reveal" data-category="salad">
                 <div class="card-image">
                     <img src="image/salatka-z-miesem.jpg" alt="Sałatka z mięsem">
                 </div>
@@ -347,7 +320,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="salad">
+            <article class="menu-card reveal" data-category="salad">
                 <div class="card-image">
                     <img src="image/salatka-grecka.jpg" alt="Sałatka grecka">
                 </div>
@@ -369,7 +342,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="falafel">
+            <article class="menu-card reveal" data-category="falafel">
                 <div class="card-image">
                     <img src="image/zestaw-falafel.jpg" alt="Zestaw falafel">
                 </div>
@@ -391,7 +364,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="falafel">
+            <article class="menu-card reveal" data-category="falafel">
                 <div class="card-image">
                     <img src="image/falafel.jpg" alt="Falafel">
                 </div>
@@ -413,7 +386,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="falafel">
+            <article class="menu-card reveal" data-category="falafel">
                 <div class="card-image">
                     <img src="image/falafel.jpg" alt="Tortilla falafel">
                 </div>
@@ -435,7 +408,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="zestawy">
+            <article class="menu-card reveal" data-category="zestawy">
                 <div class="card-image">
                     <img src="image/zestaw-nuggets.jpg" alt="Zestaw nuggets">
                 </div>
@@ -457,7 +430,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="zestawy">
+            <article class="menu-card reveal" data-category="zestawy">
                 <div class="card-image no-photo">
                     <span>🧀</span>
                 </div>
@@ -478,7 +451,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="zestawy">
+            <article class="menu-card reveal" data-category="zestawy">
                 <div class="card-image no-photo">
                     <span>🐟</span>
                 </div>
@@ -499,7 +472,7 @@
             </article>
 
 
-            <article class="menu-card" data-category="dodatki">
+            <article class="menu-card reveal" data-category="dodatki">
                 <div class="card-image">
                     <img src="image/frytki.jpg" alt="Frytki">
                 </div>
@@ -526,7 +499,7 @@
 
     <!-- SOSY -->
     <section class="sauces-section">
-        <div class="section-heading compact">
+        <div class="section-heading compact reveal">
             <div>
                 <div class="eyebrow">DOBIERZ DO KEBA</div>
                 <h2>SOSY</h2>
@@ -536,7 +509,7 @@
 
         <div class="sauce-grid">
 
-            <div class="sauce-card">
+            <div class="sauce-card reveal">
                 <img src="image/sos-czosnkowy.jpg" alt="Sos czosnkowy">
                 <div>
                     <h3>Czosnkowy</h3>
@@ -544,7 +517,7 @@
                 </div>
             </div>
 
-            <div class="sauce-card">
+            <div class="sauce-card reveal">
                 <img src="image/sos-lagodny.jpg" alt="Sos łagodny">
                 <div>
                     <h3>Łagodny</h3>
@@ -552,7 +525,7 @@
                 </div>
             </div>
 
-            <div class="sauce-card">
+            <div class="sauce-card reveal">
                 <img src="image/sos-ostry.jpg" alt="Sos ostry">
                 <div>
                     <h3>Ostry</h3>
@@ -560,7 +533,7 @@
                 </div>
             </div>
 
-            <div class="sauce-card">
+            <div class="sauce-card reveal">
                 <img src="image/sos-extra-ostry.jpg" alt="Sos ekstra ostry">
                 <div>
                     <h3>Ekstra ostry</h3>
@@ -568,7 +541,7 @@
                 </div>
             </div>
 
-            <div class="sauce-card">
+            <div class="sauce-card reveal">
                 <img src="image/sos-1000wysp.jpg" alt="Sos tysiąca wysp">
                 <div>
                     <h3>1000 Wysp</h3>
@@ -576,7 +549,7 @@
                 </div>
             </div>
 
-            <div class="sauce-card">
+            <div class="sauce-card reveal">
                 <img src="image/sos-serowy.jpg" alt="Sos serowy">
                 <div>
                     <h3>Serowy</h3>
@@ -584,7 +557,7 @@
                 </div>
             </div>
 
-            <div class="sauce-card">
+            <div class="sauce-card reveal">
                 <img src="image/ketchup.jpg" alt="Ketchup">
                 <div>
                     <h3>Ketchup</h3>
@@ -592,7 +565,7 @@
                 </div>
             </div>
 
-            <div class="sauce-card no-sauce-photo">
+            <div class="sauce-card reveal no-sauce-photo">
                 <div class="sauce-icon">A</div>
                 <div>
                     <h3>Algierski</h3>
@@ -606,7 +579,7 @@
 
     <!-- CTA -->
     <section class="final-cta">
-        <div>
+        <div class="reveal">
             <div class="eyebrow">MASZ OCHOTĘ?</div>
             <h2>TO CO, <span>KEBAB?</span></h2>
         </div>
