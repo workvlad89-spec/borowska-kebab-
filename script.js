@@ -1,650 +1,611 @@
 /* script.js */
 
-const BOLT_URL = "https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/";
+document.addEventListener("DOMContentLoaded", () => {
 
-const header = document.querySelector(".site-header");
+    /* =========================================================
+       MOBILE MENU
+       ========================================================= */
 
-window.addEventListener("scroll", () => {
-    if (header) {
-        header.classList.toggle("scrolled", window.scrollY > 40);
-    }
-});
+    const mobileMenuButton = document.querySelector(".mobile-menu-button");
+    const mobileNav = document.querySelector(".mobile-nav");
 
-
-/* MOBILE MENU */
-
-const mobileMenuButton = document.querySelector(".mobile-menu-button");
-const mobileNav = document.querySelector(".mobile-nav");
-
-if (mobileMenuButton && mobileNav) {
-    mobileMenuButton.addEventListener("click", () => {
-        mobileNav.classList.toggle("open");
-    });
-
-    document.querySelectorAll(".mobile-nav a").forEach(link => {
-        link.addEventListener("click", () => {
-            mobileNav.classList.remove("open");
+    if (mobileMenuButton && mobileNav) {
+        mobileMenuButton.addEventListener("click", () => {
+            mobileNav.classList.toggle("open");
         });
-    });
-}
 
-
-/* SMOOTH SCROLL */
-
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener("click", event => {
-        const href = link.getAttribute("href");
-
-        if (!href || href === "#") return;
-
-        const target = document.querySelector(href);
-
-        if (target) {
-            event.preventDefault();
-
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
+        mobileNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileNav.classList.remove("open");
             });
+        });
+    }
+
+
+    /* =========================================================
+       HEADER SCROLL
+       ========================================================= */
+
+    const header = document.querySelector(".site-header");
+
+    const updateHeader = () => {
+        if (!header) return;
+
+        if (window.scrollY > 30) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
         }
-    });
-});
+    };
+
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
 
 
-/* MENU FILTERS */
+    /* =========================================================
+       SCROLL REVEAL
+       ========================================================= */
 
-const filters = document.querySelectorAll(".filter");
-const menuCards = document.querySelectorAll(".menu-card");
+    const revealElements = document.querySelectorAll(".reveal");
 
-filters.forEach(filter => {
-    filter.addEventListener("click", () => {
-
-        filters.forEach(item => item.classList.remove("active"));
-        filter.classList.add("active");
-
-        const selected = filter.dataset.filter;
-
-        menuCards.forEach(card => {
-            if (
-                selected === "all" ||
-                card.dataset.category === selected
-            ) {
-                card.classList.remove("hidden");
-            } else {
-                card.classList.add("hidden");
+    if ("IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
             }
+        );
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+    } else {
+        revealElements.forEach(element => {
+            element.classList.add("is-visible");
+        });
+    }
+
+
+    /* =========================================================
+       MENU FILTERS
+       ========================================================= */
+
+    const filters = document.querySelectorAll(".filter");
+    const menuCards = document.querySelectorAll(".menu-card");
+
+    filters.forEach(filter => {
+        filter.addEventListener("click", () => {
+
+            filters.forEach(item => {
+                item.classList.remove("active");
+            });
+
+            filter.classList.add("active");
+
+            const category = filter.dataset.category;
+
+            menuCards.forEach(card => {
+                const cardCategory = card.dataset.category;
+
+                if (
+                    category === "all" ||
+                    category === "wszystko" ||
+                    !category
+                ) {
+                    card.classList.remove("hidden");
+                } else if (cardCategory === category) {
+                    card.classList.remove("hidden");
+                } else {
+                    card.classList.add("hidden");
+                }
+            });
         });
     });
-});
 
 
-/* PRODUCT MODAL */
+    /* =========================================================
+       PRODUCT MODAL
+       ========================================================= */
 
-const modal = document.getElementById("productModal");
-const modalBackdrop = document.querySelector(".modal-backdrop");
-const modalClose = document.querySelector(".modal-close");
+    const modal = document.querySelector(".product-modal");
+    const modalBackdrop = document.querySelector(".modal-backdrop");
+    const modalClose = document.querySelector(".modal-close");
 
-const modalName = document.getElementById("modalName");
-const modalDescription = document.getElementById("modalDescription");
-const modalImage = document.getElementById("modalImage");
-const modalPrice = document.getElementById("modalPrice");
-const sizeGroup = document.getElementById("sizeGroup");
+    const modalImage = document.querySelector(".modal-image");
+    const modalTitle = document.querySelector(".modal-content h2");
+    const modalDescription = document.querySelector(".modal-description");
 
-const chooseButtons = document.querySelectorAll(".choose-button");
+    const chooseButtons = document.querySelectorAll(".choose-button");
 
-let currentProduct = null;
-let currentQuantity = 1;
+    const optionButtons = document.querySelectorAll(".option");
+    const quantityMinus = document.querySelector(".quantity button:first-child");
+    const quantityPlus = document.querySelector(".quantity button:last-child");
+    const quantityValue = document.querySelector(".quantity span");
 
-chooseButtons.forEach(button => {
+    const addCartButton = document.querySelector(".add-cart");
 
-    button.addEventListener("click", () => {
+    let currentProduct = null;
+    let quantity = 1;
 
-        currentProduct = {
-            name: button.dataset.name,
-            price: Number(button.dataset.price),
-            image: button.dataset.image || "",
-            description: button.dataset.description || "",
-            size: button.dataset.size === "true"
+
+    const getProductData = button => {
+
+        const card = button.closest(".menu-card");
+
+        if (!card) return null;
+
+        const image = card.querySelector(".card-image img");
+        const title = card.querySelector(".card-top h3");
+        const description = card.querySelector(".card-content > p");
+
+        return {
+            card,
+            image: image ? image.src : "",
+            title: title ? title.textContent.trim() : "",
+            description: description ? description.textContent.trim() : ""
         };
+    };
 
-        currentQuantity = 1;
 
-        const quantityElement = document.getElementById("quantity");
+    const openModal = product => {
 
-        if (quantityElement) {
-            quantityElement.textContent = "1";
+        if (!modal || !product) return;
+
+        currentProduct = product;
+        quantity = 1;
+
+        if (modalImage) {
+            modalImage.src = product.image;
+            modalImage.alt = product.title;
         }
 
-        if (modalName) {
-            modalName.textContent = currentProduct.name;
+        if (modalTitle) {
+            modalTitle.textContent = product.title;
         }
 
         if (modalDescription) {
-            modalDescription.textContent = currentProduct.description;
+            modalDescription.textContent = product.description;
         }
 
-        if (modalImage) {
-            if (currentProduct.image) {
-                modalImage.src = currentProduct.image;
-                modalImage.style.display = "block";
-            } else {
-                modalImage.style.display = "none";
-            }
+        if (quantityValue) {
+            quantityValue.textContent = quantity;
         }
 
-        if (sizeGroup) {
-            sizeGroup.style.display =
-                currentProduct.size ? "block" : "none";
-        }
-
-        updateModalPrice();
-
-        if (modal) {
-            modal.classList.add("open");
-            document.body.style.overflow = "hidden";
-        }
-    });
-});
-
-
-function closeModal() {
-
-    if (!modal) return;
-
-    modal.classList.remove("open");
-    document.body.style.overflow = "";
-}
-
-
-if (modalClose) {
-    modalClose.addEventListener("click", closeModal);
-}
-
-if (modalBackdrop) {
-    modalBackdrop.addEventListener("click", closeModal);
-}
-
-document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
-        closeModal();
-    }
-});
-
-
-/* OPTIONS */
-
-document.querySelectorAll(".option-buttons").forEach(group => {
-
-    group.addEventListener("click", event => {
-
-        const button = event.target.closest(".option");
-
-        if (!button) return;
-
-        group.querySelectorAll(".option").forEach(option => {
+        optionButtons.forEach(option => {
             option.classList.remove("active");
         });
 
-        button.classList.add("active");
-    });
-});
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+    };
 
 
-/* QUANTITY */
+    const closeModal = () => {
 
-const quantityElement = document.getElementById("quantity");
-const minusButton = document.getElementById("minus");
-const plusButton = document.getElementById("plus");
+        if (!modal) return;
 
-if (minusButton && quantityElement) {
-    minusButton.addEventListener("click", () => {
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
 
-        if (currentQuantity > 1) {
-            currentQuantity--;
+        currentProduct = null;
+    };
 
-            quantityElement.textContent =
-                currentQuantity;
 
-            updateModalPrice();
-        }
-    });
-}
+    chooseButtons.forEach(button => {
 
+        button.addEventListener("click", event => {
 
-if (plusButton && quantityElement) {
-    plusButton.addEventListener("click", () => {
+            event.preventDefault();
 
-        if (currentQuantity < 20) {
-            currentQuantity++;
+            const product = getProductData(button);
 
-            quantityElement.textContent =
-                currentQuantity;
-
-            updateModalPrice();
-        }
-    });
-}
-
-
-function updateModalPrice() {
-
-    if (!currentProduct || !modalPrice) return;
-
-    const total =
-        currentProduct.price * currentQuantity;
-
-    if (currentProduct.price > 0) {
-        modalPrice.textContent =
-            `${total} zł`;
-    } else {
-        modalPrice.textContent =
-            "CENA ONLINE";
-    }
-}
-
-
-/* CART */
-
-const cart = document.getElementById("cart");
-const cartButton = document.getElementById("cartButton");
-const closeCartButton = document.getElementById("closeCart");
-const cartOverlay = document.getElementById("cartOverlay");
-const cartItemsElement = document.getElementById("cartItems");
-const cartTotalElement = document.getElementById("cartTotal");
-const cartCountElement = document.getElementById("cartCount");
-
-let cartItems = [];
-
-try {
-    cartItems =
-        JSON.parse(
-            localStorage.getItem("borowskaCart")
-        ) || [];
-} catch (error) {
-    cartItems = [];
-}
-
-
-function saveCart() {
-    localStorage.setItem(
-        "borowskaCart",
-        JSON.stringify(cartItems)
-    );
-}
-
-
-function openCart() {
-
-    if (cart) {
-        cart.classList.add("open");
-    }
-
-    if (cartOverlay) {
-        cartOverlay.classList.add("open");
-    }
-}
-
-
-function closeCart() {
-
-    if (cart) {
-        cart.classList.remove("open");
-    }
-
-    if (cartOverlay) {
-        cartOverlay.classList.remove("open");
-    }
-}
-
-
-if (cartButton) {
-    cartButton.addEventListener("click", openCart);
-}
-
-if (closeCartButton) {
-    closeCartButton.addEventListener("click", closeCart);
-}
-
-if (cartOverlay) {
-    cartOverlay.addEventListener("click", closeCart);
-}
-
-
-/* ADD TO CART */
-
-const addToCartButton =
-    document.getElementById("addToCart");
-
-if (addToCartButton) {
-
-    addToCartButton.addEventListener("click", () => {
-
-        if (!currentProduct) return;
-
-        const size =
-            document.querySelector(
-                "#sizeGroup .option.active"
-            )?.dataset.value || "";
-
-        const meat =
-            document.querySelector(
-                ".option-group:nth-of-type(2) .option.active"
-            )?.dataset.value || "";
-
-        const sauce =
-            document.querySelector(
-                ".option-group:nth-of-type(3) .option.active"
-            )?.dataset.value || "";
-
-        const item = {
-
-            id: Date.now(),
-
-            name: currentProduct.name,
-
-            price: currentProduct.price,
-
-            quantity: currentQuantity,
-
-            image: currentProduct.image,
-
-            size: size,
-
-            meat: meat,
-
-            sauce: sauce
-        };
-
-        cartItems.push(item);
-
-        saveCart();
-
-        renderCart();
-
-        closeModal();
-
-        openCart();
-    });
-}
-
-
-/* RENDER CART */
-
-function renderCart() {
-
-    if (
-        !cartItemsElement ||
-        !cartTotalElement ||
-        !cartCountElement
-    ) {
-        return;
-    }
-
-
-    if (cartItems.length === 0) {
-
-        cartItemsElement.innerHTML = `
-            <div class="empty-cart">
-                <span>🛒</span>
-                <p>Twój koszyk jest pusty.</p>
-            </div>
-        `;
-
-        cartTotalElement.textContent = "0 zł";
-
-        cartCountElement.textContent = "0";
-
-        return;
-    }
-
-
-    let total = 0;
-    let count = 0;
-
-    cartItemsElement.innerHTML = "";
-
-
-    cartItems.forEach(item => {
-
-        const itemTotal =
-            Number(item.price) *
-            Number(item.quantity);
-
-        total += itemTotal;
-
-        count += Number(item.quantity);
-
-
-        const element =
-            document.createElement("div");
-
-        element.className = "cart-item";
-
-
-        element.innerHTML = `
-            ${
-                item.image
-                ? `
-                    <img
-                        src="${item.image}"
-                        alt="${item.name}"
-                    >
-                  `
-                : `
-                    <div
-                        style="
-                            width:70px;
-                            height:70px;
-                            background:#111;
-                            display:flex;
-                            align-items:center;
-                            justify-content:center;
-                            color:#ed2924;
-                            font-size:28px;
-                        "
-                    >
-                        B
-                    </div>
-                  `
+            if (product) {
+                openModal(product);
             }
-
-            <div>
-                <h4>${item.name}</h4>
-
-                <p>
-                    ${
-                        item.size
-                        ? item.size + "<br>"
-                        : ""
-                    }
-
-                    ${
-                        item.meat
-                        ? item.meat + "<br>"
-                        : ""
-                    }
-
-                    ${
-                        item.sauce
-                        ? "Sos: " + item.sauce
-                        : ""
-                    }
-
-                    <br>
-
-                    Ilość: ${item.quantity}
-                </p>
-
-                <button
-                    class="remove-item"
-                    data-id="${item.id}"
-                >
-                    USUŃ
-                </button>
-            </div>
-
-            <span class="cart-item-price">
-                ${
-                    item.price > 0
-                    ? itemTotal + " zł"
-                    : "—"
-                }
-            </span>
-        `;
-
-
-        cartItemsElement.appendChild(element);
-    });
-
-
-    cartTotalElement.textContent =
-        `${total} zł`;
-
-    cartCountElement.textContent =
-        count;
-
-
-    document
-        .querySelectorAll(".remove-item")
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const id =
-                        Number(
-                            button.dataset.id
-                        );
-
-                    cartItems =
-                        cartItems.filter(
-                            item =>
-                                item.id !== id
-                        );
-
-                    saveCart();
-
-                    renderCart();
-                }
-            );
         });
-}
-
-
-renderCart();
-
-
-/* YEAR */
-
-const yearElement =
-    document.getElementById("year");
-
-if (yearElement) {
-    yearElement.textContent =
-        new Date().getFullYear();
-}
-
-
-/* IMAGE FALLBACK */
-
-document
-    .querySelectorAll("img")
-    .forEach(image => {
-
-        image.addEventListener(
-            "error",
-            () => {
-
-                image.style.display = "none";
-
-                if (image.parentElement) {
-                    image.parentElement.classList.add(
-                        "no-photo"
-                    );
-                }
-            }
-        );
     });
 
 
-/* SCROLL REVEAL */
+    if (modalClose) {
+        modalClose.addEventListener("click", closeModal);
+    }
 
-const revealElements =
-    document.querySelectorAll(".reveal");
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener("click", closeModal);
+    }
 
 
-if (
-    "IntersectionObserver" in window &&
-    revealElements.length
-) {
+    document.addEventListener("keydown", event => {
 
-    const revealObserver =
-        new IntersectionObserver(
-            (entries, observer) => {
+        if (event.key === "Escape") {
 
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        entry.target.classList.add(
-                            "is-visible"
-                        );
-
-                        observer.unobserve(
-                            entry.target
-                        );
-                    }
-                });
-
-            },
-            {
-                threshold: 0.15,
-
-                rootMargin:
-                    "0px 0px -60px 0px"
+            if (modal && modal.classList.contains("open")) {
+                closeModal();
             }
+
+            if (cart && cart.classList.contains("open")) {
+                closeCart();
+            }
+        }
+    });
+
+
+    /* =========================================================
+       PRODUCT OPTIONS
+       ========================================================= */
+
+    optionButtons.forEach(option => {
+
+        option.addEventListener("click", () => {
+
+            const group = option.closest(".option-group");
+
+            if (!group) return;
+
+            group.querySelectorAll(".option").forEach(item => {
+                item.classList.remove("active");
+            });
+
+            option.classList.add("active");
+        });
+    });
+
+
+    /* =========================================================
+       QUANTITY
+       ========================================================= */
+
+    if (quantityMinus) {
+
+        quantityMinus.addEventListener("click", () => {
+
+            quantity = Math.max(1, quantity - 1);
+
+            if (quantityValue) {
+                quantityValue.textContent = quantity;
+            }
+        });
+    }
+
+
+    if (quantityPlus) {
+
+        quantityPlus.addEventListener("click", () => {
+
+            quantity = Math.min(20, quantity + 1);
+
+            if (quantityValue) {
+                quantityValue.textContent = quantity;
+            }
+        });
+    }
+
+
+    /* =========================================================
+       CART
+       ========================================================= */
+
+    const cart = document.querySelector(".cart");
+    const cartOverlay = document.querySelector(".cart-overlay");
+    const cartButton = document.querySelector(".cart-button");
+    const cartClose = document.querySelector(".cart-head button");
+    const cartItems = document.querySelector(".cart-items");
+    const cartCount = document.querySelector(".cart-button strong");
+
+    let cartData = [];
+
+
+    const updateCartCount = () => {
+
+        if (!cartCount) return;
+
+        const totalItems = cartData.reduce(
+            (total, item) => total + item.quantity,
+            0
         );
 
-
-    revealElements.forEach(
-        element =>
-            revealObserver.observe(element)
-    );
-
-} else {
-
-    revealElements.forEach(
-        element =>
-            element.classList.add("is-visible")
-    );
-}
+        cartCount.textContent = totalItems;
+    };
 
 
-/* ADDRESS — "JAK DOJECHAĆ" */
+    const renderCart = () => {
 
-const addressToggle =
-    document.getElementById("addressToggle");
+        if (!cartItems) return;
 
-const addressPanel =
-    document.getElementById("addressPanel");
+        if (cartData.length === 0) {
+
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+                    <span>🛒</span>
+                    <p>Koszyk jest pusty</p>
+                </div>
+            `;
+
+            updateCartCount();
+            return;
+        }
 
 
-if (addressToggle && addressPanel) {
+        cartItems.innerHTML = "";
 
-    addressToggle.addEventListener(
-        "click",
-        () => {
 
-            const isOpen =
-                addressPanel.classList.toggle(
-                    "open"
+        cartData.forEach((item, index) => {
+
+            const element = document.createElement("div");
+
+            element.className = "cart-item";
+
+            element.innerHTML = `
+                <img src="${item.image}" alt="${item.title}">
+                <div>
+                    <h4>${item.title}</h4>
+                    <p>${item.quantity} × porcja</p>
+                    <button class="remove-item" data-index="${index}">
+                        USUŃ
+                    </button>
+                </div>
+            `;
+
+            cartItems.appendChild(element);
+        });
+
+
+        cartItems.querySelectorAll(".remove-item").forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                const index = Number(button.dataset.index);
+
+                cartData.splice(index, 1);
+
+                renderCart();
+            });
+        });
+
+
+        updateCartCount();
+    };
+
+
+    const openCart = () => {
+
+        if (!cart) return;
+
+        cart.classList.add("open");
+
+        if (cartOverlay) {
+            cartOverlay.classList.add("open");
+        }
+
+        document.body.style.overflow = "hidden";
+    };
+
+
+    const closeCart = () => {
+
+        if (!cart) return;
+
+        cart.classList.remove("open");
+
+        if (cartOverlay) {
+            cartOverlay.classList.remove("open");
+        }
+
+        document.body.style.overflow = "";
+    };
+
+
+    if (cartButton) {
+        cartButton.addEventListener("click", openCart);
+    }
+
+    if (cartClose) {
+        cartClose.addEventListener("click", closeCart);
+    }
+
+    if (cartOverlay) {
+        cartOverlay.addEventListener("click", closeCart);
+    }
+
+
+    /* =========================================================
+       ADD TO CART
+       ========================================================= */
+
+    if (addCartButton) {
+
+        addCartButton.addEventListener("click", () => {
+
+            if (!currentProduct) return;
+
+            const selectedOptions = [];
+
+            const activeOptions = modal
+                ? modal.querySelectorAll(".option.active")
+                : [];
+
+            activeOptions.forEach(option => {
+                selectedOptions.push(option.textContent.trim());
+            });
+
+
+            const existingItem = cartData.find(item => {
+
+                return (
+                    item.title === currentProduct.title &&
+                    JSON.stringify(item.options) ===
+                    JSON.stringify(selectedOptions)
                 );
+            });
+
+
+            if (existingItem) {
+
+                existingItem.quantity += quantity;
+
+            } else {
+
+                cartData.push({
+                    title: currentProduct.title,
+                    image: currentProduct.image,
+                    options: selectedOptions,
+                    quantity: quantity
+                });
+            }
+
+
+            renderCart();
+            closeModal();
+            openCart();
+        });
+    }
+
+
+    /* =========================================================
+       CHECKOUT
+       ========================================================= */
+
+    const checkoutButton = document.querySelector(".checkout-button");
+
+    if (checkoutButton) {
+
+        checkoutButton.addEventListener("click", event => {
+
+            event.preventDefault();
+
+            if (cartData.length === 0) {
+                return;
+            }
+
+            const orderText = cartData
+                .map(item => {
+
+                    let text = `${item.title} — ${item.quantity} szt.`;
+
+                    if (item.options.length) {
+                        text += ` (${item.options.join(", ")})`;
+                    }
+
+                    return text;
+                })
+                .join("\n");
+
+
+            const message =
+                "Dzień dobry! Chciałbym zamówić:\n\n" +
+                orderText;
+
+
+            const encodedMessage = encodeURIComponent(message);
+
+
+            /*
+             * Zamówienie jest kierowane do zewnętrznego
+             * kanału zamówień. Nie wyświetlamy tutaj cen.
+             */
+
+            const orderUrl =
+                "https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/";
+
+
+            window.open(orderUrl, "_blank", "noopener,noreferrer");
+        });
+    }
+
+
+    /* =========================================================
+       ADDRESS TOGGLE
+       ========================================================= */
+
+    const addressToggle = document.querySelector(".address-toggle");
+    const addressPanel = document.querySelector(".address-panel");
+
+    if (addressToggle && addressPanel) {
+
+        addressToggle.addEventListener("click", () => {
+
+            addressPanel.classList.toggle("open");
+
+            const isOpen = addressPanel.classList.contains("open");
 
             addressToggle.setAttribute(
                 "aria-expanded",
-                isOpen ? "true" : "false"
+                String(isOpen)
             );
-        }
-    );
-}
+        });
+    }
+
+
+    /* =========================================================
+       SMOOTH ANCHOR LINKS
+       ========================================================= */
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", event => {
+
+            const targetId = link.getAttribute("href");
+
+            if (!targetId || targetId === "#") {
+                return;
+            }
+
+            const target = document.querySelector(targetId);
+
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+
+            const headerHeight = header
+                ? header.offsetHeight
+                : 0;
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                headerHeight;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth"
+            });
+        });
+    });
+
+
+    /* =========================================================
+       IMAGE FALLBACK
+       ========================================================= */
+
+    document.querySelectorAll("img").forEach(image => {
+
+        image.addEventListener("error", () => {
+
+            image.style.visibility = "hidden";
+
+            const parent = image.parentElement;
+
+            if (parent && parent.classList.contains("card-image")) {
+                parent.classList.add("no-photo");
+            }
+        });
+    });
+
+
+    /* =========================================================
+       INITIAL CART
+       ========================================================= */
+
+    renderCart();
+
+});
