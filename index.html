@@ -1,9 +1,8 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Borowska Kebab — kraftowy kebab we Wrocławiu. Świeże mięso, własne sosy i duże porcje.">
     <title>Borowska Kebab — Wrocław</title>
 
@@ -602,12 +601,30 @@
                 <strong>KEBAB</strong>
             </div>
             <p>Kraftowy kebab we Wrocławiu.</p>
+
+            <a href="https://maps.app.goo.gl/f66XoQtKvSwS5gMu7" target="_blank" rel="noopener" class="review-button">
+                <span>★</span> OCEŃ NAS
+            </a>
         </div>
 
         <div class="footer-column">
             <span class="footer-label">ADRES</span>
-            <strong>Borowska 103</strong>
-            <span>50-551 Wrocław</span>
+
+            <button class="address-toggle" id="addressToggle" aria-expanded="false" aria-controls="addressPanel">
+                <span class="address-toggle-text">
+                    <strong>Borowska 103</strong>
+                    50-551 Wrocław
+                </span>
+                <span class="address-arrow" aria-hidden="true">→</span>
+            </button>
+
+            <div class="address-panel" id="addressPanel">
+                <p>Zobacz trasę dojazdu w Mapach Google.</p>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Borowska+103%2C+Wroc%C5%82aw"
+                   target="_blank" rel="noopener" class="directions-button">
+                    JAK DOJECHAĆ ↗
+                </a>
+            </div>
         </div>
 
         <div class="footer-column">
