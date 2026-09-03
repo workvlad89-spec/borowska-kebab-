@@ -496,9 +496,122 @@
     .category{margin-bottom:48px;}
   }
 
+  /* ---------- Scroll reveal ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(36px);
+    transition:opacity .9s cubic-bezier(.19,1,.22,1), transform .9s cubic-bezier(.19,1,.22,1);
+  }
+  .reveal.is-visible{
+    opacity:1;
+    transform:none;
+  }
+  .reveal-d1{transition-delay:.1s;}
+  .reveal-d2{transition-delay:.2s;}
+  .reveal-d3{transition-delay:.3s;}
+  .reveal-d4{transition-delay:.4s;}
+  .reveal-d5{transition-delay:.5s;}
+
+  /* ---------- Hero entrance ---------- */
+  @keyframes heroUp{
+    from{opacity:0; transform:translateY(26px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .hero .kicker{animation:heroUp .8s cubic-bezier(.19,1,.22,1) both;}
+  .hero h1{animation:heroUp .9s cubic-bezier(.19,1,.22,1) .1s both;}
+  .hero p{animation:heroUp .9s cubic-bezier(.19,1,.22,1) .22s both;}
+  .hero-actions{animation:heroUp .9s cubic-bezier(.19,1,.22,1) .34s both;}
+  .hero-visual{animation:heroUp 1.1s cubic-bezier(.19,1,.22,1) .2s both;}
+
+  /* ---------- Image zoom on hover ---------- */
+  .hero-visual, .promo-visual, .story-visual, .dish-thumb{overflow:hidden;}
+  .promo-visual img, .story-visual img{
+    transition:transform 1s cubic-bezier(.19,1,.22,1);
+  }
+  .promo-visual:hover img, .story-visual:hover img{
+    transform:scale(1.045);
+  }
+  .hero-visual img{will-change:transform;}
+  .dish-thumb img{
+    transition:transform .5s cubic-bezier(.19,1,.22,1);
+  }
+  .dish:hover .dish-thumb img{
+    transform:scale(1.12) rotate(-1deg);
+  }
+
+  /* ---------- Dish row hover ---------- */
+  .dish{
+    transition:transform .35s ease, background .35s ease;
+    border-radius:var(--radius);
+  }
+  .dish:hover{
+    transform:translateX(6px);
+    background:rgba(179,58,46,0.04);
+  }
+  .dish-info h4{transition:color .25s ease;}
+  .dish:hover .dish-info h4{color:var(--red);}
+
+  /* ---------- Button micro-interactions ---------- */
+  .btn{position:relative; overflow:hidden;}
+  .btn-primary{
+    transition:transform .25s cubic-bezier(.19,1,.22,1), background .2s ease, box-shadow .3s ease;
+  }
+  .btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 26px -8px rgba(179,58,46,0.55);
+  }
+  .btn-ghost{transition:transform .25s cubic-bezier(.19,1,.22,1), border-color .2s ease, color .2s ease;}
+  .btn-ghost:hover{transform:translateY(-3px);}
+  .btn::after{
+    content:"";
+    position:absolute; top:50%; left:50%;
+    width:0; height:0;
+    background:rgba(255,255,255,0.35);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    transition:width .5s ease, height .5s ease, opacity .5s ease;
+    opacity:0;
+    pointer-events:none;
+  }
+  .btn:active::after{
+    width:220px; height:220px;
+    opacity:1;
+    transition:0s;
+  }
+
+  /* ---------- Category title underline sweep ---------- */
+  .category-title{position:relative; overflow:hidden;}
+  .category-title::after{
+    content:"";
+    position:absolute; left:0; bottom:-2px;
+    width:0; height:2px;
+    background:var(--red);
+    transition:width .8s cubic-bezier(.19,1,.22,1);
+  }
+  .category.is-visible .category-title::after{width:64px;}
+
+  /* ---------- Nav link underline ---------- */
+  .nav-links a:not(.btn){position:relative;}
+  .nav-links a:not(.btn)::after{
+    content:"";
+    position:absolute; left:0; bottom:-4px;
+    width:0; height:1px;
+    background:var(--gold);
+    transition:width .25s ease;
+  }
+  .nav-links a:not(.btn):hover::after{width:100%;}
+
+  /* ---------- Promo badge pulse ---------- */
+  @keyframes pulseGlow{
+    0%,100%{box-shadow:0 0 0 0 rgba(179,58,46,0.4);}
+    50%{box-shadow:0 0 0 8px rgba(179,58,46,0);}
+  }
+  .promo-badge{animation:pulseGlow 2.4s ease-in-out infinite;}
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
-    *{transition:none !important;}
+    *{transition:none !important; animation:none !important;}
+    .reveal{opacity:1; transform:none;}
   }
 
   :focus-visible{
@@ -546,10 +659,10 @@
 
 <section class="story" id="about">
   <div class="wrap story-grid">
-    <div class="story-visual">
+    <div class="story-visual reveal">
       <img src="image/hero.jpg" alt="Zespół Borowska Kebab przy pracy">
     </div>
-    <div>
+    <div class="reveal reveal-d2">
       <span class="kicker">O nas</span>
       <h2>Kim jesteśmy <em>i co robimy.</em></h2>
       <p>Borowska Kebab to punkt przy Borowskiej 103 we Wrocławiu, prowadzony przez ludzi, którzy sami lubią dobrze zjeść. Gotujemy na miejscu — świeże mięso z grilla, chrupiące warzywa i sosy robione od podstaw, bez pośpiechu i bez skrótów. Zależy nam na tym, żeby każda porcja smakowała tak samo dobrze jak ta poprzednia.</p>
@@ -562,12 +675,12 @@
 
 <section class="story" id="quality" style="background:var(--ink-soft);">
   <div class="wrap story-grid reverse">
-    <div>
+    <div class="reveal">
       <span class="kicker">Jakość</span>
       <h2>Mięso, które <em>traktujemy poważnie.</em></h2>
       <p>W Borowska Kebab mięso kroimy ręcznie i na bieżąco, przez cały dzień — nie raz rano na zapas. Dzięki temu każda porcja ma odpowiednią teksturę, jest soczysta i trafia na grill świeża. To detal, który łatwo pominąć, ale właśnie on robi największą różnicę w smaku.</p>
     </div>
-    <div class="story-visual">
+    <div class="story-visual reveal reveal-d2">
       <img src="image/photo_2026-09-03_11-59-41.jpg" alt="Pracownik dokładnie kroi mięso na kebab">
     </div>
   </div>
@@ -576,10 +689,10 @@
 <!-- Strefa wypoczynku -->
 <section class="story" id="patio">
   <div class="wrap story-grid">
-    <div class="story-visual">
+    <div class="story-visual reveal">
       <img src="image/photo_2026-09-03_16-51-03.jpg" alt="Strefa wypoczynku w Borowska Kebab">
     </div>
-    <div>
+    <div class="reveal reveal-d2">
       <span class="kicker">Komfort i atmosfera</span>
       <h2>Strefa wypoczynku – <em>latem i zimą! ☀️🔥</em></h2>
       <p>Latem zapraszamy do naszej otwartej strefy na świeżym powietrzu – idealnego miejsca, aby usiąść, odpocząć i cieszyć się dobrym jedzeniem.</p>
@@ -592,7 +705,7 @@
 <!-- Świeże sałatki -->
 <section class="story" id="salads" style="background:var(--ink-soft);">
   <div class="wrap story-grid reverse">
-    <div>
+    <div class="reveal">
       <span class="kicker">Świeżość każdego dnia</span>
       <h2>Świeże sałatki <em>każdego dnia! 🥗</em></h2>
       <p>W Borowska Kebab stawiamy na świeżość i dobry smak. Nasze warzywa i sałatki są świeżo przygotowywane i krojone każdego dnia. 🥗</p>
@@ -611,7 +724,7 @@
         <li>🥗 Nasz autorski sos winegret</li>
       </ul>
     </div>
-    <div class="story-visual">
+    <div class="story-visual reveal reveal-d2">
       <img src="image/photo_2026-09-03_16-50-55.jpg" alt="Przygotowanie świeżych sałatek w Borowska Kebab">
     </div>
   </div>
@@ -620,10 +733,10 @@
 <!-- Promo banner с фото promo.jpg -->
 <section class="promo" id="promo">
   <div class="wrap promo-grid">
-    <div class="promo-visual">
+    <div class="promo-visual reveal">
       <img src="image/promo.jpg" alt="Promocja dla studentów i gości Aquaparku Wrocław">
     </div>
-    <div>
+    <div class="reveal reveal-d2">
       <span class="promo-badge">Promocja</span>
       <h2>Zniżka dla studentów<br>i gości <em>Aquaparku.</em></h2>
       <p>Masz legitymację studencką albo wracasz z Aquaparku Wrocław? Pokaż nam ją przy zamówieniu i skorzystaj ze specjalnej ceny. Sprawdź szczegóły promocji na miejscu.</p>
@@ -633,13 +746,13 @@
 
 <section class="menu" id="menu">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <span class="kicker">Nasze menu</span>
       <h2>Wybierz<br><em>swój smak.</em></h2>
       <p>Wszystkie pozycje menu Borowska Kebab — od klasycznej tortilli po sałatki i napoje.</p>
     </div>
 
-    <div class="category">
+    <div class="category reveal">
       <div class="category-title">
         <h3>Kebab</h3>
         <span class="category-count">7 pozycji</span>
@@ -676,7 +789,7 @@
       </div>
     </div>
 
-    <div class="category">
+    <div class="category reveal">
       <div class="category-title">
         <h3>Dania wegetariańskie</h3>
         <span class="category-count">5 pozycji</span>
@@ -705,7 +818,7 @@
       </div>
     </div>
 
-    <div class="category">
+    <div class="category reveal">
       <div class="category-title">
         <h3>Boxy</h3>
         <span class="category-count">2 pozycje</span>
@@ -722,7 +835,7 @@
       </div>
     </div>
 
-    <div class="category">
+    <div class="category reveal">
       <div class="category-title">
         <h3>Sałatki</h3>
         <span class="category-count">2 pozycje</span>
@@ -739,7 +852,7 @@
       </div>
     </div>
 
-    <div class="category">
+    <div class="category reveal">
       <div class="category-title">
         <h3>Dodatki</h3>
         <span class="category-count">3 pozycje</span>
@@ -760,7 +873,7 @@
       </div>
     </div>
 
-    <div class="category">
+    <div class="category reveal">
       <div class="category-title">
         <h3>Napoje</h3>
         <span class="category-count">7 pozycji</span>
@@ -795,12 +908,12 @@
 
 <section class="contact" id="contact">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <span class="kicker">Kontakt</span>
       <h2>Gdzie nas<br><em>znajdziesz?</em></h2>
     </div>
     <div class="contact-grid">
-      <div class="contact-info">
+      <div class="contact-info reveal">
         <div class="info-block">
           <span class="kicker">Adres</span>
           <h3>Borowska 103</h3>
@@ -820,7 +933,7 @@
           <a class="link-line" href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer">Oceń nas na Google ★ →</a>
         </div>
       </div>
-      <div class="map-frame">
+      <div class="map-frame reveal reveal-d2">
         <iframe src="https://www.google.com/maps?q=Borowska%20103,%20Wroc%C5%82aw&output=embed" loading="lazy" title="Mapa — Borowska 103, Wrocław"></iframe>
       </div>
     </div>
@@ -849,6 +962,35 @@
     toggle.setAttribute('aria-expanded', 'false');
     toggle.textContent = '☰';
   }));
+
+  /* ---------- Scroll reveal ---------- */
+  const revealEls = document.querySelectorAll('.reveal, .category');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  /* ---------- Hero parallax ---------- */
+  const heroVisual = document.querySelector('.hero-visual img');
+  const heroSection = document.querySelector('.hero');
+  if (heroVisual && heroSection && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    window.addEventListener('scroll', () => {
+      const rect = heroSection.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        const offset = window.scrollY * 0.12;
+        heroVisual.style.transform = `translateY(${offset}px) scale(1.08)`;
+      }
+    }, { passive: true });
+  }
 </script>
 
 </body>
