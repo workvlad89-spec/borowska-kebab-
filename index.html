@@ -347,6 +347,26 @@
   }
   .story .hero-actions{margin-top:32px;}
 
+  /* ---------- Gallery ---------- */
+  .gallery{
+    padding:80px 0;
+    background:var(--cream-dim);
+    border-top:1px solid var(--line-dark);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .gallery-item{
+    border-radius:var(--radius);
+    overflow:hidden;
+    aspect-ratio:4/3;
+    border:1px solid var(--line-dark);
+  }
+  .gallery-item img{width:100%; height:100%; object-fit:cover;}
+
   /* ---------- Contact ---------- */
   .contact{
     padding:96px 0;
@@ -421,6 +441,7 @@
     .story-visual{aspect-ratio:16/9;}
     .promo-grid{grid-template-columns:1fr; gap:28px;}
     .promo-visual{aspect-ratio:16/9;}
+    .gallery-grid{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}
     .map-frame{aspect-ratio:16/10;}
   }
@@ -451,7 +472,7 @@
     .hero{padding:64px 0 56px;}
     .hero-actions{flex-direction:column;}
     .hero-actions .btn{width:100%; text-align:center;}
-    .menu, .story, .contact{padding:64px 0;}
+    .menu, .story, .contact, .gallery{padding:64px 0;}
     .dish{
       grid-template-columns:64px 1fr;
     }
@@ -541,12 +562,30 @@
 <section class="promo" id="promo">
   <div class="wrap promo-grid">
     <div class="promo-visual">
-      <img src="image/promo.jpg" alt="Promocja dla studentów i gości Aquaparku Wrocław">
+      <img src="image/photo_2026-09-03_16-51-03.jpg" alt="Promocja dla studentów i gości Aquaparku Wrocław">
     </div>
     <div>
       <span class="promo-badge">Promocja</span>
       <h2>Zniżka dla studentów<br>i gości <em>Aquaparku.</em></h2>
       <p>Masz legitymację studencką albo wracasz z Aquaparku Wrocław? Pokaż nam ją przy zamówieniu i skorzystaj ze specjalnej ceny. Sprawdź szczegóły promocji na miejscu.</p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Galeria</span>
+      <h2>Zobacz<br><em>nasz lokal.</em></h2>
+      <p>Kilka kadrów z Borowska Kebab — atmosfera i przygotowanie na miejscu.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="image/photo_2026-09-03_16-50-55.jpg" alt="Borowska Kebab — wnętrze lokalu">
+      </div>
+      <div class="gallery-item">
+        <img src="image/photo_2026-09-03_16-51-03.jpg" alt="Borowska Kebab — przygotowanie dania">
+      </div>
     </div>
   </div>
 </section>
