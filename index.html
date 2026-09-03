@@ -85,21 +85,6 @@ letter-spacing:0.02em;
 color:var(--cream);
 }
 .brand span{color:var(--gold);}
-.brand-logo{
-  display:flex;
-  align-items:center;
-}
-.brand-logo img{
-  height:44px;
-  width:auto;
-  display:block;
-  filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
-  transition:transform .3s var(--ease-back);
-}
-.brand-logo:hover img{
-  transform:scale(1.06) rotate(-2deg);
-}
-footer .brand-logo img{ height:36px; }
 .nav-links{
 display:flex; align-items:center; gap:28px;
 font-size:0.92rem;
@@ -179,6 +164,16 @@ color:var(--cream);
 .hero h1 em{
 font-style:normal;
 color:var(--red);
+}
+.hero-logo{
+  max-width:420px;
+  width:80%;
+}
+.hero-logo img{
+  width:100%;
+  height:auto;
+  display:block;
+  filter:drop-shadow(0 12px 28px rgba(0,0,0,.55));
 }
 .hero p{
 margin-top:22px;
@@ -588,10 +583,10 @@ header{
 .hero .kicker{
   animation: fadeInLeft .8s .2s var(--ease-out) both;
 }
-.hero h1{
+.hero h1, .hero-logo{
   overflow:hidden;
 }
-.hero h1{
+.hero h1, .hero-logo{
   animation: heroTitleIn 1s .35s var(--ease-out) both;
 }
 @keyframes heroTitleIn{
@@ -899,7 +894,7 @@ header{
 <body>
 <header>
 <nav class="nav">
-<a href="#home" class="brand brand-logo"><img src="image/logo1.jpg" alt="Borowska Kebab"></a>
+<a href="#home" class="brand">BOROWSKA <span>KEBAB</span></a>
 <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu" aria-expanded="false">☰</button>
 <div class="nav-links" id="navLinks">
 <a href="#about">O nas</a>
@@ -917,7 +912,7 @@ header{
 <div class="wrap hero-grid">
 <div>
 <span class="kicker">Borowska 103 · Wrocław</span>
-<h1>Prawdziwy<br><em>kebab.</em></h1>
+<div class="hero-logo"><img src="image/logo1.jpg" alt="Borowska Kebab — prawdziwy kebab"></div>
 <p>Soczyste mięso, świeże warzywa i dobry sos — bez zbędnych dodatków. Grillujemy na miejscu, codziennie od nowa.</p>
 <div class="hero-actions">
 <a class="btn btn-primary" href="#menu">Zobacz menu</a>
@@ -1233,7 +1228,7 @@ header{
 
 <footer>
 <div class="wrap footer-row">
-<span class="brand brand-logo"><img src="image/logo1.jpg" alt="Borowska Kebab"></span>
+<span class="brand">Borowska Kebab</span>
 <span>© 2026 Borowska Kebab. Wrocław.</span>
 <a href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer">Oceń nas ★</a>
 <a href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer">Zamów online →</a>
