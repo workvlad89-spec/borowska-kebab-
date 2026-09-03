@@ -30,16 +30,16 @@
 </script>
 <style>
 :root{
---ink:#1C1815;
---ink-soft:#2A241F;
---cream:#F7F2EA;
---cream-dim:#EDE6D8;
---red:#B33A2E;
---red-deep:#8F2D23;
+--ink:#0D0B0A;
+--ink-soft:#1A1614;
+--cream:#F5F0E8;
+--cream-dim:#E8E0D2;
+--red:#D42A1F;
+--red-deep:#A31C13;
 --gold:#C99A4A;
 --olive:#5B6349;
---line: rgba(247,242,234,0.14);
---line-dark: rgba(28,24,21,0.12);
+--line: rgba(245,240,232,0.14);
+--line-dark: rgba(13,11,10,0.14);
 --radius: 4px;
 --max: 1120px;
 }
@@ -47,8 +47,8 @@
 html{scroll-behavior:smooth;}
 body{
 margin:0;
-background:var(--cream);
-color:var(--ink);
+background:var(--ink);
+color:var(--cream);
 font-family:'Inter',sans-serif;
 font-size:16px;
 line-height:1.55;
@@ -85,6 +85,21 @@ letter-spacing:0.02em;
 color:var(--cream);
 }
 .brand span{color:var(--gold);}
+.brand-logo{
+  display:flex;
+  align-items:center;
+}
+.brand-logo img{
+  height:44px;
+  width:auto;
+  display:block;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
+  transition:transform .3s var(--ease-back);
+}
+.brand-logo:hover img{
+  transform:scale(1.06) rotate(-2deg);
+}
+footer .brand-logo img{ height:36px; }
 .nav-links{
 display:flex; align-items:center; gap:28px;
 font-size:0.92rem;
@@ -116,11 +131,11 @@ color:var(--cream);
 }
 .btn-ghost:hover, .btn-ghost:focus-visible{border-color:var(--gold); color:var(--gold);}
 .btn-outline-dark{
-border:1px solid var(--ink);
-color:var(--ink);
+border:1px solid var(--cream);
+color:var(--cream);
 background:transparent;
 }
-.btn-outline-dark:hover, .btn-outline-dark:focus-visible{background:var(--ink); color:var(--cream);}
+.btn-outline-dark:hover, .btn-outline-dark:focus-visible{background:var(--cream); color:var(--ink);}
 .menu-toggle{
 display:none;
 background:none; border:none; color:var(--cream);
@@ -207,7 +222,7 @@ margin-bottom:52px;
 .section-head h2{
 font-size:clamp(2rem, 3.6vw, 2.8rem);
 text-transform:uppercase;
-color:var(--ink);
+color:var(--cream);
 }
 .section-head h2 em{
 font-style:normal;
@@ -215,16 +230,16 @@ color:var(--red);
 }
 .section-head p{
 margin-top:16px;
-color:var(--ink-soft);
-opacity:0.75;
+color:var(--cream);
+opacity:0.7;
 max-width:52ch;
 }
 /* ---------- Promo banner ---------- */
 .promo{
 padding:64px 0;
-background:var(--cream-dim);
-border-top:1px solid var(--line-dark);
-border-bottom:1px solid var(--line-dark);
+background:var(--ink-soft);
+border-top:1px solid var(--line);
+border-bottom:1px solid var(--line);
 }
 .promo-grid{
 display:grid;
@@ -236,7 +251,7 @@ align-items:center;
 border-radius:var(--radius);
 overflow:hidden;
 aspect-ratio:4/3;
-border:1px solid var(--line-dark);
+border:1px solid var(--line);
 }
 .promo-visual img{width:100%; height:100%; object-fit:cover;}
 .promo-badge{
@@ -254,19 +269,19 @@ margin-bottom:16px;
 .promo h2{
 font-size:clamp(1.6rem, 2.8vw, 2.1rem);
 text-transform:uppercase;
-color:var(--ink);
+color:var(--cream);
 }
 .promo h2 em{font-style:normal; color:var(--red);}
 .promo p{
 margin-top:14px;
-color:var(--ink-soft);
-opacity:0.8;
+color:var(--cream);
+opacity:0.75;
 max-width:52ch;
 }
 /* ---------- Menu ---------- */
 .menu{
 padding:96px 0;
-background:var(--cream);
+background:var(--ink);
 }
 .category{
 margin-bottom:64px;
@@ -276,19 +291,19 @@ margin-bottom:64px;
 display:flex;
 align-items:baseline;
 gap:16px;
-border-bottom:2px solid var(--ink);
+border-bottom:2px solid var(--red);
 padding-bottom:14px;
 margin-bottom:8px;
 }
 .category-title h3{
 font-size:1.5rem;
 text-transform:uppercase;
-color:var(--ink);
+color:var(--cream);
 }
 .category-count{
 font-size:0.85rem;
-color:var(--ink-soft);
-opacity:0.6;
+color:var(--gold);
+opacity:0.8;
 }
 .dish-list{
 display:flex;
@@ -300,14 +315,14 @@ grid-template-columns:88px 1fr;
 align-items:center;
 gap:20px;
 padding:20px 0;
-border-bottom:1px solid var(--line-dark);
+border-bottom:1px solid var(--line);
 }
 .dish:last-child{border-bottom:none;}
 .dish-thumb{
 width:88px; height:88px;
 border-radius:var(--radius);
 overflow:hidden;
-background:var(--cream-dim);
+background:var(--ink-soft);
 flex-shrink:0;
 }
 .dish-thumb img{width:100%; height:100%; object-fit:cover;}
@@ -315,13 +330,13 @@ flex-shrink:0;
 font-family:'Inter',sans-serif;
 font-weight:600;
 font-size:1.05rem;
-color:var(--ink);
+color:var(--cream);
 }
 .dish-info p{
 margin:4px 0 0;
 font-size:0.92rem;
-color:var(--ink-soft);
-opacity:0.72;
+color:var(--cream);
+opacity:0.6;
 }
 .dish--simple{
 grid-template-columns:1fr;
@@ -372,7 +387,7 @@ font-size:0.98rem;
 /* ---------- Contact ---------- */
 .contact{
 padding:96px 0;
-background:var(--cream-dim);
+background:var(--ink-soft);
 }
 .contact-grid{
 display:grid;
@@ -391,13 +406,13 @@ margin-bottom:10px;
 }
 .info-block h3{
 font-size:1.4rem;
-color:var(--ink);
+color:var(--cream);
 text-transform:uppercase;
 }
 .info-block p{
 margin:4px 0 0;
-color:var(--ink-soft);
-opacity:0.8;
+color:var(--cream);
+opacity:0.75;
 }
 .info-block a.link-line{
 display:inline-flex;
@@ -413,7 +428,7 @@ border-bottom:1px solid transparent;
 .map-frame{
 border-radius:var(--radius);
 overflow:hidden;
-border:1px solid var(--line-dark);
+border:1px solid var(--line);
 aspect-ratio:4/3;
 }
 .map-frame iframe{width:100%; height:100%; border:0; display:block;}
@@ -884,7 +899,7 @@ header{
 <body>
 <header>
 <nav class="nav">
-<a href="#home" class="brand">BOROWSKA <span>KEBAB</span></a>
+<a href="#home" class="brand brand-logo"><img src="image/logo1.jpg" alt="Borowska Kebab"></a>
 <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu" aria-expanded="false">☰</button>
 <div class="nav-links" id="navLinks">
 <a href="#about">O nas</a>
@@ -1218,7 +1233,7 @@ header{
 
 <footer>
 <div class="wrap footer-row">
-<span class="brand">Borowska Kebab</span>
+<span class="brand brand-logo"><img src="image/logo1.jpg" alt="Borowska Kebab"></span>
 <span>© 2026 Borowska Kebab. Wrocław.</span>
 <a href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer">Oceń nas ★</a>
 <a href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer">Zamów online →</a>
