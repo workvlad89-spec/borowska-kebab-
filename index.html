@@ -5,9 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Borowska Kebab — Wrocław</title>
 <meta name="description" content="Borowska Kebab — świeży kebab we Wrocławiu. Tortilla, knysza, rollo, kapsalon, boxy, falafel, sałatki i napoje.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Borowska Kebab — Wrocław">
+<meta property="og:description" content="Świeży kebab we Wrocławiu przy ul. Borowskiej 103. Sprawdź menu i zamów online.">
+<meta property="og:image" content="image/BOROWSKA-KEBAB_Cover.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FastFoodRestaurant",
+  "name": "Borowska Kebab",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Borowska 103",
+    "addressLocality": "Wrocław",
+    "postalCode": "50-551",
+    "addressCountry": "PL"
+  },
+  "telephone": "+48789110260",
+  "priceRange": "$$"
+}
+</script>
+
 <style>
   :root{
     --ink:#1C1815;
@@ -345,27 +368,17 @@
     color:rgba(247,242,234,0.78);
     max-width:52ch;
   }
+  .story-list{
+    margin-top:14px;
+    padding-left:0;
+    list-style:none;
+    color:rgba(247,242,234,0.85);
+  }
+  .story-list li{
+    margin-bottom:6px;
+    font-size:0.98rem;
+  }
   .story .hero-actions{margin-top:32px;}
-
-  /* ---------- Gallery ---------- */
-  .gallery{
-    padding:80px 0;
-    background:var(--cream-dim);
-    border-top:1px solid var(--line-dark);
-    border-bottom:1px solid var(--line-dark);
-  }
-  .gallery-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:24px;
-  }
-  .gallery-item{
-    border-radius:var(--radius);
-    overflow:hidden;
-    aspect-ratio:4/3;
-    border:1px solid var(--line-dark);
-  }
-  .gallery-item img{width:100%; height:100%; object-fit:cover;}
 
   /* ---------- Contact ---------- */
   .contact{
@@ -441,7 +454,6 @@
     .story-visual{aspect-ratio:16/9;}
     .promo-grid{grid-template-columns:1fr; gap:28px;}
     .promo-visual{aspect-ratio:16/9;}
-    .gallery-grid{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}
     .map-frame{aspect-ratio:16/10;}
   }
@@ -472,7 +484,7 @@
     .hero{padding:64px 0 56px;}
     .hero-actions{flex-direction:column;}
     .hero-actions .btn{width:100%; text-align:center;}
-    .menu, .story, .contact, .gallery{padding:64px 0;}
+    .menu, .story, .contact{padding:64px 0;}
     .dish{
       grid-template-columns:64px 1fr;
     }
@@ -503,10 +515,12 @@
     <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu" aria-expanded="false">☰</button>
     <div class="nav-links" id="navLinks">
       <a href="#about">O nas</a>
+      <a href="#salads">Sałatki</a>
+      <a href="#patio">Strefa Wypoczynku</a>
       <a href="#menu">Menu</a>
       <a href="#contact">Kontakt</a>
-      <a class="btn btn-ghost" href="https://search.google.com/local/writereview?placeid=0x470fc31ec82b724f:0x70f95cc337767d20" target="_blank" rel="noopener">Oceń nas ★</a>
-      <a class="btn btn-primary" href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener">Zamów online</a>
+      <a class="btn btn-ghost" href="https://search.google.com/local/writereview?placeid=0x470fc31ec82b724f:0x70f95cc337767d20" target="_blank" rel="noopener noreferrer">Oceń nas ★</a>
+      <a class="btn btn-primary" href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener noreferrer">Zamów online</a>
     </div>
   </nav>
 </header>
@@ -519,8 +533,8 @@
       <p>Soczyste mięso, świeże warzywa i dobry sos — bez zbędnych dodatków. Grillujemy na miejscu, codziennie od nowa.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#menu">Zobacz menu</a>
-        <a class="btn btn-ghost" href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener">Zamów online</a>
-        <a class="btn btn-ghost" href="https://search.google.com/local/writereview?placeid=0x470fc31ec82b724f:0x70f95cc337767d20" target="_blank" rel="noopener">Oceń nas ★</a>
+        <a class="btn btn-ghost" href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener noreferrer">Zamów online</a>
+        <a class="btn btn-ghost" href="https://search.google.com/local/writereview?placeid=0x470fc31ec82b724f:0x70f95cc337767d20" target="_blank" rel="noopener noreferrer">Oceń nas ★</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -559,6 +573,50 @@
   </div>
 </section>
 
+<!-- Świeże sałatki (Foto ze stałym pracownikiem) -->
+<section class="story" id="salads">
+  <div class="wrap story-grid">
+    <div class="story-visual">
+      <img src="image/photo_2026-09-03_16-51-03.jpg" alt="Przygotowanie świeżych sałatek w Borowska Kebab">
+    </div>
+    <div>
+      <span class="kicker">Świeżość każdego dnia</span>
+      <h2>Świeże sałatki <em>każdego dnia! 🥗</em></h2>
+      <p>W Borowska Kebab stawiamy na świeżość i dobry smak. Nasze warzywa i sałatki są świeżo przygotowywane i krojone każdego dnia.</p>
+      <p style="margin-top:12px; font-weight:600; color:var(--gold);">W naszym barze znajdziesz:</p>
+      <ul class="story-list">
+        <li>🥬 Kapustę pekińską</li>
+        <li>🥬 Sałatę lodową</li>
+        <li>🍅 Pomidory</li>
+        <li>🥒 Ogórki</li>
+        <li>🥕 Białą kapustę z pietruszką, marchewką i naszą autorską przyprawą</li>
+        <li>💛 Żółtą kapustę z kurkumą i naszą autorską przyprawą</li>
+        <li>❤️ Czerwoną kapustę z naszą autorską przyprawą</li>
+        <li>🫒 Oliwki</li>
+        <li>🌶️ Chilli</li>
+        <li>🌶️ Jalapeño</li>
+        <li>🥗 Nasz autorski sos winegret</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Strefa wypoczynku (Foto lokalu) -->
+<section class="story" id="patio" style="background:var(--ink-soft);">
+  <div class="wrap story-grid reverse">
+    <div>
+      <span class="kicker">Komfort i atmosfera</span>
+      <h2>Strefa wypoczynku – <em>latem i zimą! ☀️🔥</em></h2>
+      <p>Latem zapraszamy do naszej otwartej strefy na świeżym powietrzu – idealnego miejsca, aby usiąść, odpocząć i cieszyć się dobrym jedzeniem.</p>
+      <p>Zima strefa jest zamknięta i ogrzewana, dzięki czemu możesz komfortowo zjeść i odpocząć niezależnie od pogody. ❄️🔥</p>
+      <p style="margin-top:16px; font-weight:600; color:var(--gold);">Borowska Kebab – dobry kebab i miejsce, w którym chce się zostać na dłużej. ❤️</p>
+    </div>
+    <div class="story-visual">
+      <img src="image/photo_2026-09-03_16-50-55.jpg" alt="Strefa wypoczynku w Borowska Kebab">
+    </div>
+  </div>
+</section>
+
 <section class="promo" id="promo">
   <div class="wrap promo-grid">
     <div class="promo-visual">
@@ -568,24 +626,6 @@
       <span class="promo-badge">Promocja</span>
       <h2>Zniżka dla studentów<br>i gości <em>Aquaparku.</em></h2>
       <p>Masz legitymację studencką albo wracasz z Aquaparku Wrocław? Pokaż nam ją przy zamówieniu i skorzystaj ze specjalnej ceny. Sprawdź szczegóły promocji na miejscu.</p>
-    </div>
-  </div>
-</section>
-
-<section class="gallery" id="gallery">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Galeria</span>
-      <h2>Zobacz<br><em>nasz lokal.</em></h2>
-      <p>Kilka kadrów z Borowska Kebab — atmosfera i przygotowanie na miejscu.</p>
-    </div>
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="image/photo_2026-09-03_16-50-55.jpg" alt="Borowska Kebab — wnętrze lokalu">
-      </div>
-      <div class="gallery-item">
-        <img src="image/photo_2026-09-03_16-51-03.jpg" alt="Borowska Kebab — przygotowanie dania">
-      </div>
     </div>
   </div>
 </section>
@@ -772,11 +812,11 @@
         <div class="info-block">
           <span class="kicker">Zamówienia online</span>
           <h3>Bolt Food</h3>
-          <a class="link-line" href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener">Otwórz Bolt Food →</a>
+          <a class="link-line" href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener noreferrer">Otwórz Bolt Food →</a>
           <br>
-          <a class="link-line" href="https://www.google.com/maps/search/?api=1&query=Borowska+103,+Wrocław" target="_blank" rel="noopener">Otwórz Google Maps →</a>
+          <a class="link-line" href="https://www.google.com/maps/search/?api=1&query=Borowska+103,+Wrocław" target="_blank" rel="noopener noreferrer">Otwórz Google Maps →</a>
           <br>
-          <a class="link-line" href="https://search.google.com/local/writereview?placeid=0x470fc31ec82b724f:0x70f95cc337767d20" target="_blank" rel="noopener">Oceń nas na Google ★ →</a>
+          <a class="link-line" href="https://search.google.com/local/writereview?placeid=0x470fc31ec82b724f:0x70f95cc337767d20" target="_blank" rel="noopener noreferrer">Oceń nas na Google ★ →</a>
         </div>
       </div>
       <div class="map-frame">
@@ -790,8 +830,8 @@
   <div class="wrap footer-row">
     <span class="brand">Borowska Kebab</span>
     <span>© 2026 Borowska Kebab. Wrocław.</span>
-    <a href="https://search.google.com/local/writereview?placeid=0x470fc31ec82b724f:0x70f95cc337767d20" target="_blank" rel="noopener">Oceń nas ★</a>
-    <a href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener">Zamów online →</a>
+    <a href="https://search.google.com/local/writereview?placeid=0x470fc31ec82b724f:0x70f95cc337767d20" target="_blank" rel="noopener noreferrer">Oceń nas ★</a>
+    <a href="https://food.bolt.eu/en/344-wroclaw/p/3142492-borowska-kebab/" target="_blank" rel="noopener noreferrer">Zamów online →</a>
   </div>
 </footer>
 
@@ -801,10 +841,12 @@
   toggle.addEventListener('click', () => {
     const open = links.classList.toggle('open');
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.textContent = open ? '✕' : '☰';
   });
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     links.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
+    toggle.textContent = '☰';
   }));
 </script>
 
