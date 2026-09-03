@@ -778,6 +778,107 @@ header{
   .hero-visual{ animation-name: fadeInUp; }
   .scroll-top-btn{ right:14px; bottom:14px; width:44px; height:44px; }
 }
+
+/* ===== INGREDIENT HOVER CARD ===== */
+.dish{ position:relative; cursor:pointer; }
+
+.dish-ingredients{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 10px);
+  transform:translateX(-50%) translateY(10px);
+  background:var(--ink);
+  color:var(--cream);
+  border:1px solid var(--gold);
+  border-radius:8px;
+  padding:14px 16px;
+  min-width:220px;
+  max-width:280px;
+  z-index:30;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .3s var(--ease-out), transform .3s var(--ease-out), visibility .3s;
+  box-shadow:0 16px 36px -8px rgba(0,0,0,.5);
+}
+.dish-ingredients::after{
+  content:"";
+  position:absolute;
+  top:100%; left:50%;
+  transform:translateX(-50%);
+  border:7px solid transparent;
+  border-top-color:var(--ink);
+}
+.dish:hover .dish-ingredients,
+.dish:focus-within .dish-ingredients{
+  opacity:1;
+  visibility:visible;
+  transform:translateX(-50%) translateY(0);
+}
+
+.dish-ingredients-title{
+  font-family:'Oswald',sans-serif;
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--gold);
+  margin-bottom:8px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:6px;
+}
+
+.dish-ingredients ul{
+  list-style:none;
+  margin:0; padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.dish-ingredients li{
+  font-size:.88rem;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  opacity:0;
+  transform:translateX(-12px);
+  transition:opacity .35s var(--ease-out), transform .35s var(--ease-out);
+}
+.dish:hover .dish-ingredients li,
+.dish:focus-within .dish-ingredients li{
+  opacity:1;
+  transform:translateX(0);
+}
+.dish:hover .dish-ingredients li:nth-child(1),
+.dish:focus-within .dish-ingredients li:nth-child(1){transition-delay:.05s;}
+.dish:hover .dish-ingredients li:nth-child(2),
+.dish:focus-within .dish-ingredients li:nth-child(2){transition-delay:.12s;}
+.dish:hover .dish-ingredients li:nth-child(3),
+.dish:focus-within .dish-ingredients li:nth-child(3){transition-delay:.19s;}
+.dish:hover .dish-ingredients li:nth-child(4),
+.dish:focus-within .dish-ingredients li:nth-child(4){transition-delay:.26s;}
+.dish:hover .dish-ingredients li:nth-child(5),
+.dish:focus-within .dish-ingredients li:nth-child(5){transition-delay:.33s;}
+
+.dish-ingredients li .ing-dot{
+  width:6px; height:6px;
+  border-radius:50%;
+  background:var(--red);
+  flex-shrink:0;
+}
+
+@media (max-width:640px){
+  .dish-ingredients{
+    left:0; right:0;
+    transform:translateY(10px);
+    min-width:0; max-width:none;
+    margin:0 8px;
+  }
+  .dish:hover .dish-ingredients,
+  .dish:focus-within .dish-ingredients{
+    transform:translateY(0);
+  }
+  .dish-ingredients::after{ display:none; }
+}
 </style>
 </head>
 <body>
@@ -1328,6 +1429,47 @@ toggle.textContent = '☰';
     initScrollTopButton();
   });
 })();
+
+(function(){
+  const ingredientsMap = {
+    "Tortilla": ["Tortilla (lawasz)", "Mięso z rożna", "Świeże warzywa", "Sos na wybór"],
+    "Knysza": ["Pieczywo knysza", "Mięso z rożna", "Świeże warzywa", "Sos na wybór"],
+    "American Rollo": ["Tortilla", "Mięso z rożna", "Frytki", "Ser", "Sos"],
+    "Zestaw Kebab": ["Mięso z rożna", "Świeże warzywa", "Frytki", "Sos"],
+    "Kapsalon": ["Mięso z rożna", "Frytki", "Stopiony ser", "Surówki", "Sos"],
+    "Zestaw Nuggets": ["Nuggetsy", "Frytki", "Surówka", "Sos"],
+    "Fry Bułka z Serem": ["Bułka", "Mięso z rożna", "Frytki", "Ser", "Sos"],
+    "Falafel Knysza": ["Pieczywo knysza", "Falafel", "Świeże warzywa", "Sos"],
+    "Falafel Tortilla": ["Tortilla", "Falafel", "Świeże warzywa", "Sos"],
+    "Zestaw Falafel": ["Falafel", "Hummus lub frytki", "Surówka", "Sos"],
+    "Zestaw Smażony Ser": ["Smażony ser", "Frytki", "Sos"],
+    "Zestaw Filet Mintaja": ["Filet z mintaja", "Frytki", "Sos"],
+    "Kebab Box": ["Mięso z rożna", "Frytki", "Sos"],
+    "Nuggets Box": ["Nuggetsy", "Frytki", "Sos"],
+    "Sałatka Grecka": ["Mix sałat", "Oliwki", "Ser feta", "Pomidory, ogórki"],
+    "Sałatka z Mięsem": ["Mix sałat", "Mięso z rożna", "Sos"]
+  };
+
+  document.querySelectorAll('.dish').forEach(dish => {
+    const nameEl = dish.querySelector('.dish-info h4');
+    if (!nameEl) return;
+    const name = nameEl.textContent.trim();
+    const ingredients = ingredientsMap[name];
+    if (!ingredients) return;
+
+    const card = document.createElement('div');
+    card.className = 'dish-ingredients';
+    card.innerHTML = `
+      <div class="dish-ingredients-title">Skład</div>
+      <ul>
+        ${ingredients.map(i => `<li><span class="ing-dot"></span>${i}</li>`).join('')}
+      </ul>
+    `;
+    dish.appendChild(card);
+    dish.setAttribute('tabindex', '0');
+  });
+})();
+
 </script>
 </body>
 </html>
