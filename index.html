@@ -46,7 +46,7 @@
 --max: 1120px;
 }
 *{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth; overflow-x:hidden;}
 body{
 margin:0;
 background:var(--ink);
@@ -55,6 +55,8 @@ font-family:'Inter',sans-serif;
 font-size:16px;
 line-height:1.55;
 -webkit-font-smoothing:antialiased;
+overflow-x:hidden;
+width:100%;
 }
 img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
@@ -359,6 +361,19 @@ overflow:hidden;
 aspect-ratio:1/1;
 }
 .story-visual img{width:100%; height:100%; object-fit:cover;}
+
+/* Для картинок-графики с текстом (напр. "MIĘSA") — не обрезаем, вписываем целиком */
+.story-visual--contain{
+background:var(--ink-soft);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.story-visual--contain img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
 .story h2{
 font-size:clamp(1.9rem, 3.4vw, 2.6rem);
 text-transform:uppercase;
@@ -451,6 +466,11 @@ font-size:0.88rem;
 .hero-visual{aspect-ratio:16/10; order:-1;}
 .story-grid, .story-grid.reverse{grid-template-columns:1fr;}
 .story-visual{aspect-ratio:16/9;}
+.story-visual.story-visual--contain{
+  aspect-ratio:auto;
+  max-height:340px;
+  padding:14px 0;
+}
 .promo-grid{grid-template-columns:1fr; gap:28px;}
 .promo-visual{aspect-ratio:16/9;}
 .contact-grid{grid-template-columns:1fr;}
@@ -791,6 +811,52 @@ header{
   .scroll-top-btn{ right:14px; bottom:14px; width:44px; height:44px; }
 }
 
+/* ===== ПЕРЕХОД МЕЖДУ СЕКЦИЯМИ (как переход между "страничками") ===== */
+.page-transition-overlay{
+  position:fixed;
+  inset:0;
+  background:var(--ink);
+  z-index:9999;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s var(--ease-out);
+}
+.page-transition-overlay.active{
+  opacity:1;
+  pointer-events:all;
+}
+.page-transition-overlay::after{
+  content:"";
+  position:absolute;
+  top:50%; left:50%;
+  width:46px; height:46px;
+  margin:-23px 0 0 -23px;
+  border:2px solid var(--line);
+  border-top-color:var(--red);
+  border-radius:50%;
+  opacity:0;
+  transition:opacity .2s ease .15s;
+  animation:spin .8s linear infinite;
+}
+.page-transition-overlay.active::after{ opacity:1; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+@media (prefers-reduced-motion:reduce){
+  .page-transition-overlay{ display:none !important; }
+}
+
+/* ===== ВНЕЗАПНОЕ ("pop") ПОЯВЛЕНИЕ КАРТИНОК С ЗАДЕРЖКОЙ ===== */
+[data-reveal="pop"]{
+  opacity:0;
+  transform:scale(.8);
+  transition:none;
+}
+[data-reveal="pop"].in-view{
+  opacity:1;
+  transform:scale(1);
+  transition:opacity .25s ease, transform .5s var(--ease-back);
+}
+
 /* ===== INGREDIENT HOVER CARD ===== */
 .dish{ position:relative; cursor:pointer; }
 
@@ -894,6 +960,7 @@ header{
 </style>
 </head>
 <body>
+<div class="page-transition-overlay" id="pageTransitionOverlay"></div>
 <header>
 <nav class="nav">
 <a href="#home" class="brand">BOROWSKA <span>KEBAB</span></a>
@@ -971,7 +1038,7 @@ header{
 </ul>
 <p style="margin-top:16px; font-weight:600; color:var(--gold);">Świeże mięso. Dobre składniki. Prawdziwy smak kebaba. ❤️</p>
 </div>
-<div class="story-visual">
+<div class="story-visual story-visual--contain" data-reveal="pop">
 <img src="image/photo_2026-09-03_20-42-31.jpg" alt="Świeże mięsa w Borowska Kebab — kurczak, wołowina premium, kraftowa">
 </div>
 </div>
@@ -979,7 +1046,7 @@ header{
 
 <section class="story" id="patio">
 <div class="wrap story-grid">
-<div class="story-visual">
+<div class="story-visual" data-reveal="pop">
 <img src="image/photo_2026-09-03_16-51-03.jpg" alt="Strefa wypoczynku w Borowska Kebab">
 </div>
 <div>
@@ -1272,8 +1339,8 @@ toggle.textContent = '☰';
       const textBlock = Array.from(grid.children).find(c => c !== visual);
       const isReverse = grid.classList.contains('reverse');
 
-      if (visual) visual.setAttribute('data-reveal', isReverse ? 'right' : 'left');
-      if (textBlock) textBlock.setAttribute('data-reveal', isReverse ? 'left' : 'right');
+      if (visual && !visual.hasAttribute('data-reveal')) visual.setAttribute('data-reveal', isReverse ? 'right' : 'left');
+      if (textBlock && !textBlock.hasAttribute('data-reveal')) textBlock.setAttribute('data-reveal', isReverse ? 'left' : 'right');
     });
 
     const promoVisual = document.querySelector('.promo-visual');
@@ -1307,8 +1374,15 @@ toggle.textContent = '☰';
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
+          const el = entry.target;
+          if (el.getAttribute('data-reveal') === 'pop') {
+            /* "внезапное" появление спустя 1–2 секунды после попадания в зону видимости */
+            const delay = 1000 + Math.random() * 1000;
+            setTimeout(() => el.classList.add('in-view'), delay);
+          } else {
+            el.classList.add('in-view');
+          }
+          io.unobserve(el);
         }
       });
     }, {
@@ -1419,6 +1493,37 @@ toggle.textContent = '☰';
     update();
   }
 
+  function initPageTransitions() {
+    const overlay = document.getElementById('pageTransitionOverlay');
+    if (!overlay || reduceMotion) return;
+
+    /* переход только для ссылок на секции этой же страницы (#about, #menu и т.д.) */
+    const internalLinks = document.querySelectorAll('a[href^="#"]');
+
+    internalLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        e.preventDefault();
+        overlay.classList.add('active');
+
+        setTimeout(() => {
+          const headerEl = document.querySelector('header');
+          const offset = headerEl ? headerEl.offsetHeight : 0;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'auto' });
+
+          setTimeout(() => {
+            overlay.classList.remove('active');
+          }, 80);
+        }, 320);
+      });
+    });
+  }
+
   function initScrollTopButton() {
     const btn = document.createElement('button');
     btn.className = 'scroll-top-btn';
@@ -1444,6 +1549,7 @@ toggle.textContent = '☰';
     initMagneticButtons();
     initScrollProgress();
     initScrollTopButton();
+    initPageTransitions();
   });
 })();
 
