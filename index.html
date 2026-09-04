@@ -13,6 +13,20 @@
 <meta property="og:image" content="image/BOROWSKA-KEBAB_Cover.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script>
+(function(){
+  try{
+    var savedTheme = localStorage.getItem('bk-theme');
+    if(savedTheme === 'light'){ document.documentElement.setAttribute('data-theme','light'); }
+
+    var savedLang = localStorage.getItem('bk-lang');
+    if(savedLang === 'en'){
+      document.documentElement.setAttribute('lang','en');
+      document.documentElement.setAttribute('data-lang-pending','en');
+    }
+  }catch(e){}
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
@@ -45,6 +59,69 @@
 --radius: 4px;
 --max: 1120px;
 }
+
+/* ---------- Светлая тема ---------- */
+html[data-theme="light"]{
+--ink:#F5F0E8;
+--ink-soft:#EAE2D2;
+--cream:#17130F;
+--cream-dim:#3A322A;
+--line: rgba(13,11,10,0.12);
+--line-dark: rgba(13,11,10,0.12);
+}
+html[data-theme="light"] body{background:var(--ink); color:var(--cream);}
+html[data-theme="light"] header{
+background:rgba(245,240,232,0.94);
+border-bottom:1px solid var(--line);
+}
+html[data-theme="light"] .hero-visual::after{
+background:linear-gradient(180deg, rgba(245,240,232,0) 55%, rgba(245,240,232,0.55) 100%);
+}
+html[data-theme="light"] .btn-outline-dark{border-color:var(--cream); color:var(--cream);}
+html[data-theme="light"] .btn-outline-dark:hover{background:var(--cream); color:var(--ink);}
+
+body, header, .btn, .dish, .dish-thumb, .story-visual, .hero-visual::after{
+transition: background-color .35s ease, color .35s ease, border-color .35s ease;
+}
+
+/* ---------- Переключатель темы ---------- */
+.theme-toggle{
+width:40px; height:40px;
+display:flex; align-items:center; justify-content:center;
+border:1px solid var(--line);
+border-radius:50%;
+background:transparent;
+color:var(--cream);
+cursor:pointer;
+flex-shrink:0;
+transition:border-color .2s ease, transform .2s ease, color .2s ease;
+}
+.theme-toggle:hover{border-color:var(--gold); color:var(--gold); transform:translateY(-2px);}
+.theme-toggle svg{width:18px; height:18px;}
+.theme-toggle .icon-moon{display:block;}
+.theme-toggle .icon-sun{display:none;}
+html[data-theme="light"] .theme-toggle .icon-moon{display:none;}
+html[data-theme="light"] .theme-toggle .icon-sun{display:block;}
+#themeToggleMobile{display:none;}
+
+.lang-toggle{
+height:40px;
+padding:0 14px;
+display:flex; align-items:center; justify-content:center;
+border:1px solid var(--line);
+border-radius:var(--radius);
+background:transparent;
+color:var(--cream);
+cursor:pointer;
+font-family:'Inter',sans-serif;
+font-weight:700;
+font-size:0.78rem;
+letter-spacing:0.03em;
+flex-shrink:0;
+transition:border-color .2s ease, transform .2s ease, color .2s ease;
+}
+.lang-toggle:hover{border-color:var(--gold); color:var(--gold); transform:translateY(-2px);}
+#langToggleMobile{display:none;}
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth; overflow-x:hidden;}
 body{
@@ -60,6 +137,10 @@ width:100%;
 }
 img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
+
+/* Скрываем контент на долю секунды, пока не применится сохранённый английский перевод — чтобы не мелькал польский текст */
+html[data-lang-pending] body{ visibility:hidden; }
+
 h1,h2,h3,h4{
 font-family:'Oswald',sans-serif;
 margin:0;
@@ -499,6 +580,10 @@ transform:translateY(0);
 .nav-links a, .nav-links .btn{width:100%;}
 .nav-links .btn{text-align:center;}
 .menu-toggle{display:block;}
+#themeToggleMobile{display:flex;}
+#themeToggleDesktop{display:none;}
+#langToggleMobile{display:flex;}
+#langToggleDesktop{display:none;}
 .hero{padding:64px 0 56px;}
 .hero-actions{flex-direction:column;}
 .hero-actions .btn{width:100%; text-align:center;}
@@ -964,15 +1049,25 @@ header{
 <header>
 <nav class="nav">
 <a href="#home" class="brand">BOROWSKA <span>KEBAB</span></a>
+<button class="lang-toggle" id="langToggleMobile" aria-label="Zmień język / Change language" style="margin-left:auto;">PL / EN</button>
+<button class="theme-toggle" id="themeToggleMobile" aria-label="Przełącz jasny/ciemny motyw" style="margin-right:10px;">
+<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+</button>
 <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu" aria-expanded="false">☰</button>
 <div class="nav-links" id="navLinks">
-<a href="#about">O nas</a>
-<a href="#patio">Strefa Wypoczynku</a>
-<a href="#salads">Sałatki</a>
-<a href="#menu">Menu</a>
-<a href="#contact">Kontakt</a>
-<a class="btn btn-ghost" href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer">Oceń nas ★</a>
-<a class="btn btn-primary" href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer">Zamów online</a>
+<a href="#about" data-i18n="nav.about">O nas</a>
+<a href="#patio" data-i18n="nav.patio">Strefa Wypoczynku</a>
+<a href="#salads" data-i18n="nav.salads">Sałatki</a>
+<a href="#menu" data-i18n="nav.menu">Menu</a>
+<a href="#contact" data-i18n="nav.contact">Kontakt</a>
+<button class="lang-toggle" id="langToggleDesktop" aria-label="Zmień język / Change language">PL / EN</button>
+<button class="theme-toggle" id="themeToggleDesktop" aria-label="Przełącz jasny/ciemny motyw">
+<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+</button>
+<a class="btn btn-ghost" href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer" data-i18n="nav.review">Oceń nas ★</a>
+<a class="btn btn-primary" href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer" data-i18n="nav.order">Zamów online</a>
 </div>
 </nav>
 </header>
@@ -980,18 +1075,18 @@ header{
 <section class="hero" id="home">
 <div class="wrap hero-grid">
 <div>
-<span class="kicker">Borowska 103 · Wrocław</span>
+<span class="kicker" data-i18n="hero.kicker">Borowska 103 · Wrocław</span>
 <div class="hero-logo"><img src="image/logo1.jpg" alt="Borowska Kebab — prawdziwy kebab"></div>
-<p>Soczyste mięso, świeże warzywa i dobry sos — bez zbędnych dodatków. Grillujemy na miejscu, codziennie od nowa.</p>
+<p data-i18n="hero.text">Soczyste mięso, świeże warzywa i dobry sos — bez zbędnych dodatków. Grillujemy na miejscu, codziennie od nowa.</p>
 <div class="hero-actions">
-<a class="btn btn-primary" href="#menu">Zobacz menu</a>
-<a class="btn btn-ghost" href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer">Zamów online</a>
-<a class="btn btn-ghost" href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer">Oceń nas ★</a>
+<a class="btn btn-primary" href="#menu" data-i18n="hero.cta_menu">Zobacz menu</a>
+<a class="btn btn-ghost" href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer" data-i18n="nav.order">Zamów online</a>
+<a class="btn btn-ghost" href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer" data-i18n="nav.review">Oceń nas ★</a>
 </div>
 </div>
 <div class="hero-visual">
 <img src="image/BOROWSKA-KEBAB_Cover.jpg" alt="Borowska Kebab — świeżo przygotowany kebab">
-<div class="hero-tag">Grillowane <b>na żywym ogniu</b></div>
+<div class="hero-tag" data-i18n-html="hero.tag">Grillowane <b>na żywym ogniu</b></div>
 </div>
 </div>
 </section>
@@ -1002,11 +1097,11 @@ header{
 <img src="image/hero.jpg" alt="Zespół Borowska Kebab przy pracy">
 </div>
 <div>
-<span class="kicker">O nas</span>
-<h2>Kim jesteśmy <em>i co robimy.</em></h2>
-<p>Borowska Kebab to punkt przy Borowskiej 103 we Wrocławiu, prowadzony przez ludzi, którzy sami lubią dobrze zjeść. Gotujemy na miejscu — świeże mięso z grilla, chrupiące warzywa i sosy robione od podstaw, bez pośpiechu i bez skrótów. Zależy nam na tym, żeby każda porcja smakowała tak samo dobrze jak ta poprzednia.</p>
+<span class="kicker" data-i18n="about.kicker">O nas</span>
+<h2 data-i18n-html="about.title">Kim jesteśmy <em>i co robimy.</em></h2>
+<p data-i18n="about.text">Borowska Kebab to punkt przy Borowskiej 103 we Wrocławiu, prowadzony przez ludzi, którzy sami lubią dobrze zjeść. Gotujemy na miejscu — świeże mięso z grilla, chrupiące warzywa i sosy robione od podstaw, bez pośpiechu i bez skrótów. Zależy nam na tym, żeby każda porcja smakowała tak samo dobrze jak ta poprzednia.</p>
 <div class="hero-actions">
-<a class="btn btn-primary" href="#menu">Zobacz menu</a>
+<a class="btn btn-primary" href="#menu" data-i18n="hero.cta_menu">Zobacz menu</a>
 </div>
 </div>
 </div>
@@ -1015,9 +1110,9 @@ header{
 <section class="story" id="quality" style="background:var(--ink-soft);">
 <div class="wrap story-grid reverse">
 <div>
-<span class="kicker">Jakość</span>
-<h2>Mięso, które <em>traktujemy poważnie.</em></h2>
-<p>W Borowska Kebab mięso kroimy ręcznie i na bieżąco, przez cały dzień — nie raz rano na zapas. Dzięki temu każda porcja ma odpowiednią teksturę, jest soczysta i trafia na grill świeża. To detal, który łatwo pominąć, ale właśnie on robi największą różnicę w smaku.</p>
+<span class="kicker" data-i18n="quality.kicker">Jakość</span>
+<h2 data-i18n-html="quality.title">Mięso, które <em>traktujemy poważnie.</em></h2>
+<p data-i18n="quality.text">W Borowska Kebab mięso kroimy ręcznie i na bieżąco, przez cały dzień — nie raz rano na zapas. Dzięki temu każda porcja ma odpowiednią teksturę, jest soczysta i trafia na grill świeża. To detal, który łatwo pominąć, ale właśnie on robi największą różnicę w smaku.</p>
 </div>
 <div class="story-visual">
 <img src="image/photo_2026-09-03_11-59-41.jpg" alt="Pracownik dokładnie kroi mięso na kebab">
@@ -1028,15 +1123,15 @@ header{
 <section class="story" id="meats" style="background:var(--ink-soft);">
 <div class="wrap story-grid reverse">
 <div>
-<span class="kicker">Nasze mięsa</span>
-<h2>Jakość, którą <em>czujesz w każdym kęsie.</em></h2>
-<p>W Borowska Kebab stawiamy na jakość i dobry smak. Każdego dnia przygotowujemy dla Was świeże mięso:</p>
+<span class="kicker" data-i18n="meats.kicker">Nasze mięsa</span>
+<h2 data-i18n-html="meats.title">Jakość, którą <em>czujesz w każdym kęsie.</em></h2>
+<p data-i18n="meats.text">W Borowska Kebab stawiamy na jakość i dobry smak. Każdego dnia przygotowujemy dla Was świeże mięso:</p>
 <ul class="story-list">
-<li>🍗 <b>Kurczak</b> – soczysty kurczak w naszej aromatycznej marynacie.</li>
-<li>🥩 <b>Wołowina – Premium</b> – delikatna i soczysta wołowina mielona, przygotowana specjalnie dla naszego kebaba.</li>
-<li>🥩🐑 <b>Kraftowa</b> – wyjątkowe połączenie wołowiny i jagnięciny, dla osób szukających intensywnego, charakterystycznego smaku.</li>
+<li data-i18n-html="meats.li1">🍗 <b>Kurczak</b> – soczysty kurczak w naszej aromatycznej marynacie.</li>
+<li data-i18n-html="meats.li2">🥩 <b>Wołowina – Premium</b> – delikatna i soczysta wołowina mielona, przygotowana specjalnie dla naszego kebaba.</li>
+<li data-i18n-html="meats.li3">🥩🐑 <b>Kraftowa</b> – wyjątkowe połączenie wołowiny i jagnięciny, dla osób szukających intensywnego, charakterystycznego smaku.</li>
 </ul>
-<p style="margin-top:16px; font-weight:600; color:var(--gold);">Świeże mięso. Dobre składniki. Prawdziwy smak kebaba. ❤️</p>
+<p style="margin-top:16px; font-weight:600; color:var(--gold);" data-i18n="meats.footer">Świeże mięso. Dobre składniki. Prawdziwy smak kebaba. ❤️</p>
 </div>
 <div class="story-visual story-visual--contain" data-reveal="pop">
 <img src="image/photo_2026-09-03_20-42-31.jpg" alt="Świeże mięsa w Borowska Kebab — kurczak, wołowina premium, kraftowa">
@@ -1050,11 +1145,11 @@ header{
 <img src="image/photo_2026-09-03_16-51-03.jpg" alt="Strefa wypoczynku w Borowska Kebab">
 </div>
 <div>
-<span class="kicker">Komfort i atmosfera</span>
-<h2>Strefa wypoczynku – <em>latem i zimą! ☀️🔥</em></h2>
-<p>Latem zapraszamy do naszej otwartej strefy na świeżym powietrzu – idealnego miejsca, aby usiąść, odpocząć i cieszyć się dobrym jedzeniem.</p>
-<p>Zimą strefa jest zamknięta i ogrzewana, dzięki czemu możesz komfortowo zjeść i odpocząć niezależnie od pogody. ❄️🔥</p>
-<p style="margin-top:16px; font-weight:600; color:var(--gold);">Borowska Kebab – dobry kebab i miejsce, w którym chce się zostać na dłużej. ❤️</p>
+<span class="kicker" data-i18n="patio.kicker">Komfort i atmosfera</span>
+<h2 data-i18n-html="patio.title">Strefa wypoczynku – <em>latem i zimą! ☀️🔥</em></h2>
+<p data-i18n="patio.text1">Latem zapraszamy do naszej otwartej strefy na świeżym powietrzu – idealnego miejsca, aby usiąść, odpocząć i cieszyć się dobrym jedzeniem.</p>
+<p data-i18n="patio.text2">Zimą strefa jest zamknięta i ogrzewana, dzięki czemu możesz komfortowo zjeść i odpocząć niezależnie od pogody. ❄️🔥</p>
+<p style="margin-top:16px; font-weight:600; color:var(--gold);" data-i18n="patio.footer">Borowska Kebab – dobry kebab i miejsce, w którym chce się zostać na dłużej. ❤️</p>
 </div>
 </div>
 </section>
@@ -1062,22 +1157,22 @@ header{
 <section class="story" id="salads" style="background:var(--ink-soft);">
 <div class="wrap story-grid reverse">
 <div>
-<span class="kicker">Świeżość każdego dnia</span>
-<h2>Świeże sałatki <em>każdego dnia! 🥗</em></h2>
-<p>W Borowska Kebab stawiamy na świeżość i dobry smak. Nasze warzywa i sałatki są świeżo przygotowywane i krojone każdego dnia. 🥗</p>
-<p style="margin-top:12px; font-weight:600; color:var(--gold);">W naszym barze znajdziesz:</p>
+<span class="kicker" data-i18n="salads.kicker">Świeżość każdego dnia</span>
+<h2 data-i18n-html="salads.title">Świeże sałatki <em>każdego dnia! 🥗</em></h2>
+<p data-i18n="salads.text">W Borowska Kebab stawiamy na świeżość i dobry smak. Nasze warzywa i sałatki są świeżo przygotowywane i krojone każdego dnia. 🥗</p>
+<p style="margin-top:12px; font-weight:600; color:var(--gold);" data-i18n="salads.subtitle">W naszym barze znajdziesz:</p>
 <ul class="story-list">
-<li>🥬 Kapustę pekińską</li>
-<li>🥬 Sałatę lodową</li>
-<li>🍅 Pomidory</li>
-<li>🥒 Ogórki</li>
-<li>🥕 Białą kapustę z pietruszką, marchewką i naszą autorską przyprawą</li>
-<li>💛 Żółtą kapustę z kurkumą i naszą autorską przyprawą</li>
-<li>❤️ Czerwoną kapustę z naszą autorską przyprawą</li>
-<li>🫒 Oliwki</li>
-<li>🌶️ Chilli</li>
-<li>🌶️ Jalapeño</li>
-<li>🥗 Nasz autorski sos winegret</li>
+<li data-i18n="salads.li1">🥬 Kapustę pekińską</li>
+<li data-i18n="salads.li2">🥬 Sałatę lodową</li>
+<li data-i18n="salads.li3">🍅 Pomidory</li>
+<li data-i18n="salads.li4">🥒 Ogórki</li>
+<li data-i18n="salads.li5">🥕 Białą kapustę z pietruszką, marchewką i naszą autorską przyprawą</li>
+<li data-i18n="salads.li6">💛 Żółtą kapustę z kurkumą i naszą autorską przyprawą</li>
+<li data-i18n="salads.li7">❤️ Czerwoną kapustę z naszą autorską przyprawą</li>
+<li data-i18n="salads.li8">🫒 Oliwki</li>
+<li data-i18n="salads.li9">🌶️ Chilli</li>
+<li data-i18n="salads.li10">🌶️ Jalapeño</li>
+<li data-i18n="salads.li11">🥗 Nasz autorski sos winegret</li>
 </ul>
 </div>
 <div class="story-visual">
@@ -1092,9 +1187,9 @@ header{
 <img src="image/promo.jpg" alt="Promocja dla studentów i gości Aquaparku Wrocław">
 </div>
 <div>
-<span class="promo-badge">Promocja</span>
-<h2>Zniżka dla studentów<br>i gości <em>Aquaparku.</em></h2>
-<p>Masz legitymację studencką albo wracasz z Aquaparku Wrocław? Pokaż nam ją przy zamówieniu i skorzystaj ze specjalnej ceny. Sprawdź szczegóły promocji na miejscu.</p>
+<span class="promo-badge" data-i18n="promo.badge">Promocja</span>
+<h2 data-i18n-html="promo.title">Zniżka dla studentów<br>i gości <em>Aquaparku.</em></h2>
+<p data-i18n="promo.text">Masz legitymację studencką albo wracasz z Aquaparku Wrocław? Pokaż nam ją przy zamówieniu i skorzystaj ze specjalnej ceny. Sprawdź szczegóły promocji na miejscu.</p>
 </div>
 </div>
 </section>
@@ -1102,158 +1197,158 @@ header{
 <section class="menu" id="menu">
 <div class="wrap">
 <div class="section-head">
-<span class="kicker">Nasze menu</span>
-<h2>Wybierz<br><em>swój smak.</em></h2>
-<p>Wszystkie pozycje menu Borowska Kebab — od klasycznej tortilli po sałatki i napoje.</p>
+<span class="kicker" data-i18n="menu.kicker">Nasze menu</span>
+<h2 data-i18n-html="menu.title">Wybierz<br><em>swój smak.</em></h2>
+<p data-i18n="menu.subtitle">Wszystkie pozycje menu Borowska Kebab — od klasycznej tortilli po sałatki i napoje.</p>
 </div>
 
 <div class="category">
 <div class="category-title">
-<h3>Kebab</h3>
-<span class="category-count">7 pozycji</span>
+<h3 data-i18n="cat.kebab">Kebab</h3>
+<span class="category-count" data-i18n="cat.kebab_count">7 pozycji</span>
 </div>
 <div class="dish-list">
 <div class="dish">
 <div class="dish-thumb"><img src="image/1tortilla.jpg" alt="Tortilla kebab"></div>
-<div class="dish-info"><h4>Tortilla</h4><p>Mięso, surówka, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.tortilla.name">Tortilla</h4><p data-i18n="dish.tortilla.desc">Mięso, surówka, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/BOROWSKA-KEBAB_CloseUp.jpg" alt="Knysza kebab"></div>
-<div class="dish-info"><h4>Knysza</h4><p>Mięso, surówka, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.knysza.name">Knysza</h4><p data-i18n="dish.knysza.desc">Mięso, surówka, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/frytotortilla.jpg" alt="American Rollo"></div>
-<div class="dish-info"><h4>American Rollo</h4><p>Mięso, frytki, ser, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.rollo.name">American Rollo</h4><p data-i18n="dish.rollo.desc">Mięso, frytki, ser, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/zestaw-kebab-mieszane.jpg" alt="Zestaw Kebab"></div>
-<div class="dish-info"><h4>Zestaw Kebab</h4><p>Mięso, surówka, frytki, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.zestawkebab.name">Zestaw Kebab</h4><p data-i18n="dish.zestawkebab.desc">Mięso, surówka, frytki, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/kapsalon.jpg" alt="Kapsalon"></div>
-<div class="dish-info"><h4>Kapsalon</h4><p>Mięso, frytki, ser, surówki, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.kapsalon.name">Kapsalon</h4><p data-i18n="dish.kapsalon.desc">Mięso, frytki, ser, surówki, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/zestaw-nuggets.jpg" alt="Zestaw Nuggets"></div>
-<div class="dish-info"><h4>Zestaw Nuggets</h4><p>Nuggetsy, frytki, surówka, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.nuggets.name">Zestaw Nuggets</h4><p data-i18n="dish.nuggets.desc">Nuggetsy, frytki, surówka, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/bulka.jpg" alt="Fry bułka z serem"></div>
-<div class="dish-info"><h4>Fry Bułka z Serem</h4><p>Mięso, frytki, ser, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.bulka.name">Fry Bułka z Serem</h4><p data-i18n="dish.bulka.desc">Mięso, frytki, ser, sos.</p></div>
 </div>
 </div>
 </div>
 
 <div class="category">
 <div class="category-title">
-<h3>Dania wegetariańskie</h3>
-<span class="category-count">5 pozycji</span>
+<h3 data-i18n="cat.veg">Dania wegetariańskie</h3>
+<span class="category-count" data-i18n="cat.veg_count">5 pozycji</span>
 </div>
 <div class="dish-list">
 <div class="dish">
 <div class="dish-thumb"><img src="image/falafel.jpg" alt="Falafel Knysza"></div>
-<div class="dish-info"><h4>Falafel Knysza</h4><p>Falafel, surówka, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.falafelknysza.name">Falafel Knysza</h4><p data-i18n="dish.falafelknysza.desc">Falafel, surówka, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/falafel.jpg" alt="Falafel Tortilla"></div>
-<div class="dish-info"><h4>Falafel Tortilla</h4><p>Falafel, surówka, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.falafeltortilla.name">Falafel Tortilla</h4><p data-i18n="dish.falafeltortilla.desc">Falafel, surówka, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/zestaw-falafel.jpg" alt="Zestaw Falafel"></div>
-<div class="dish-info"><h4>Zestaw Falafel</h4><p>Falafel, hummus lub frytki, surówka, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.zestawfalafel.name">Zestaw Falafel</h4><p data-i18n="dish.zestawfalafel.desc">Falafel, hummus lub frytki, surówka, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/BOROWSKA-KEBAB_CloseUp.jpg" alt="Zestaw Smażony Ser"></div>
-<div class="dish-info"><h4>Zestaw Smażony Ser</h4><p>Ser, frytki, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.ser.name">Zestaw Smażony Ser</h4><p data-i18n="dish.ser.desc">Ser, frytki, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/BOROWSKA-KEBAB_CloseUp.jpg" alt="Zestaw Filet Mintaja"></div>
-<div class="dish-info"><h4>Zestaw Filet Mintaja</h4><p>Filet, frytki, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.mintaj.name">Zestaw Filet Mintaja</h4><p data-i18n="dish.mintaj.desc">Filet, frytki, sos.</p></div>
 </div>
 </div>
 </div>
 
 <div class="category">
 <div class="category-title">
-<h3>Boxy</h3>
-<span class="category-count">2 pozycje</span>
+<h3 data-i18n="cat.boxy">Boxy</h3>
+<span class="category-count" data-i18n="cat.boxy_count">2 pozycje</span>
 </div>
 <div class="dish-list">
 <div class="dish">
 <div class="dish-thumb"><img src="image/kebab-box.jpg" alt="Kebab Box"></div>
-<div class="dish-info"><h4>Kebab Box</h4><p>Mięso, frytki, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.kebabbox.name">Kebab Box</h4><p data-i18n="dish.kebabbox.desc">Mięso, frytki, sos.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/zestaw-nuggets.jpg" alt="Nuggets Box"></div>
-<div class="dish-info"><h4>Nuggets Box</h4><p>Nuggetsy, frytki, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.nuggetsbox.name">Nuggets Box</h4><p data-i18n="dish.nuggetsbox.desc">Nuggetsy, frytki, sos.</p></div>
 </div>
 </div>
 </div>
 
 <div class="category">
 <div class="category-title">
-<h3>Sałatki</h3>
-<span class="category-count">2 pozycje</span>
+<h3 data-i18n="cat.salatki">Sałatki</h3>
+<span class="category-count" data-i18n="cat.salatki_count">2 pozycje</span>
 </div>
 <div class="dish-list">
 <div class="dish">
 <div class="dish-thumb"><img src="image/salatka-grecka.jpg" alt="Sałatka Grecka"></div>
-<div class="dish-info"><h4>Sałatka Grecka</h4><p>Mix sałat, oliwki, ser feta.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.grecka.name">Sałatka Grecka</h4><p data-i18n="dish.grecka.desc">Mix sałat, oliwki, ser feta.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/salatka-z-miesem.jpg" alt="Sałatka z Mięsem"></div>
-<div class="dish-info"><h4>Sałatka z Mięsem</h4><p>Mix sałat, mięso, sos.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.zmiesem.name">Sałatka z Mięsem</h4><p data-i18n="dish.zmiesem.desc">Mix sałat, mięso, sos.</p></div>
 </div>
 </div>
 </div>
 
 <div class="category">
 <div class="category-title">
-<h3>Dodatki</h3>
-<span class="category-count">3 pozycje</span>
+<h3 data-i18n="cat.dodatki">Dodatki</h3>
+<span class="category-count" data-i18n="cat.dodatki_count">3 pozycje</span>
 </div>
 <div class="dish-list">
 <div class="dish">
 <div class="dish-thumb"><img src="image/frytki.jpg" alt="Frytki"></div>
-<div class="dish-info"><h4>Frytki</h4><p>Dodatkowa porcja frytek.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.frytki.name">Frytki</h4><p data-i18n="dish.frytki.desc">Dodatkowa porcja frytek.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/sos-czosnkowy.jpg" alt="Sos"></div>
-<div class="dish-info"><h4>Sos</h4><p>Dodatkowa porcja sosu.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.sos.name">Sos</h4><p data-i18n="dish.sos.desc">Dodatkowa porcja sosu.</p></div>
 </div>
 <div class="dish">
 <div class="dish-thumb"><img src="image/falafel.jpg" alt="Falafel"></div>
-<div class="dish-info"><h4>Falafel</h4><p>Dodatkowa porcja falafela.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.falafeldod.name">Falafel</h4><p data-i18n="dish.falafeldod.desc">Dodatkowa porcja falafela.</p></div>
 </div>
 </div>
 </div>
 
 <div class="category">
 <div class="category-title">
-<h3>Napoje</h3>
-<span class="category-count">7 pozycji</span>
+<h3 data-i18n="cat.napoje">Napoje</h3>
+<span class="category-count" data-i18n="cat.napoje_count">7 pozycji</span>
 </div>
 <div class="dish-list">
 <div class="dish dish--simple">
-<div class="dish-info"><h4>Woda Niegazowana</h4><p>Dostępne różne pojemności.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.woda1.name">Woda Niegazowana</h4><p data-i18n="dish.pojemnosci">Dostępne różne pojemności.</p></div>
 </div>
 <div class="dish dish--simple">
-<div class="dish-info"><h4>Woda Gazowana</h4><p>Dostępne różne pojemności.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.woda2.name">Woda Gazowana</h4><p data-i18n="dish.pojemnosci">Dostępne różne pojemności.</p></div>
 </div>
 <div class="dish dish--simple">
-<div class="dish-info"><h4>Ayran 0,33 l</h4><p>Klasyczny turecki napój jogurtowy.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.ayran.name">Ayran 0,33 l</h4><p data-i18n="dish.ayran.desc">Klasyczny turecki napój jogurtowy.</p></div>
 </div>
 <div class="dish dish--simple">
-<div class="dish-info"><h4>Coca-Cola</h4><p>Dostępne różne pojemności.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.cola.name">Coca-Cola</h4><p data-i18n="dish.pojemnosci">Dostępne różne pojemności.</p></div>
 </div>
 <div class="dish dish--simple">
-<div class="dish-info"><h4>Pepsi</h4><p>Dostępne różne pojemności.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.pepsi.name">Pepsi</h4><p data-i18n="dish.pojemnosci">Dostępne różne pojemności.</p></div>
 </div>
 <div class="dish dish--simple">
-<div class="dish-info"><h4>Mirinda</h4><p>Dostępne różne pojemności.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.mirinda.name">Mirinda</h4><p data-i18n="dish.pojemnosci">Dostępne różne pojemności.</p></div>
 </div>
 <div class="dish dish--simple">
-<div class="dish-info"><h4>Sok Mango</h4><p>Sok mango 0,33 l.</p></div>
+<div class="dish-info"><h4 data-i18n="dish.mango.name">Sok Mango</h4><p data-i18n="dish.mango.desc">Sok mango 0,33 l.</p></div>
 </div>
 </div>
 </div>
@@ -1264,33 +1359,33 @@ header{
 <section class="contact" id="contact">
 <div class="wrap">
 <div class="section-head">
-<span class="kicker">Kontakt</span>
-<h2>Gdzie nas<br><em>znajdziesz?</em></h2>
+<span class="kicker" data-i18n="contact.kicker">Kontakt</span>
+<h2 data-i18n-html="contact.title">Gdzie nas<br><em>znajdziesz?</em></h2>
 </div>
 <div class="contact-grid">
 <div class="contact-info">
 <div class="info-block">
-<span class="kicker">Godziny otwarcia</span>
-<h3>Codziennie</h3>
+<span class="kicker" data-i18n="contact.hours_label">Godziny otwarcia</span>
+<h3 data-i18n="contact.hours_value">Codziennie</h3>
 <p>10:00 – 23:55</p>
 </div>
 <div class="info-block">
-<span class="kicker">Adres</span>
+<span class="kicker" data-i18n="contact.address_label">Adres</span>
 <h3>Borowska 103</h3>
 <p>50-551 Wrocław</p>
 </div>
 <div class="info-block">
-<span class="kicker">Telefon</span>
+<span class="kicker" data-i18n="contact.phone_label">Telefon</span>
 <h3>+48 789 110 260</h3>
 </div>
 <div class="info-block">
-<span class="kicker">Zamówienia online</span>
+<span class="kicker" data-i18n="contact.online_label">Zamówienia online</span>
 <h3>Wolt</h3>
-<a class="link-line" href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer">Otwórz Wolt →</a>
+<a class="link-line" href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer" data-i18n="contact.wolt_link">Otwórz Wolt →</a>
 <br>
-<a class="link-line" href="https://www.google.com/maps/search/?api=1&query=Borowska+103,+Wrocław" target="_blank" rel="noopener noreferrer">Otwórz Google Maps →</a>
+<a class="link-line" href="https://www.google.com/maps/search/?api=1&query=Borowska+103,+Wrocław" target="_blank" rel="noopener noreferrer" data-i18n="contact.maps_link">Otwórz Google Maps →</a>
 <br>
-<a class="link-line" href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer">Oceń nas na Google ★ →</a>
+<a class="link-line" href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer" data-i18n="contact.review_link">Oceń nas na Google ★ →</a>
 </div>
 </div>
 <div class="map-frame">
@@ -1303,9 +1398,9 @@ header{
 <footer>
 <div class="wrap footer-row">
 <span class="brand">Borowska Kebab</span>
-<span>© 2026 Borowska Kebab. Wrocław.</span>
-<a href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer">Oceń nas ★</a>
-<a href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer">Zamów online →</a>
+<span data-i18n="footer.copy">© 2026 Borowska Kebab. Wrocław.</span>
+<a href="https://maps.app.goo.gl/1zYoU6AtzAPH2m7d6" target="_blank" rel="noopener noreferrer" data-i18n="nav.review">Oceń nas ★</a>
+<a href="https://wolt.com/pl/pol/wroclaw/restaurant/borowska-kebab" target="_blank" rel="noopener noreferrer" data-i18n="footer.order">Zamów online →</a>
 </div>
 </footer>
 
@@ -1322,6 +1417,231 @@ links.classList.remove('open');
 toggle.setAttribute('aria-expanded', 'false');
 toggle.textContent = '☰';
 }));
+
+/* ---------- Przełącznik jasny/ciemny motyw ---------- */
+(function(){
+  const btnDesktop = document.getElementById('themeToggleDesktop');
+  const btnMobile = document.getElementById('themeToggleMobile');
+  const root = document.documentElement;
+
+  function applyTheme(theme){
+    if(theme === 'light'){
+      root.setAttribute('data-theme','light');
+    } else {
+      root.removeAttribute('data-theme');
+    }
+    try{ localStorage.setItem('bk-theme', theme); }catch(e){}
+  }
+
+  function toggleTheme(){
+    const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    applyTheme(current === 'light' ? 'dark' : 'light');
+  }
+
+  if(btnDesktop) btnDesktop.addEventListener('click', toggleTheme);
+  if(btnMobile) btnMobile.addEventListener('click', toggleTheme);
+})();
+
+/* ---------- Przełącznik języka PL / EN ---------- */
+const BK_I18N = {
+  pl: {}, // pl не нужен как словарь — это язык самой разметки (оригинал остаётся в HTML)
+  en: {
+    "nav.about": "About us",
+    "nav.patio": "Chill Zone",
+    "nav.salads": "Salads",
+    "nav.menu": "Menu",
+    "nav.contact": "Contact",
+    "nav.review": "Rate us ★",
+    "nav.order": "Order online",
+
+    "hero.kicker": "Borowska 103 · Wrocław",
+    "hero.text": "Juicy meat, fresh vegetables and great sauce — no unnecessary extras. Grilled on site, fresh every day.",
+    "hero.cta_menu": "See menu",
+    "hero.tag": "Grilled <b>over live fire</b>",
+
+    "about.kicker": "About us",
+    "about.title": "Who we are <em>and what we do.</em>",
+    "about.text": "Borowska Kebab is a spot at Borowska 103 in Wrocław, run by people who genuinely love good food. We cook on site — fresh meat off the grill, crunchy vegetables and sauces made from scratch, without shortcuts. Every portion should taste as good as the last one.",
+
+    "quality.kicker": "Quality",
+    "quality.title": "Meat we <em>take seriously.</em>",
+    "quality.text": "At Borowska Kebab we cut meat by hand throughout the day — not once in the morning for the whole shift. That's what keeps every portion juicy, with the right texture, straight onto the grill fresh. It's a small detail that makes the biggest difference in flavor.",
+
+    "meats.kicker": "Our meats",
+    "meats.title": "Quality you <em>can taste in every bite.</em>",
+    "meats.text": "At Borowska Kebab we care about quality and great taste. Every day we prepare fresh meat for you:",
+    "meats.li1": "🍗 <b>Chicken</b> – juicy chicken in our aromatic marinade.",
+    "meats.li2": "🥩 <b>Beef – Premium</b> – tender, juicy ground beef, prepared specially for our kebab.",
+    "meats.li3": "🥩🐑 <b>Craft blend</b> – a unique mix of beef and lamb, for those who want an intense, distinctive flavor.",
+    "meats.footer": "Fresh meat. Good ingredients. Real kebab taste. ❤️",
+
+    "patio.kicker": "Comfort and atmosphere",
+    "patio.title": "Chill zone – <em>summer and winter! ☀️🔥</em>",
+    "patio.text1": "In summer we welcome you to our open-air zone — the perfect place to sit down, relax and enjoy great food.",
+    "patio.text2": "In winter the zone is enclosed and heated, so you can eat and relax comfortably no matter the weather. ❄️🔥",
+    "patio.footer": "Borowska Kebab – great kebab and a place you'll want to stay a while. ❤️",
+
+    "salads.kicker": "Fresh every day",
+    "salads.title": "Fresh salads <em>every day! 🥗</em>",
+    "salads.text": "At Borowska Kebab we care about freshness and great taste. Our vegetables and salads are freshly prepared and cut every day. 🥗",
+    "salads.subtitle": "At our bar you'll find:",
+    "salads.li1": "🥬 Chinese cabbage",
+    "salads.li2": "🥬 Iceberg lettuce",
+    "salads.li3": "🍅 Tomatoes",
+    "salads.li4": "🥒 Cucumbers",
+    "salads.li5": "🥕 White cabbage with parsley, carrot and our signature seasoning",
+    "salads.li6": "💛 Yellow cabbage with turmeric and our signature seasoning",
+    "salads.li7": "❤️ Red cabbage with our signature seasoning",
+    "salads.li8": "🫒 Olives",
+    "salads.li9": "🌶️ Chilli",
+    "salads.li10": "🌶️ Jalapeño",
+    "salads.li11": "🥗 Our signature vinaigrette sauce",
+
+    "promo.badge": "Promotion",
+    "promo.title": "Discount for students<br>and Aquapark <em>guests.</em>",
+    "promo.text": "Have a student ID or coming back from Aquapark Wrocław? Show it when ordering and get a special price. Ask on site for details.",
+
+    "menu.kicker": "Our menu",
+    "menu.title": "Choose<br><em>your flavor.</em>",
+    "menu.subtitle": "Every item on the Borowska Kebab menu — from the classic tortilla to salads and drinks.",
+
+    "cat.kebab": "Kebab",
+    "cat.kebab_count": "7 items",
+    "cat.veg": "Vegetarian dishes",
+    "cat.veg_count": "5 items",
+    "cat.boxy": "Boxes",
+    "cat.boxy_count": "2 items",
+    "cat.salatki": "Salads",
+    "cat.salatki_count": "2 items",
+    "cat.dodatki": "Extras",
+    "cat.dodatki_count": "3 items",
+    "cat.napoje": "Drinks",
+    "cat.napoje_count": "7 items",
+
+    "dish.tortilla.name": "Tortilla",
+    "dish.tortilla.desc": "Meat, coleslaw, sauce.",
+    "dish.knysza.name": "Knysza",
+    "dish.knysza.desc": "Meat, coleslaw, sauce.",
+    "dish.rollo.name": "American Rollo",
+    "dish.rollo.desc": "Meat, fries, cheese, sauce.",
+    "dish.zestawkebab.name": "Kebab Set",
+    "dish.zestawkebab.desc": "Meat, coleslaw, fries, sauce.",
+    "dish.kapsalon.name": "Kapsalon",
+    "dish.kapsalon.desc": "Meat, fries, cheese, coleslaw, sauce.",
+    "dish.nuggets.name": "Nuggets Set",
+    "dish.nuggets.desc": "Nuggets, fries, coleslaw, sauce.",
+    "dish.bulka.name": "Fried Roll with Cheese",
+    "dish.bulka.desc": "Meat, fries, cheese, sauce.",
+
+    "dish.falafelknysza.name": "Falafel Knysza",
+    "dish.falafelknysza.desc": "Falafel, coleslaw, sauce.",
+    "dish.falafeltortilla.name": "Falafel Tortilla",
+    "dish.falafeltortilla.desc": "Falafel, coleslaw, sauce.",
+    "dish.zestawfalafel.name": "Falafel Set",
+    "dish.zestawfalafel.desc": "Falafel, hummus or fries, coleslaw, sauce.",
+    "dish.ser.name": "Fried Cheese Set",
+    "dish.ser.desc": "Cheese, fries, sauce.",
+    "dish.mintaj.name": "Pollock Fillet Set",
+    "dish.mintaj.desc": "Fillet, fries, sauce.",
+
+    "dish.kebabbox.name": "Kebab Box",
+    "dish.kebabbox.desc": "Meat, fries, sauce.",
+    "dish.nuggetsbox.name": "Nuggets Box",
+    "dish.nuggetsbox.desc": "Nuggets, fries, sauce.",
+
+    "dish.grecka.name": "Greek Salad",
+    "dish.grecka.desc": "Mixed greens, olives, feta cheese.",
+    "dish.zmiesem.name": "Salad with Meat",
+    "dish.zmiesem.desc": "Mixed greens, meat, sauce.",
+
+    "dish.frytki.name": "Fries",
+    "dish.frytki.desc": "Extra portion of fries.",
+    "dish.sos.name": "Sauce",
+    "dish.sos.desc": "Extra portion of sauce.",
+    "dish.falafeldod.name": "Falafel",
+    "dish.falafeldod.desc": "Extra portion of falafel.",
+
+    "dish.woda1.name": "Still Water",
+    "dish.woda2.name": "Sparkling Water",
+    "dish.pojemnosci": "Available in different sizes.",
+    "dish.ayran.name": "Ayran 0.33 l",
+    "dish.ayran.desc": "Classic Turkish yogurt drink.",
+    "dish.cola.name": "Coca-Cola",
+    "dish.pepsi.name": "Pepsi",
+    "dish.mirinda.name": "Mirinda",
+    "dish.mango.name": "Mango Juice",
+    "dish.mango.desc": "Mango juice 0.33 l.",
+
+    "contact.kicker": "Contact",
+    "contact.title": "Where to<br><em>find us?</em>",
+    "contact.hours_label": "Opening hours",
+    "contact.hours_value": "Every day",
+    "contact.address_label": "Address",
+    "contact.phone_label": "Phone",
+    "contact.online_label": "Order online",
+    "contact.wolt_link": "Open Wolt →",
+    "contact.maps_link": "Open Google Maps →",
+    "contact.review_link": "Rate us on Google ★ →",
+
+    "footer.copy": "© 2026 Borowska Kebab. Wrocław.",
+    "footer.order": "Order online →"
+  }
+};
+
+(function(){
+  const langDesktop = document.getElementById('langToggleDesktop');
+  const langMobile = document.getElementById('langToggleMobile');
+
+  const originals = new Map();
+
+  function collectOriginals(){
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      if(!originals.has(el)) originals.set(el, { type: 'text', value: el.textContent });
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      if(!originals.has(el)) originals.set(el, { type: 'html', value: el.innerHTML });
+    });
+  }
+
+  function applyLang(lang){
+    if(lang === 'en'){
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const val = BK_I18N.en[key];
+        if(val !== undefined) el.textContent = val;
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        const val = BK_I18N.en[key];
+        if(val !== undefined) el.innerHTML = val;
+      });
+      document.documentElement.setAttribute('lang', 'en');
+    } else {
+      originals.forEach((orig, el) => {
+        if(orig.type === 'html'){ el.innerHTML = orig.value; }
+        else { el.textContent = orig.value; }
+      });
+      document.documentElement.setAttribute('lang', 'pl');
+    }
+    try{ localStorage.setItem('bk-lang', lang); }catch(e){}
+  }
+
+  function toggleLang(){
+    const current = document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'pl';
+    applyLang(current === 'en' ? 'pl' : 'en');
+  }
+
+  collectOriginals();
+
+  const savedLang = (function(){ try{ return localStorage.getItem('bk-lang'); }catch(e){ return null; } })();
+  if(savedLang === 'en'){
+    applyLang('en');
+  }
+  document.documentElement.removeAttribute('data-lang-pending');
+
+  if(langDesktop) langDesktop.addEventListener('click', toggleLang);
+  if(langMobile) langMobile.addEventListener('click', toggleLang);
+})();
 
 /* =========================================================
    BOROWSKA KEBAB — ANIMATIONS SCRIPT
