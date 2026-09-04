@@ -957,136 +957,6 @@ header{
   }
   .dish-ingredients::after{ display:none; }
 }
-
-/* =========================================================
-   BUILD — АНИМАЦИЯ СБОРКИ КЕБАБА ПО СЛОЯМ (иллюстрация SVG)
-   ========================================================= */
-.build{
-  padding:96px 0 110px;
-  background:var(--ink);
-  overflow:hidden;
-}
-.build-grid{
-  display:grid;
-  grid-template-columns:0.9fr 1.1fr;
-  gap:56px;
-  align-items:center;
-}
-.build-copy .kicker{color:var(--gold);}
-.build-copy h2{
-  font-size:clamp(2rem, 3.6vw, 2.8rem);
-  text-transform:uppercase;
-  color:var(--cream);
-}
-.build-copy h2 em{font-style:normal; color:var(--red);}
-.build-copy p{
-  margin-top:16px;
-  color:rgba(247,242,234,0.75);
-  max-width:46ch;
-}
-.build-replay{
-  margin-top:28px;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 22px;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  background:transparent;
-  color:var(--cream);
-  font-family:'Inter',sans-serif;
-  font-weight:600;
-  font-size:0.92rem;
-  cursor:pointer;
-  transition:border-color .2s ease, color .2s ease, transform .2s ease;
-}
-.build-replay:hover{
-  border-color:var(--gold);
-  color:var(--gold);
-  transform:translateY(-2px);
-}
-.build-replay svg{width:16px; height:16px; flex-shrink:0;}
-
-.build-stage{
-  position:relative;
-  width:100%;
-  aspect-ratio:1/1;
-  max-width:460px;
-  margin:0 auto;
-}
-.build-stage svg{width:100%; height:100%; overflow:visible;}
-
-.build-layer{
-  opacity:0;
-  transition:
-    transform 0.85s cubic-bezier(.34,1.2,.34,1),
-    opacity 0.5s ease;
-}
-
-/* стартовые положения слоёв — откуда каждый "прилетает" */
-.build-layer[data-from="top"]{ transform:translateY(-260px) rotate(-8deg); }
-.build-layer[data-from="left"]{ transform:translateX(-260px) rotate(-14deg); }
-.build-layer[data-from="right"]{ transform:translateX(260px) rotate(14deg); }
-.build-layer[data-from="bottom"]{ transform:translateY(220px) scale(.85); }
-.build-layer[data-from="top-fast"]{ transform:translateY(-160px) rotate(6deg); }
-
-.build-stage.playing .build-layer{
-  opacity:1;
-  transform:translate(0,0) rotate(0deg) scale(1);
-}
-
-/* лёгкое "оседание" после приземления каждого слоя */
-.build-stage.playing .build-layer{
-  animation:layerSettle .5s ease-out both;
-}
-@keyframes layerSettle{
-  0%{ }
-  60%{ transform:translateY(4px) scale(1.02); }
-  100%{ transform:translateY(0) scale(1); }
-}
-
-.build-steam{
-  opacity:0;
-  transform-origin:bottom center;
-}
-.build-stage.playing .build-steam{
-  animation:steamRise 2.6s ease-in-out infinite;
-}
-@keyframes steamRise{
-  0%{ opacity:0; transform:translateY(0) scaleX(1); }
-  20%{ opacity:.55; }
-  80%{ opacity:.15; }
-  100%{ opacity:0; transform:translateY(-46px) scaleX(1.4); }
-}
-
-.build-sparkle{
-  opacity:0;
-  transform:scale(0);
-  transform-box:fill-box;
-  transform-origin:center;
-}
-.build-stage.playing .build-sparkle{
-  animation:sparklePop .6s ease-out both;
-}
-@keyframes sparklePop{
-  0%{ opacity:0; transform:scale(0) rotate(0deg); }
-  50%{ opacity:1; transform:scale(1.15) rotate(90deg); }
-  100%{ opacity:0; transform:scale(.8) rotate(140deg); }
-}
-
-@media (prefers-reduced-motion: reduce){
-  .build-layer{ transition:none !important; animation:none !important; opacity:1 !important; transform:none !important; }
-  .build-steam, .build-sparkle{ animation:none !important; opacity:0 !important; }
-}
-
-@media (max-width:860px){
-  .build-grid{grid-template-columns:1fr; gap:36px; text-align:center;}
-  .build-copy p{margin-left:auto; margin-right:auto;}
-  .build-stage{max-width:320px;}
-}
-@media (max-width:640px){
-  .build{padding:64px 0 72px;}
-}
 </style>
 </head>
 <body>
@@ -1097,7 +967,6 @@ header{
 <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu" aria-expanded="false">☰</button>
 <div class="nav-links" id="navLinks">
 <a href="#about">O nas</a>
-<a href="#build">Jak to robimy</a>
 <a href="#patio">Strefa Wypoczynku</a>
 <a href="#salads">Sałatki</a>
 <a href="#menu">Menu</a>
@@ -1213,91 +1082,6 @@ header{
 </div>
 <div class="story-visual">
 <img src="image/photo_2026-09-03_16-50-55.jpg" alt="Przygotowanie świeżych sałatek w Borowska Kebab">
-</div>
-</div>
-</section>
-
-<section class="build" id="build">
-<div class="wrap build-grid">
-<div class="build-copy">
-<span class="kicker">Jak to robimy</span>
-<h2>Budujemy kebaba <em>warstwa po warstwie.</em></h2>
-<p>Świeża tortilla, soczyste mięso prosto z rożna, chrupiące warzywa i nasz autorski sos — każda warstwa dodawana ręcznie, żeby smak był idealnie zbalansowany.</p>
-<button class="build-replay" id="buildReplay" type="button" aria-label="Odtwórz animację jeszcze raz">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-Zobacz jeszcze raz
-</button>
-</div>
-
-<div class="build-stage" id="buildStage">
-<svg viewBox="0 0 400 400">
-
-  <!-- ТАРЕЛКА -->
-  <ellipse class="build-layer" data-from="bottom" cx="200" cy="330" rx="150" ry="26" fill="#20191A"/>
-  <ellipse class="build-layer" data-from="bottom" cx="200" cy="324" rx="150" ry="24" fill="#2A2224"/>
-
-  <!-- ПАР -->
-  <path class="build-steam" d="M170 150 C160 130, 180 120, 170 100" stroke="#F5F0E8" stroke-width="5" stroke-linecap="round" fill="none" opacity="0"/>
-  <path class="build-steam" d="M200 150 C190 125, 212 115, 202 90" stroke="#F5F0E8" stroke-width="5" stroke-linecap="round" fill="none" opacity="0"/>
-  <path class="build-steam" d="M232 150 C222 130, 244 120, 234 100" stroke="#F5F0E8" stroke-width="5" stroke-linecap="round" fill="none" opacity="0"/>
-
-  <!-- НИЖНЯЯ ТОРТИЛЬЯ -->
-  <ellipse class="build-layer" data-from="top" cx="200" cy="270" rx="128" ry="46" fill="#E8C482"/>
-  <ellipse class="build-layer" data-from="top" cx="200" cy="266" rx="128" ry="44" fill="#F0D49B"/>
-
-  <!-- МЯСО (несколько кусочков внахлёст) -->
-  <g class="build-layer" data-from="left">
-    <ellipse cx="150" cy="248" rx="42" ry="20" fill="#8A3A22"/>
-    <ellipse cx="150" cy="244" rx="42" ry="18" fill="#A6472A"/>
-  </g>
-  <g class="build-layer" data-from="right">
-    <ellipse cx="215" cy="252" rx="46" ry="22" fill="#7A331E"/>
-    <ellipse cx="215" cy="248" rx="46" ry="20" fill="#93402A"/>
-  </g>
-  <g class="build-layer" data-from="left">
-    <ellipse cx="255" cy="238" rx="34" ry="17" fill="#8A3A22"/>
-    <ellipse cx="255" cy="235" rx="34" ry="15" fill="#A6472A"/>
-  </g>
-
-  <!-- КАПУСТА / ОВОЩИ -->
-  <g class="build-layer" data-from="right">
-    <path d="M110 236 q20 -22 46 -6 q18 -14 40 -2 q-4 20 -40 22 q-32 4 -46 -14z" fill="#7F9A55"/>
-    <path d="M120 232 q14 -12 32 -4" stroke="#5B6349" stroke-width="2" fill="none" stroke-linecap="round"/>
-  </g>
-  <g class="build-layer" data-from="left">
-    <path d="M235 224 q18 -18 42 -6 q14 -10 34 0 q-6 18 -36 20 q-28 4 -40 -14z" fill="#8FAE5F"/>
-    <path d="M246 220 q12 -10 28 -2" stroke="#5B6349" stroke-width="2" fill="none" stroke-linecap="round"/>
-  </g>
-
-  <!-- ПОМИДОР -->
-  <g class="build-layer" data-from="top-fast">
-    <circle cx="185" cy="222" r="15" fill="#D64B3A"/>
-    <circle cx="185" cy="222" r="15" fill="none" stroke="#B23A2B" stroke-width="2"/>
-    <path d="M178 218 a7 7 0 0 1 14 0" fill="none" stroke="#F2A38F" stroke-width="2" stroke-linecap="round"/>
-  </g>
-
-  <!-- СОУС (зигзаг) -->
-  <path class="build-layer" data-from="top" d="M95 222 Q130 200 165 222 T235 222 T300 222"
-        stroke="#F5F0E8" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.92"/>
-  <path class="build-layer" data-from="top" d="M95 222 Q130 200 165 222 T235 222 T300 222"
-        stroke="#C99A4A" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.8"/>
-
-  <!-- ВЕРХНИЙ КРАЙ ТОРТИЛЬИ (заворачиваем) -->
-  <path class="build-layer" data-from="bottom" d="M80 232 Q200 150 320 232 Q320 205 200 178 Q80 205 80 232 Z" fill="#F0D49B"/>
-  <path class="build-layer" data-from="bottom" d="M80 232 Q200 150 320 232" stroke="#D9AE68" stroke-width="3" fill="none" opacity="0.6"/>
-
-  <!-- ИСКРЫ / АКЦЕНТ ГОТОВО -->
-  <g class="build-sparkle" fill="#C99A4A">
-    <path d="M330 150 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z"/>
-  </g>
-  <g class="build-sparkle" fill="#D42A1F">
-    <path d="M70 190 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/>
-  </g>
-  <g class="build-sparkle" fill="#C99A4A">
-    <path d="M310 260 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/>
-  </g>
-
-</svg>
 </div>
 </div>
 </section>
@@ -1740,55 +1524,6 @@ toggle.textContent = '☰';
     });
   }
 
-  function initBuildAnimation() {
-    const stage = document.getElementById('buildStage');
-    const replayBtn = document.getElementById('buildReplay');
-    if (!stage) return;
-
-    function playBuild() {
-      stage.classList.remove('playing');
-      /* форсируем reflow, чтобы анимацию можно было перезапустить */
-      void stage.offsetWidth;
-
-      const layers = stage.querySelectorAll('.build-layer');
-      layers.forEach((layer, i) => {
-        layer.style.transitionDelay = (i * 0.14) + 's';
-        layer.style.animationDelay = (i * 0.14 + 0.7) + 's';
-      });
-
-      const sparkles = stage.querySelectorAll('.build-sparkle');
-      const sparkleStart = layers.length * 0.14 + 0.5;
-      sparkles.forEach((s, i) => {
-        s.style.animationDelay = (sparkleStart + i * 0.15) + 's';
-      });
-
-      requestAnimationFrame(() => {
-        stage.classList.add('playing');
-      });
-    }
-
-    if (reduceMotion) {
-      stage.classList.add('playing');
-    } else {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            playBuild();
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.4 });
-      io.observe(stage);
-    }
-
-    if (replayBtn) {
-      replayBtn.addEventListener('click', () => {
-        if (reduceMotion) return;
-        playBuild();
-      });
-    }
-  }
-
   function initScrollTopButton() {
     const btn = document.createElement('button');
     btn.className = 'scroll-top-btn';
@@ -1815,7 +1550,6 @@ toggle.textContent = '☰';
     initScrollProgress();
     initScrollTopButton();
     initPageTransitions();
-    initBuildAnimation();
   });
 })();
 
